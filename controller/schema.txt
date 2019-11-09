@@ -1,0 +1,12 @@
+create table person (
+    id int(10)  PRIMARY KEY AUTO_INCREMENT, 
+    user_name varchar(256) not null, 
+    name varchar(256) not null,
+    email varchar(256),
+    phone varchar(256) not null,
+    password varchar(256) not null,
+    address varchar(256),
+    status int(10) not null,
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+//user_name, name, email, phone, password, address, status=1
