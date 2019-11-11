@@ -10,7 +10,6 @@ function insertPerson(Person $person)
     }
     $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status) 
     VALUES ('" . $person->getUsername() . "' ,'" . $person->getName() . "' , '" . $person->getEmail() . "', '" . $person->getPhone() . "', '" . $person->getPassword() . "', '" . $person->getAddress() . "',1)";
-
     if (mysqli_query($connection, $query)) {
         return 1;
     } else {

@@ -12,11 +12,11 @@ $address = "";
 
 // for login=============================================================>
 if (isset($_POST['login'])) {
+
     $username = $_POST['username'];
     $password = $_POST['password'];
     $login = new Login($username,  $password);
     $result = loginPerson($login);
-
     if ($result != null) {
         $_SESSION['username'] = $result->user_name;
         $_SESSION['name'] = $result->name;

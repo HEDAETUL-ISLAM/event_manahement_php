@@ -3,6 +3,7 @@ session_start();
 include_once "../../controller/PersonController.php";
 include_once "../../model/Login.php";
 include_once "../../model/Person.php";
+include "../../controller/SinglePackageController.php";
 $username = "";
 $name = "";
 $email = "";
@@ -58,6 +59,10 @@ if (isset($_POST['logoutPerson'])) {
     session_destroy();
     include_once "../errors/success.php";
 }
+
+
+
+
 
 ?>
 
@@ -299,6 +304,13 @@ if (isset($_POST['logoutPerson'])) {
                                     <div class="toolbar">
                                         <div class="finde-count">Caterers </div>
                                     </div>
+                                    <?php
+
+                                    $result = getAllCaterers();
+                                    if ($result !== null) {
+                                        echo $result->package_name;
+                                    }
+                                    ?>
                                     <!-- from here ajax -->
                                     <div class="venues-slide first">
                                         <div class="img"><img src="../images/property-img/venues-img.jpg" alt="no"></div>
