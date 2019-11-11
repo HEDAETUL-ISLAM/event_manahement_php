@@ -308,7 +308,7 @@ body.inner-page {
 .story-block .share-story .FileUpload {position:relative; margin-bottom:10px;}
 .story-block .share-story .FileUpload .BrowserHidden {height: 40px; opacity: 0; position: relative; text-align: right; width: 100%; z-index: 2;}
 .story-block .share-story .FileUpload .BrowserVisible {height: 40px; left: 0; position: absolute; top: 0; width: 100%; z-index: 1;}
-.story-block .share-story .FileUpload .Filefilde { border: 1px solid #cacbcb; color:#333; font-size:14px; font-style:italic; height: 40px; width: 100%; border-radius:5px;  padding:10px; }
+.story-block .share-story .FileUpload .FileField { border: 1px solid #cacbcb; color:#333; font-size:14px; font-style:italic; height: 40px; width: 100%; border-radius:5px;  padding:10px; }
 .story-block .share-story .submit-slide .btn {width:100%; padding:9px 0;} 
 
 .news-view {background:#f5f5f6; padding:40px 0 30px 0; }
@@ -391,19 +391,19 @@ body.inner-page {
 .login-popup .modal-content .left-img {width:42.85%; float:left; }
 .login-popup .modal-content .right-info {width:54.54%; float:right; padding:0 20px 0 0;} 
 .login-popup .modal-content .right-info h1 {padding:11px 0 14px 0; border-bottom:solid 1px #cccccc; line-height:36px; font-size:24px; color:#333333; margin:0px; font-family: 'Domine'; font-weight:bold; }
-.login-popup .right-info   {width:100%; display:inline-block; padding:20px 0 30px 0; }
-.login-popup .right-info    {width:50%; float:left; padding:0 10px 0 0; position:relative; }
-.login-popup .right-info    a {border-bottom:solid 2px #16326e; background:#3b5999; line-height:35px; padding:0 0 0 40px; font-size:13px; color:#ffffff; display:block;}
-.login-popup .right-info    a .icon {position:absolute; top:0px; left:0px; width:35px; height:35px; background:#354f88; text-align:center; color:#fff; line-height:30px; font-size:20px; padding-top:5px; }
-.login-popup .right-info    {width:50%; float:left; padding:0 0 0 10px; position:relative; }
-.login-popup .right-info    a {border-bottom:solid 2px #c62f15; background:#de4c33; line-height:35px; padding:0 0 0 48px; font-size:13px; color:#ffffff; display:block;}
-.login-popup .right-info    a .icon {position:absolute; top:0px; left:10px; width:35px; height:35px; background:#ce3e26; text-align:center; color:#fff; line-height:30px; font-size:20px; padding-top:5px; }
+.login-popup .right-info .sosal-midiyaLogin {width:100%; display:inline-block; padding:20px 0 30px 0; }
+.login-popup .right-info .sosal-midiyaLogin .facebook-link {width:50%; float:left; padding:0 10px 0 0; position:relative; }
+.login-popup .right-info .sosal-midiyaLogin .facebook-link a {border-bottom:solid 2px #16326e; background:#3b5999; line-height:35px; padding:0 0 0 40px; font-size:13px; color:#ffffff; display:block;}
+.login-popup .right-info .sosal-midiyaLogin .facebook-link a .icon {position:absolute; top:0px; left:0px; width:35px; height:35px; background:#354f88; text-align:center; color:#fff; line-height:30px; font-size:20px; padding-top:5px; }
+.login-popup .right-info .sosal-midiyaLogin .google-link {width:50%; float:left; padding:0 0 0 10px; position:relative; }
+.login-popup .right-info .sosal-midiyaLogin .google-link a {border-bottom:solid 2px #c62f15; background:#de4c33; line-height:35px; padding:0 0 0 48px; font-size:13px; color:#ffffff; display:block;}
+.login-popup .right-info .sosal-midiyaLogin .google-link a .icon {position:absolute; top:0px; left:10px; width:35px; height:35px; background:#ce3e26; text-align:center; color:#fff; line-height:30px; font-size:20px; padding-top:5px; }
 .login-popup .right-info .or-text {border-top:dashed 1px #d8d8d8; width:100%; text-align:center; display:inline-block;}
 .login-popup .right-info .or-text span {padding:0 10px; background:#fff; font-size:14px; color:#333333; top:-10px; line-height:20px; position:relative; font-weight:600; }
 .login-popup .right-info .input-form {border-bottom:solid 1px #ccc;}
 .login-popup .right-info .input-form .input-box {padding:15px 0 10px 0; position:relative; }
 .login-popup .right-info .input-form .input-box input {width:100%; border-radius:5px; border:solid 1px #cccccc; height:40px; line-height:20px; padding:9px 10px 9px 32px; background:#fff; font-size:14px; color:#333333; }
-.login-popup .right-info .input-form .input-box .icon {position:absolute; left:0px; width:30px; line-height:42px; text-align:center; font-size:16px;  margin-top:15px; }
+.login-popup .right-info .input-form .input-box .icon {position:absolute; top:15px; left:0px; width:30px; line-height:42px; text-align:center; font-size:16px; }
 .login-popup .right-info .input-form .check-slide {display:block; padding:10px 0 0 0;}
 .login-popup .right-info .input-form .check-slide .check {display:inline-block; }
 .login-popup .right-info .input-form .check-slide .check .label_check {display:inline-block; line-height:15px; color:#666666; font-size:12px; font-weight:normal; margin:0px; background:url(../images/chack-img.png) no-repeat top left; padding:0 0 0 25px; }
@@ -415,9 +415,6 @@ body.inner-page {
 .login-popup .right-info .signUp-link {display:block; text-align:center; padding:13px 0 8px 0; font-size:12px; line-height:18px; color:#666666; }
 .login-popup .right-info .signUp-link a {color:#f15b22; }
 .modal-content .close-icon {position:absolute; top:-9px; right:-13px; cursor:pointer; }
-
-
-/* logout */
 
 /*---------------------------------------
    8. Registration Popup
@@ -2305,9 +2302,9 @@ translateY(-50%); -webkit-transform: translateY(-50%); -o-transform:translateY(-
 .story-block .success-story .story-slide .img {position:static; margin:0 auto 10px auto;}
 
 .navbar-inverse .navbar-brand img {display:inline-block;}
-.login-popup .right-info  {width:100%; padding:0px;}
-.login-popup .right-info  {width:100%; padding:0px; margin-top:10px; }
-.login-popup .right-info  a .icon {left:0px; }
+.login-popup .right-info .sosal-midiyaLogin .facebook-link {width:100%; padding:0px;}
+.login-popup .right-info .sosal-midiyaLogin .google-link {width:100%; padding:0px; margin-top:10px; }
+.login-popup .right-info .sosal-midiyaLogin .google-link a .icon {left:0px; }
 .venues-view .right-side .venues-slide .text .outher-link ul li {width:100%; margin-bottom:5px;}
 .venues-view .right-side .venues-slide .text .button .btn {margin-bottom:10px; width:100%;}
 .amenities-view .amenities-box {width:50%;}

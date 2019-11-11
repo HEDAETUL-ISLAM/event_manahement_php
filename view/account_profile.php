@@ -17,7 +17,7 @@ if (isset($_POST['login'])) {
     $login = new Login($username,  $password);
     $result = loginPerson($login);
 
-    if ($result !== null) {
+    if ($result != null) {
         $_SESSION['username'] = $result->user_name;
         $_SESSION['name'] = $result->name;
         $_SESSION['email'] = $result->email;
@@ -26,7 +26,7 @@ if (isset($_POST['login'])) {
         $_SESSION['address'] = $result->address;
         include_once "./errors/success.php";
     }
-    if ($result === null) {
+    if ($result == null) {
         include_once "./errors/wrong.php";
     }
 }

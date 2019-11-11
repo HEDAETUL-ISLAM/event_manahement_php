@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "../model/Login.php";
 require_once "../model/Person.php";
 require_once "../controller/PersonController.php";
@@ -16,7 +17,7 @@ if (isset($_POST['login'])) {
     $login = new Login($username,  $password);
     $result = loginPerson($login);
 
-    if ($result !== null) {
+    if ($result != null) {
         $_SESSION['username'] = $result->user_name;
         $_SESSION['name'] = $result->name;
         $_SESSION['email'] = $result->email;
@@ -25,7 +26,7 @@ if (isset($_POST['login'])) {
         $_SESSION['address'] = $result->address;
         include_once "./errors/success.php";
     }
-    if ($result === null) {
+    if ($result == null) {
         include_once "./errors/wrong.php";
     }
 }
@@ -116,12 +117,12 @@ if (isset($_POST['logoutPerson'])) {
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
                                 <li class="single-col active">
-                                    <a href="index.php">Home <span class="icon icon-arrow-down"></span></a>
+                                    <a href="index.php">Home </a>
                                 </li>
                                 <li>
-                                    <a href="">Services <span class="icon icon-arrow-down"></span></a>
+                                    <a href="#">Services <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li><a href="services.php">Caterers</a></li>
+                                        <li><a href="services/caterers.php">Caterers</a></li>
                                         <li><a href="services.php">Mehndi</a></li>
                                         <li><a href="services.php">Decor &amp; Florists</a></li>
                                         <li><a href="services.php">Cakes</a></li>
@@ -185,7 +186,7 @@ if (isset($_POST['logoutPerson'])) {
                 </div>
             </nav>
         </header>
-        <div class="modal modal-vcenter fade" id="loginModal" role="dialog">
+        <div class="modal modal-vcenter fade" id="loginModal" tabindex="-1" role="dialog">
             <div class="modal-dialog login-popup" role="document">
                 <div class="modal-content">
                     <div class="close-icon" aria-label="Close" data-dismiss="modal"><img src="images/close-icon.png" alt=""></div>
@@ -315,7 +316,7 @@ if (isset($_POST['logoutPerson'])) {
                 <div class="service-catagari">
                     <ul>
                         <li>
-                            <a href="services.php">
+                            <a href="services/caterers.php">
                                 <span class="icon icon-caterers"></span>
                                 <span class="text">Caterers</span>
                             </a>

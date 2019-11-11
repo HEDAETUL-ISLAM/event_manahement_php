@@ -109,7 +109,7 @@ if (isset($_POST['logoutPerson'])) {
                         </div>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="single-col active">
+                                <li >
                                     <a href="index.php">Home <span class="icon icon-arrow-down"></span></a>
                                 </li>
                                 <li>
@@ -160,7 +160,7 @@ if (isset($_POST['logoutPerson'])) {
                                     </ul>
                                 </li>
                                 <li><a href="faq.php">FAQ’s </a></li>
-                                <li><a href="aboutUs.php">About Us</a></li>
+                                <li class="single-col active"><a href="aboutUs.php">About Us</a></li>
                                 <li><a href="contact.php">Contact us</a></li>
                             </ul>
                             <div class="search-box">

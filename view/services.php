@@ -112,10 +112,10 @@ if (isset($_POST['logoutPerson'])) {
                         </div>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="single-col active">
+                                <li >
                                     <a href="index.php">Home <span class="icon icon-arrow-down"></span></a>
                                 </li>
-                                <li>
+                                <li class="single-col active">
                                     <a href="">Services <span class="icon icon-arrow-down"></span></a>
                                     <ul>
                                         <li><a href="services.php">Caterers</a></li>

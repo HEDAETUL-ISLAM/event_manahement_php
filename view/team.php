@@ -111,7 +111,7 @@ if (isset($_POST['logoutPerson'])) {
                         </div>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="single-col active">
+                                <li>
                                     <a href="index.php">Home <span class="icon icon-arrow-down"></span></a>
                                 </li>
                                 <li>
@@ -157,7 +157,7 @@ if (isset($_POST['logoutPerson'])) {
                                                 <li><a href="account_password.php">Change Password</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="team.php">Team</a></li>
+                                        <li class="single-col active"><a href="team.php">Team</a></li>
                                         <li><a href="wishlist.php">Wishlist</a></li>
                                     </ul>
                                 </li>
