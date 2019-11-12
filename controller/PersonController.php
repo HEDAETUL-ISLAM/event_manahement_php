@@ -1,6 +1,6 @@
 <?php
-include_once "../model/Person.php";
-include_once "../model/Login.php";
+@include_once "../model/Person.php";
+@include_once "../model/Login.php";
 
 function insertPerson(Person $person)
 {

@@ -1,7 +1,8 @@
 <?php
-require_once "../model/Login.php";
-require_once "../model/Person.php";
-require_once "../controller/PersonController.php";
+session_start();
+@require_once "../model/Login.php";
+@require_once "../model/Person.php";
+@require_once "../controller/PersonController.php";
 $username = "";
 $name = "";
 $email = "";
@@ -23,10 +24,10 @@ if (isset($_POST['login'])) {
         $_SESSION['phone'] = $result->phone;
         $_SESSION['password'] = $result->password;
         $_SESSION['address'] = $result->address;
-        include_once "./errors/success.php";
+        @include_once "./errors/success.php";
     }
     if ($result === null) {
-        include_once "./errors/wrong.php";
+        @include_once "./errors/wrong.php";
     }
 }
 
@@ -42,20 +43,20 @@ if (isset($_POST['insertPerson'])) {
     $result = insertPerson($person);
 
     if ($result == 1) {
-        include_once "./errors/success.php";
+        @include_once "./errors/success.php";
     }
     if ($result == -1) {
-        include_once "./errors/databaseError.php";
+        @include_once "./errors/databaseError.php";
     }
     if ($result == 0) {
-        include_once "./errors/wrong.php";
+        @include_once "./errors/wrong.php";
     }
 }
 
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
-    include_once "./errors/success.php";
+    @include_once "./errors/success.php";
 }
 
 ?>
@@ -306,7 +307,7 @@ if (isset($_POST['logoutPerson'])) {
                         <ul class="policy-block">
                             <li>
                                 <h3>1) COLLECTION OF PERSONAL INFORMATION</h3>
-                                <p>“Personal information” is defined to include information that whether on its own or in combination with other information may be used to readily identify or contact you such as: name, address, email address, phone number etc.</p>
+                                <p>“Personal information” is defined to @include information that whether on its own or in combination with other information may be used to readily identify or contact you such as: name, address, email address, phone number etc.</p>
                                 <p>We collect personal information from Service Professionals offering their products and services. This information is partially or completely accessible to all visitors using eventplanning’s website or mobile application, either directly or by submitting a request for a service. Service Professionals and customers are required to create an account to be able to access certain portions of our Website, such as to submit questions, participate in polls or surveys, to request a quote, to submit a bid in response to a quote, and request information. - Service Professionals, if and when they create an account with eventplanning, will be required to disclose information including personal contact details, agree to participation in polls or surveys or feedbacks or any other information that can help customer satiate its needs. The type of personal information that we collect from you varies based on your particular interaction with our Website or mobile application.</p>
                                 <p><span>Consumers:</span> During the Account registration process, we will collect information such as your name, postal code, telephone email address and other personal information. You also may provide us with your, mailing address, and demographic information (e.g., gender, age, political preference, education, race or ethnic origin, and other information relevant to user surveys and/or offers). We may also collect personal information that you post in your Offer, Profile, Wants, or Feedback, and any comments or discussions you post in any blog, chat room, or other correspondence site on the Website or mobile application, or any comments you provide during dispute resolution with other users of the Website or mobile application.</p>
                                 <p><span>Service Professionals:</span> If you are a Service Professional and would like to post any information about yourself, we will require you to register for an Account. During the Account registration process, we will collect your business name, telephone number, address, zip code, travel preferences, a description of your services, a headline for your profile, first and last name, and email address. In addition, you may, but are not required to, provide other content or information about your business, including photographs and videos. We also may collect payment information, such as credit card information, from you.</p>
@@ -314,13 +315,13 @@ if (isset($_POST['logoutPerson'])) {
                             </li>
                             <li>
                                 <h3>2) COLLECTION OF PERSONAL INFORMATION FROM SOCIAL NETWORKING SITES</h3>
-                                <p>You may log into our Website through your Facebook account. If you do so, you must enter the email address and password that you use for your Facebook account. We will ask that you grant us permission to access and collect your Facebook basic information (this includes your name, profile picture, gender, networks, user IDs, list of friends, date of birth, email address, and any other information you have set to public on your Facebook account). If you allow us to have access to this information, then we will have access to this information even if you have chosen not to make that information public.</p>
+                                <p>You may log into our Website through your Facebook account. If you do so, you must enter the email address and password that you use for your Facebook account. We will ask that you grant us permission to access and collect your Facebook basic information (this @includes your name, profile picture, gender, networks, user IDs, list of friends, date of birth, email address, and any other information you have set to public on your Facebook account). If you allow us to have access to this information, then we will have access to this information even if you have chosen not to make that information public.</p>
                                 <p>We store the information that we receive from Facebook with other information that we collect from you or receive about you.</p>
                                 <p>Facebook controls the information it collects from you. For information about how Facebook may use and disclose your information, including any information you make public, please consult Facebook's privacy policy. We have no control over how any third party site uses or discloses the personal information it collects about you.</p>
                             </li>
                             <li>
                                 <h3>3) COLLECTION OF AUTOMATIC INFORMATION, USE OF COOKIES AND OTHER TRACKING DEVICES</h3>
-                                <p>We and our third party service providers, which include ad networks, use cookies, web beacons, and other tracking technologies to collect information about your use of our Website and Services, such as your browser type, your ISP or operating system, your domain name, your access time, the URL of the previous website you visited, your page views, your IP address, and the type of device that you use. We also track how frequently you visit our Website and use our Services. We use this information (including the information collected by our third party service providers) for Website analytics (including to determine which portions of our Website are used most frequently, what our users like/do not like), to assist us in determining relevant advertising (both on and off our Website), to evaluate the success of our advertising campaigns, and as otherwise described in this policy. Currently, we do not honour browser requests not to be tracked.</p>
+                                <p>We and our third party service providers, which @include ad networks, use cookies, web beacons, and other tracking technologies to collect information about your use of our Website and Services, such as your browser type, your ISP or operating system, your domain name, your access time, the URL of the previous website you visited, your page views, your IP address, and the type of device that you use. We also track how frequently you visit our Website and use our Services. We use this information (including the information collected by our third party service providers) for Website analytics (including to determine which portions of our Website are used most frequently, what our users like/do not like), to assist us in determining relevant advertising (both on and off our Website), to evaluate the success of our advertising campaigns, and as otherwise described in this policy. Currently, we do not honour browser requests not to be tracked.</p>
                                 <p>We may obtain your device ID, which is sent to eventplanning's servers and used in fraud prevention efforts.</p>
                                 <p><span>Cookies</span> We and our third party service providers collect information from you by using cookies. A cookie is a small file stored on user's computer hard drive containing information about the user. The cookie helps us analyze web traffic or informs you about your use of a particular website. Cookies allow web applications to respond to you as an individual, tailoring its operations to your needs, likes and dislikes by gathering and remembering information about your preferences. When you visit the Website, we may send one or more cookies (i.e., a small text file containing a string of alphanumeric characters) to your computer that identifies your browser.</p>
                                 <p>Some of these cookies may be connected to third-party companies or websites. The terms of use of such cookies are governed by this Policy and the privacy policy of the relevant third party company or website. For example, Google measures the performance of advertisements by placing cookies on your computer when you click on ads. If you visit the Website when you have such cookies on your computer, we and Google will be able to tell that you saw the ad delivered by Google. The terms of use of these cookies are governed by this Policy and Google's Privacy Policy.</p>
@@ -420,7 +421,7 @@ if (isset($_POST['logoutPerson'])) {
                             </li>
                             <li>
                                 <h3>3) DISCLOSURE TO NON-AFFILIATED THIRD PARTIES IN FURTHERANCE OF YOUR REQUEST</h3>
-                                <p>Your request for services may be shared with third party websites with whom we have a contractual relationship in order to provide your request with maximum exposure. The post on the third party website will include the details of your request, including your location, and other contact details. Interested bidders, however, will be able to click on your request on such third party site, and will be directed to our Website where they will have access to your contact details (Partial or complete), as would any other service provider on our Website interested in bidding on your request.</p>
+                                <p>Your request for services may be shared with third party websites with whom we have a contractual relationship in order to provide your request with maximum exposure. The post on the third party website will @include the details of your request, including your location, and other contact details. Interested bidders, however, will be able to click on your request on such third party site, and will be directed to our Website where they will have access to your contact details (Partial or complete), as would any other service provider on our Website interested in bidding on your request.</p>
                             </li>
                             <li>
                                 <h3>4) DISCLOSURE TO OTHER USERS OF OUR WEBSITE</h3>
@@ -437,7 +438,7 @@ if (isset($_POST['logoutPerson'])) {
                             </li>
                             <li>
                                 <h3>7) INFORMATION DISCLOSED AT YOUR REQUEST</h3>
-                                <p>We may share your personal information with other Registered Users to whom you explicitly ask us to send your information or if you explicitly consent to such disclosure upon receipt of a specific Service. For instance, when you contract for a specific Service with another Registered User, eventplanning will send that Registered User a notice that includes the personal information that you have chosen to allow eventplanning to reveal to users with whom you contract.</p>
+                                <p>We may share your personal information with other Registered Users to whom you explicitly ask us to send your information or if you explicitly consent to such disclosure upon receipt of a specific Service. For instance, when you contract for a specific Service with another Registered User, eventplanning will send that Registered User a notice that @includes the personal information that you have chosen to allow eventplanning to reveal to users with whom you contract.</p>
                             </li>
                         </ul>
                     </div>
@@ -462,7 +463,7 @@ if (isset($_POST['logoutPerson'])) {
                         </div>
                     </div>
                     <div class="policy-list Dicpadding">
-                        <p class="policy-block">You can review, correct and delete your personal information by logging into the Website and navigating to your preferences page in "Edit Profile." You must promptly update your personal information if it changes or is inaccurate. Typically, we will not manually alter your personal information because it is very difficult to verify your identity remotely. Nonetheless, upon your request we will close your Account and remove your personal information from view as soon as reasonably possible based on your Account activity and in accordance with applicable law. We do retain information from closed Accounts in order to comply with the law, prevent fraud, collect any fees owed, resolve disputes, troubleshoot problems, assist with any investigations of any Registered User, enforce our Terms of Use, and take any other actions otherwise permitted by law that we deem necessary in our sole and absolute discretion. You should understand, however, that once you publicly post a Request, Offer, Want, Feedback, or any other information onto the Website, you may not be able to change or remove it. Once we have deleted or removed your Account, you agree that eventplanning shall not be responsible for any personal information that was not included within your deleted and/or removed Account that remains on the Website.</p>
+                        <p class="policy-block">You can review, correct and delete your personal information by logging into the Website and navigating to your preferences page in "Edit Profile." You must promptly update your personal information if it changes or is inaccurate. Typically, we will not manually alter your personal information because it is very difficult to verify your identity remotely. Nonetheless, upon your request we will close your Account and remove your personal information from view as soon as reasonably possible based on your Account activity and in accordance with applicable law. We do retain information from closed Accounts in order to comply with the law, prevent fraud, collect any fees owed, resolve disputes, troubleshoot problems, assist with any investigations of any Registered User, enforce our Terms of Use, and take any other actions otherwise permitted by law that we deem necessary in our sole and absolute discretion. You should understand, however, that once you publicly post a Request, Offer, Want, Feedback, or any other information onto the Website, you may not be able to change or remove it. Once we have deleted or removed your Account, you agree that eventplanning shall not be responsible for any personal information that was not @included within your deleted and/or removed Account that remains on the Website.</p>
                     </div>
                 </div>
                 <div class="innerSec">
@@ -498,7 +499,7 @@ if (isset($_POST['logoutPerson'])) {
                         <ul class="policy-block">
                             <li>
                                 <h3>1) YOUR FULL NAME</h3>
-                                <p>As a Registered User of the Website you will select a Full Name during the registration process. All of your activities on the Website will be traceable to your Full Name. Certain other people, including other Registered Users with whom you have transacted business via the Website, can see a large part of your activity on the Website. If you book a service with a Registered User, cancel a scheduled service with a Registered User, receive an offer on your posted service from a Registered User, or have posted a service, eventplanning may send a notice to you or the appropriate Registered User that includes your Full Name. Thus, if you associate your real name with your Full Name, the people to whom you have revealed your name may be able to personally identify your Website activities.</p>
+                                <p>As a Registered User of the Website you will select a Full Name during the registration process. All of your activities on the Website will be traceable to your Full Name. Certain other people, including other Registered Users with whom you have transacted business via the Website, can see a large part of your activity on the Website. If you book a service with a Registered User, cancel a scheduled service with a Registered User, receive an offer on your posted service from a Registered User, or have posted a service, eventplanning may send a notice to you or the appropriate Registered User that @includes your Full Name. Thus, if you associate your real name with your Full Name, the people to whom you have revealed your name may be able to personally identify your Website activities.</p>
                             </li>
                             <li>
                                 <h3>2) USING INFORMATION FROM eventplanning</h3>

@@ -1,9 +1,9 @@
 <?php
 session_start();
-include_once "../../../controller/PersonController.php";
-include_once "../../../model/Login.php";
-include_once "../../../model/Person.php";
-include "../../../controller/serviceController/CaterersController.php";
+@include_once "../../../controller/PersonController.php";
+@include_once "../../../model/Login.php";
+@include_once "../../../model/Person.php";
+@include "../../../controller/serviceController/CaterersController.php";
 $username = "";
 $name = "";
 $email = "";
@@ -25,10 +25,10 @@ if (isset($_POST['login'])) {
         $_SESSION['phone'] = $result->phone;
         $_SESSION['password'] = $result->password;
         $_SESSION['address'] = $result->address;
-        include_once "../../errors/success.php";
+        @include_once "../../errors/success.php";
     }
     if ($result === null) {
-        include_once "../../errors/wrong.php";
+        @include_once "../../errors/wrong.php";
     }
 }
 
@@ -44,20 +44,20 @@ if (isset($_POST['insertPerson'])) {
     $result = insertPerson($person);
 
     if ($result == 1) {
-        include_once "../../errors/success.php";
+        @include_once "../../errors/success.php";
     }
     if ($result == -1) {
-        include_once "../../errors/databaseError.php";
+        @include_once "../../errors/databaseError.php";
     }
     if ($result == 0) {
-        include_once "../../errors/wrong.php";
+        @include_once "../../errors/wrong.php";
     }
 }
 
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
-    include_once "../../errors/success.php";
+    @include_once "../../errors/success.php";
 }
 
 //for booking============================================================>
@@ -301,7 +301,7 @@ if (is)
                             <div class="col-md-19 col-lg-12 col-sm-12">
                                 <div class="right-side" id="changeOrder">
                                     <?php
-                                    include_once "./default.php";
+                                    @include_once "./default.php";
                                     ?>
                                 </div>
                             </div>

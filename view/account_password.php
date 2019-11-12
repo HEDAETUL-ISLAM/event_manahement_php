@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once "../model/Login.php";
-require_once "../model/Person.php";
-require_once "../controller/PersonController.php";
+@require_once "../model/Login.php";
+@require_once "../model/Person.php";
+@require_once "../controller/PersonController.php";
 $username = "";
 $name = "";
 $email = "";
@@ -24,10 +24,10 @@ if (isset($_POST['login'])) {
         $_SESSION['phone'] = $result->phone;
         $_SESSION['password'] = $result->password;
         $_SESSION['address'] = $result->address;
-        include_once "./errors/success.php";
+        @include_once "./errors/success.php";
     }
     if ($result === null) {
-        include_once "./errors/wrong.php";
+        @include_once "./errors/wrong.php";
     }
 }
 
@@ -43,20 +43,20 @@ if (isset($_POST['insertPerson'])) {
     $result = insertPerson($person);
 
     if ($result == 1) {
-        include_once "./errors/success.php";
+        @include_once "./errors/success.php";
     }
     if ($result == -1) {
-        include_once "./errors/databaseError.php";
+        @include_once "./errors/databaseError.php";
     }
     if ($result == 0) {
-        include_once "./errors/wrong.php";
+        @include_once "./errors/wrong.php";
     }
 }
 
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
-    include_once "./errors/success.php";
+    @include_once "./errors/success.php";
 }
 
 // for update profile====================================================>
@@ -74,10 +74,10 @@ if (isset($_POST['updatePerson'])) {
         $_SESSION['email'] = $email = $_POST['email'];
         $_SESSION['phone'] = $_POST['phone'];
         $_SESSION['address'] = $_POST['address'];
-        include_once "./errors/success.php";
+        @include_once "./errors/success.php";
     }
     if ($result == 0) {
-        include_once "./errors/wrong.php";
+        @include_once "./errors/wrong.php";
     }
 }
 // for update password====================================================>
@@ -90,17 +90,17 @@ if (isset($_POST['updatePassword'])) {
     $newPassword = $_POST['newPassword'];
     $confNewPassword = $_POST['confNewPassword'];
     if ($_SESSION['password'] != $currentPassword) {
-        include_once "./errors/password.php";
+        @include_once "./errors/password.php";
     }
     if ($newPassword != $confNewPassword) {
-        include_once "./errors/password.php";
+        @include_once "./errors/password.php";
     } else {
         $result = updatePassword($username, $newPassword);
         if ($result == 1) {
-            include_once "./errors/success.php";
+            @include_once "./errors/success.php";
         }
         if ($result == 0) {
-            include_once "./errors/wrong.php";
+            @include_once "./errors/wrong.php";
         }
     }
 }

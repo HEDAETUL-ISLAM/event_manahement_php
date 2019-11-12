@@ -1,7 +1,8 @@
 <?php
-require_once "../model/Login.php";
-require_once "../model/Person.php";
-require_once "../controller/PersonController.php";
+session_start();
+@require_once "../model/Login.php";
+@require_once "../model/Person.php";
+@require_once "../controller/PersonController.php";
 $username = "";
 $name = "";
 $email = "";
@@ -23,10 +24,10 @@ if (isset($_POST['login'])) {
         $_SESSION['phone'] = $result->phone;
         $_SESSION['password'] = $result->password;
         $_SESSION['address'] = $result->address;
-        include_once "./errors/success.php";
+        @include_once "./errors/success.php";
     }
     if ($result === null) {
-        include_once "./errors/wrong.php";
+        @include_once "./errors/wrong.php";
     }
 }
 
@@ -42,20 +43,20 @@ if (isset($_POST['insertPerson'])) {
     $result = insertPerson($person);
 
     if ($result == 1) {
-        include_once "./errors/success.php";
+        @include_once "./errors/success.php";
     }
     if ($result == -1) {
-        include_once "./errors/databaseError.php";
+        @include_once "./errors/databaseError.php";
     }
     if ($result == 0) {
-        include_once "./errors/wrong.php";
+        @include_once "./errors/wrong.php";
     }
 }
 
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
-    include_once "./errors/success.php";
+    @include_once "./errors/success.php";
 }
 
 ?>
@@ -372,20 +373,20 @@ if (isset($_POST['logoutPerson'])) {
                         </tr>
                     </table>
                     <div class="check-slide">
-                        <label for="checkbox-50" class="label_check c_on"><input type="checkbox" checked="" value="1" id="checkbox-50" name="sample-checkbox-01">I agree to Event Planning <a href="booking_step1.php#">Terms & Conditions</a></label>
+                        <label for="checkbox-50" class="label_check c_on">
+                            <input type="checkbox" checked="" value="1"  name="sample-checkbox-01">I agree to Event Planning
+                            <a href="booking_step1.php#">Terms & Conditions</a>
+                        </label>
                     </div>
                     <div class="bookinRow">
                         <div class="input-box">
-                            <label>Your Name :</label>
-                            <input type="text" placeholder="User name">
+                            <label>Your Name : </label><?php echo " " . $_SESSION['name'] ?>
                         </div>
                         <div class="input-box">
-                            <label>Email ID :</label>
-                            <input type="text" placeholder="User@yahoo.com">
+                            <label>Email ID : </label><?php echo " " . $_SESSION['email'] ?>
                         </div>
                         <div class="input-box">
-                            <label>Phone :</label>
-                            <input type="text" placeholder="1234568970">
+                            <label>Phone : </label><?php echo " " . $_SESSION['phone'] ?>
                         </div>
                         <a href="booking_step1.php#" class="btn">Book Now</a>
                     </div>

@@ -1,5 +1,5 @@
 <?php
-include_once "../model/SinglePackage.php";
+@include_once "../model/SinglePackage.php";
 
 function getAllCaterers()
 {
@@ -7,7 +7,7 @@ function getAllCaterers()
     if (!$connection) {
         return -1;
     }
-    $query = "SELECT * from single_package where category = '".Caterers."'";
+    $query = "SELECT * from single_package where category = 'Caterers'";
     $result = $connection->query($query);
     return $result;
 }

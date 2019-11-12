@@ -1,5 +1,5 @@
 <?php
-include_once "../../../controller/serviceController/CaterersController.php";
+@include_once "../../../controller/serviceController/CaterersController.php";
 
 $result = getCaterersByLowPrice();
 if ($result->num_rows > 0) {

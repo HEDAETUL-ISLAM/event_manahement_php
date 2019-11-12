@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once "../model/Login.php";
-require_once "../model/Person.php";
-require_once "../controller/PersonController.php";
+@require_once "../model/Login.php";
+@require_once "../model/Person.php";
+@require_once "../controller/PersonController.php";
 $username = "";
 $name = "";
 $email = "";
@@ -24,10 +24,10 @@ if (isset($_POST['login'])) {
         $_SESSION['phone'] = $result->phone;
         $_SESSION['password'] = $result->password;
         $_SESSION['address'] = $result->address;
-        include_once "./errors/success.php";
+        @include_once "./errors/success.php";
     }
     if ($result == null) {
-        include_once "./errors/wrong.php";
+        @include_once "./errors/wrong.php";
     }
 }
 
@@ -43,20 +43,20 @@ if (isset($_POST['insertPerson'])) {
     $result = insertPerson($person);
 
     if ($result == 1) {
-        include_once "./errors/success.php";
+        @include_once "./errors/success.php";
     }
     if ($result == -1) {
-        include_once "./errors/databaseError.php";
+        @include_once "./errors/databaseError.php";
     }
     if ($result == 0) {
-        include_once "./errors/wrong.php";
+        @include_once "./errors/wrong.php";
     }
 }
 
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
-    include_once "./errors/success.php";
+    @include_once "./errors/success.php";
 }
 
 ?>
