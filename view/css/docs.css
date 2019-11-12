@@ -2383,3 +2383,29 @@ translateY(-50%); -webkit-transform: translateY(-50%); -o-transform:translateY(-
 .service-view .service-right .service-details .customList li {width: 100%; }
 .errorPage .errorContent .error-title span {font-size: 150px; }
 }
+
+.customSelectBox{
+   margin: 0;
+   outline: none;
+   font-family: Roboto, Arial, sans-serif;
+   font-size: 14px;
+   color: #666;
+   background-color: #fff;
+   width: 100%;
+   cursor: pointer;
+   border-radius: 3px;
+   z-index:3;
+   position: relative;
+   display: block;
+	height: 28px;
+	left: 1px;
+   line-height: 28px;
+   padding-right:25px; 
+   border-radius:3px 0 0 3px; 
+   outline: none;
+	overflow: hidden;
+	text-indent: 10px;
+	top: 1px;
+}
+
+

@@ -12,7 +12,7 @@ if ($result->num_rows > 0) {
         echo '<div class="text">';
         echo     "<h3>" . $row["package_name"] . "</h3>";
         echo "    <div class=reviews>" . $row["rating"] . "<div class=star>";
-        echo "        <div class=fill style=width:" . $rating . "%></div>";
+        echo "        <div class=fill style=width:" . $rating . "% ></div>";
         echo '        </div>reviews</div>';
         echo '    <div class="outher-info">';
         echo '        <div class="info-slide first">';

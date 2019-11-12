@@ -83,22 +83,7 @@ if (is)
     <link href="https://fonts.googleapis.com/css?family=Domine:400,700%7COpen+Sans:300,300i,400,400i,600,600i,700,700i%7CRoboto:400,500" rel="stylesheet">
 
 
-    <script>
-        function packageOrderChange(value) {
-            if (value == "default") {
-                console.log("default");
-                $('#changeOrder').load('./default.php');
-            }
-            if (value == "lowToHigh") {
-                console.log("low");
-                $('#changeOrder').load('./lowToHigh.php');
-            }
-            if (value == "highToLow") {
-                console.log("high");
-                $('#changeOrder').load('./highToLow.php');
-            }
-        }
-    </script>
+
 </head>
 
 <body class="inner-page">
@@ -298,7 +283,7 @@ if (is)
                     <div class="toolbar" style="width:50%; position:left">
                         <div class="right-tool">
                             <div class="select-box">
-                                <select name="sortBy" id="setUp_select" tabindex="1" onchange="packageOrderChange(this.value)">
+                                <select name="sortBy" id="setUp_select_one" onchange="packageOrderChange()" class="customSelectBox">
                                     <option value="default">Default </option>
                                     <option value="lowToHigh">Price (Low > High)</option>
                                     <option value="highToLow">Price (High > Low)</option>
@@ -316,45 +301,7 @@ if (is)
                             <div class="col-md-19 col-lg-12 col-sm-12">
                                 <div class="right-side" id="changeOrder">
                                     <?php
-                                    $result = getAllCaterers();
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            $rating = $row["rating"] * 20;
-                                            echo '<div class="venues-slide first">';
-                                            echo '<div class="img">';
-                                            echo "<img src=" . $row["image"] . ">";
-                                            echo '</div>';
-                                            echo '<div class="text">';
-                                            echo     "<h3>" . $row["package_name"] . "</h3>";
-                                            echo "    <div class=reviews>" . $row["rating"] . " <div class=star>";
-                                            echo "        <div class=fill style=width:" . $rating . "%></div>";
-                                            echo '        </div>reviews</div>';
-                                            echo '    <div class="outher-info">';
-                                            echo '        <div class="info-slide first">';
-                                            echo '            <label>Price</label>';
-                                            echo             "<span>" . $row["price"] . "</span>";
-                                            echo '        </div>';
-                                            echo '        <div class="info-slide">';
-                                            echo '            <label>Transport cost</label>';
-                                            echo             "<span>" . $row["transport_cost"] . "<small>  (Onwards)</small></span>";
-                                            echo '        </div>';
-                                            echo '        <div class="info-slide">';
-                                            echo '            <label>Quantity</label>';
-                                            echo              "<span>" . $row["quantity"] . "<small>  (set)</small></span>";
-                                            echo '        </div>';
-                                            echo '    </div>';
-                                            echo '    <div class="outher-link">';
-                                            echo           "<span>" . $row["vendor_username"] . "<small>   (vendor)</small></span>";
-                                            echo '    </div>';
-                                            echo '    <div class="button">';
-                                            echo '        <a type="submit" class="btn" name="bookPackage" >Book Now</a>';
-                                            echo '    </div>';
-                                            echo '</div>';
-                                            echo '</div>';
-                                        }
-                                    } else {
-                                        echo "Empty";
-                                    }
+                                    include_once "./default.php";
                                     ?>
                                 </div>
                             </div>
@@ -424,6 +371,20 @@ if (is)
             </div>
         </footer>
     </div>
+
+    <script>
+        function packageOrderChange() {
+
+            var value = document.getElementById("setUp_select_one").value;
+            if (value == "default") {
+                $('#changeOrder').load('./default.php');
+            } else if (value == "lowToHigh") {
+                $('#changeOrder').load('./lowToHigh.php');
+            } else if (value == "highToLow") {
+                $('#changeOrder').load('./highToLow.php');
+            }
+        }
+    </script>
 
 
 
