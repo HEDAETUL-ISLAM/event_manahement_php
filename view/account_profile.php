@@ -158,41 +158,33 @@ if (isset($_POST['updatePassword'])) {
                         </div>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="single-col active">
-                                    <a href="index.php">Home <span class="icon icon-arrow-down"></span></a>
+                                <li class="single-col ">
+                                    <a href="index.php">Home </a>
                                 </li>
-                                <li>
-                                    <a href="">Services <span class="icon icon-arrow-down"></span></a>
+                                <li class="single-col ">
+                                    <a href="#">Services <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li><a href="services.php">Caterers</a></li>
-                                        <li><a href="services.php">Mehndi</a></li>
-                                        <li><a href="services.php">Decor &amp; Florists</a></li>
-                                        <li><a href="services.php">Cakes</a></li>
-                                        <li><a href="services.php">Wedding Planner</a></li>
-                                        <li><a href="services.php">Gifts and Flowers</a></li>
-                                        <li><a href="services.php">Make-up and Hair</a></li>
-                                        <li><a href="services.php">Entertainment</a></li>
-                                        <li><a href="services.php">Photographers/ Videographers</a></li>
-                                        <li><a href="services.php">DJ</a></li>
-                                        <li><a href="services.php">Wedding Cards</a></li>
+                                        <li>
+                                            <a href="#">Single Package <span class="icon icon-arrow-right"></span></a>
+                                            <ul>
+                                                <li><a href="services/caterers/caterers.php">Caterers</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">Bundle Package <span class="icon icon-arrow-right"></span></a>
+                                            <ul>
+                                                <li><a href="services/caterers/caterers.php">Caterers</a></li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </li>
-                                <li class="single-col">
+                                <li class="single-col active">
                                     <a href="">Pages <span class="icon icon-arrow-down"></span></a>
                                     <ul>
                                         <li><a href="search-result.php">listing Page</a></li>
                                         <li><a href="search_detail.php">Details Page</a></li>
-                                        <li><a href="blog.php">Blog</a></li>
 
                                         <li><a href="news-details.php">News Details</a></li>
-                                        <li>
-                                            <a href="booking_step1.php">Booking Step <span class="icon icon-arrow-right"></span></a>
-                                            <ul>
-                                                <li><a href="booking_step1.php">Booking Step1</a></li>
-                                                <li><a href="booking_step2.php">Booking Step2</a></li>
-                                                <li><a href="booking_step3.php">Booking Step3</a></li>
-                                            </ul>
-                                        </li>
                                         <li><a href="career.php">Career</a></li>
 
                                         <li><a href="privacy_policy.php">Privacy Policy</a></li>
@@ -205,10 +197,16 @@ if (isset($_POST['updatePassword'])) {
                                             </ul>
                                         </li>
                                         <li><a href="team.php">Team</a></li>
-                                        <li><a href="wishlist.php">Wishlist</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="faq.php">FAQ’s </a></li>
+                                <li class="single-col">
+                                    <a href="">Booking <span class="icon icon-arrow-down"></span></a>
+                                    <ul>
+                                        <li><a href="booking_step1.php">Booking Step1</a></li>
+                                        <li><a href="booking_step2.php">Booking Step2</a></li>
+                                        <li><a href="booking_step3.php">Booking Step3</a></li>
+                                    </ul>
+                                </li>
                                 <li><a href="aboutUs.php">About Us</a></li>
                                 <li><a href="contact.php">Contact us</a></li>
                             </ul>
@@ -228,6 +226,7 @@ if (isset($_POST['updatePassword'])) {
                 </div>
             </nav>
         </header>
+        <!-- login -->
         <div class="modal modal-vcenter fade" id="loginModal" role="dialog">
             <div class="modal-dialog login-popup" role="document">
                 <div class="modal-content">
@@ -254,6 +253,7 @@ if (isset($_POST['updatePassword'])) {
                 </div>
             </div>
         </div>
+        <!-- logout -->
         <div class="modal modal-vcenter fade" id="logoutModal" role="dialog">
             <div class="modal-dialog login-popup" role="document">
                 <div class="modal-content">
@@ -272,6 +272,7 @@ if (isset($_POST['updatePassword'])) {
                 </div>
             </div>
         </div>
+        <!-- registration -->
         <div class="modal modal-vcenter fade" id="registrationModal" tabindex="-1" role="dialog">
             <div class="modal-dialog registration-popup" role="document">
                 <div class="modal-content" style="margin-top: 99px;">
@@ -316,6 +317,7 @@ if (isset($_POST['updatePassword'])) {
                 </div>
             </div>
         </div>
+        <!-- update profile -->
         <div class="modal modal-vcenter fade" id="updateProfileModal" tabindex="-1" role="dialog">
             <div class="modal-dialog registration-popup" role="document">
                 <div class="modal-content" style="margin-top: 99px;">
@@ -423,6 +425,7 @@ if (isset($_POST['updatePassword'])) {
                             <div class="status">Status :<span> Booked</span></div>
                         </div>
                     </div>
+                    <!-- change password -->
                     <div class="tab-content changePassword-con">
                         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
                             <div class="change-password ">

@@ -1,9 +1,9 @@
 <?php
 session_start();
-include_once "../../controller/PersonController.php";
-include_once "../../model/Login.php";
-include_once "../../model/Person.php";
-include "../../controller/SinglePackageController.php";
+include_once "../../../controller/PersonController.php";
+include_once "../../../model/Login.php";
+include_once "../../../model/Person.php";
+include "../../../controller/serviceController/CaterersController.php";
 $username = "";
 $name = "";
 $email = "";
@@ -25,10 +25,10 @@ if (isset($_POST['login'])) {
         $_SESSION['phone'] = $result->phone;
         $_SESSION['password'] = $result->password;
         $_SESSION['address'] = $result->address;
-        include_once "../errors/success.php";
+        include_once "../../errors/success.php";
     }
     if ($result === null) {
-        include_once "../errors/wrong.php";
+        include_once "../../errors/wrong.php";
     }
 }
 
@@ -44,27 +44,25 @@ if (isset($_POST['insertPerson'])) {
     $result = insertPerson($person);
 
     if ($result == 1) {
-        include_once "../errors/success.php";
+        include_once "../../errors/success.php";
     }
     if ($result == -1) {
-        include_once "../errors/databaseError.php";
+        include_once "../../errors/databaseError.php";
     }
     if ($result == 0) {
-        include_once "../errors/wrong.php";
+        include_once "../../errors/wrong.php";
     }
 }
 
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
-    include_once "../errors/success.php";
+    include_once "../../errors/success.php";
 }
 
-
-
-
-
-?>
+//for booking============================================================>
+if (is)
+    ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -74,16 +72,33 @@ if (isset($_POST['logoutPerson'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Event Planning</title>
 
-    <link rel="shortcut icon" href="../images/Favicon.ico">
-    <link href="../css/bootstrap.css" rel="stylesheet">
-    <link href="../css/owl.carousel.css" rel="stylesheet">
-    <link href="../css/styles.css" rel="stylesheet" />
-    <link href="../css/datepicker.css" rel="stylesheet" />
-    <link href="../css/loader.css" rel="stylesheet">
-    <link href="../css/docs.css" rel="stylesheet">
-    <link href="../css/jquery.selectbox.css" rel="stylesheet" /><!-- select Box css -->
+    <link rel="shortcut icon" href="../../images/Favicon.ico">
+    <link href="../../css/bootstrap.css" rel="stylesheet">
+    <link href="../../css/owl.carousel.css" rel="stylesheet">
+    <link href="../../css/styles.css" rel="stylesheet" />
+    <link href="../../css/datepicker.css" rel="stylesheet" />
+    <link href="../../css/loader.css" rel="stylesheet">
+    <link href="../../css/docs.css" rel="stylesheet">
+    <link href="../../css/jquery.selectbox.css" rel="stylesheet" /><!-- select Box css -->
     <link href="https://fonts.googleapis.com/css?family=Domine:400,700%7COpen+Sans:300,300i,400,400i,600,600i,700,700i%7CRoboto:400,500" rel="stylesheet">
 
+
+    <script>
+        function packageOrderChange(value) {
+            if (value == "default") {
+                console.log("default");
+                $('#changeOrder').load('./default.php');
+            }
+            if (value == "lowToHigh") {
+                console.log("low");
+                $('#changeOrder').load('./lowToHigh.php');
+            }
+            if (value == "highToLow") {
+                console.log("high");
+                $('#changeOrder').load('./highToLow.php');
+            }
+        }
+    </script>
 </head>
 
 <body class="inner-page">
@@ -107,7 +122,7 @@ if (isset($_POST['logoutPerson'])) {
                 <div class="container">
                     <div class="navbar navbar-inverse">
                         <div class="navbar-header">
-                            <a href="../index.php" class="navbar-brand"><img src="../images/logo.png" alt="" style="max-width: 80px"></a>
+                            <a href="../../index.php" class="navbar-brand"><img src="../../images/logo.png" alt="" style="max-width: 80px"></a>
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                 <span class="icon1-barMenu"></span>
                                 <span class="icon1-barMenu"></span>
@@ -118,58 +133,56 @@ if (isset($_POST['logoutPerson'])) {
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
                                 <li>
-                                    <a href="../index.php">Home <span class="icon icon-arrow-down"></span></a>
+                                    <a href="../../index.php">Home </a>
                                 </li>
                                 <li class="single-col active">
                                     <a href="">Services <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li><a href="../services.php">Caterers</a></li>
-                                        <li><a href="../services.php">Mehndi</a></li>
-                                        <li><a href="../services.php">Decor &amp; Florists</a></li>
-                                        <li><a href="../services.php">Cakes</a></li>
-                                        <li><a href="../services.php">Wedding Planner</a></li>
-                                        <li><a href="../services.php">Gifts and Flowers</a></li>
-                                        <li><a href="../services.php">Make-up and Hair</a></li>
-                                        <li><a href="../services.php">Entertainment</a></li>
-                                        <li><a href="../services.php">Photographers/ Videographers</a></li>
-                                        <li><a href="../services.php">DJ</a></li>
-                                        <li><a href="../services.php">Wedding Cards</a></li>
+                                        <li>
+                                            <a href="#">Single Package <span class="icon icon-arrow-right"></span></a>
+                                            <ul>
+                                                <li><a href="../../services.php">Caterers</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">Bundle Package <span class="icon icon-arrow-right"></span></a>
+                                            <ul>
+                                                <li><a href="../../services.php">Caterers</a></li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="single-col">
                                     <a href="">Pages <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li><a href="../search-result.php">listing Page</a></li>
-                                        <li><a href="../search_detail.php">Details Page</a></li>
-                                        <li><a href="../blog.php">Blog</a></li>
+                                        <li><a href="../../search-result.php">listing Page</a></li>
+                                        <li><a href="../../search_detail.php">Details Page</a></li>
 
-                                        <li><a href="../news-details.php">News Details</a></li>
+                                        <li><a href="../../news-details.php">News Details</a></li>
+                                        <li><a href="../../career.php">Career</a></li>
+
+                                        <li><a href="../../privacy_policy.php">Privacy Policy</a></li>
                                         <li>
-                                            <a href="../booking_step1.php">Booking Step <span class="icon icon-arrow-right"></span></a>
+                                            <a href="../../account_profile.php">My Account <span class="icon icon-arrow-right"></span></a>
                                             <ul>
-                                                <li><a href="../booking_step1.php">Booking Step1</a></li>
-                                                <li><a href="../booking_step2.php">Booking Step2</a></li>
-                                                <li><a href="../booking_step3.php">Booking Step3</a></li>
+                                                <li><a href="../../account_profile.php">Profile</a></li>
+                                                <li><a href="../../account_booking.php">Orders</a></li>
+                                                <li><a href="../../account_password.php">Change Password</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="../career.php">Career</a></li>
-
-                                        <li><a href="../privacy_policy.php">Privacy Policy</a></li>
-                                        <li>
-                                            <a href="../account_profile.php">My Account <span class="icon icon-arrow-right"></span></a>
-                                            <ul>
-                                                <li><a href="../account_profile.php">Profile</a></li>
-                                                <li><a href="../account_booking.php">Orders</a></li>
-                                                <li><a href="../account_password.php">Change Password</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="../team.php">Team</a></li>
-                                        <li><a href="../wishlist.php">Wishlist</a></li>
+                                        <li><a href="../../team.php">Team</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="../faq.php">FAQ’s </a></li>
-                                <li><a href="../aboutUs.php">About Us</a></li>
-                                <li><a href="../contact.php">Contact us</a></li>
+                                <li class="single-col">
+                                    <a href="">Booking <span class="icon icon-arrow-down"></span></a>
+                                    <ul>
+                                        <li><a href="../../booking_step1.php">Booking Step1</a></li>
+                                        <li><a href="../../booking_step2.php">Booking Step2</a></li>
+                                        <li><a href="../../booking_step3.php">Booking Step3</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="../../aboutUs.php">About Us</a></li>
+                                <li><a href="../../contact.php">Contact us</a></li>
                             </ul>
                             <div class="search-box">
                                 <div class="search-icon"><span class="icon icon-search"></span></div>
@@ -190,8 +203,8 @@ if (isset($_POST['logoutPerson'])) {
         <div class="modal modal-vcenter fade" id="loginModal" role="dialog">
             <div class="modal-dialog login-popup" role="document">
                 <div class="modal-content">
-                    <div class="close-icon" aria-label="Close" data-dismiss="modal"><img src="../images/close-icon.png" alt=""></div>
-                    <div class="left-img"><img src="../images/login-leftImg.png" alt=""></div>
+                    <div class="close-icon" aria-label="Close" data-dismiss="modal"><img src="../../images/close-icon.png" alt=""></div>
+                    <div class="left-img"><img src="../../images/login-leftImg.png" alt=""></div>
                     <div class="right-info">
                         <h1>Login</h1>
                         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
@@ -216,8 +229,8 @@ if (isset($_POST['logoutPerson'])) {
         <div class="modal modal-vcenter fade" id="logoutModal" role="dialog">
             <div class="modal-dialog login-popup" role="document">
                 <div class="modal-content">
-                    <div class="close-icon" aria-label="Close" data-dismiss="modal"><img src="../images/close-icon.png" alt=""></div>
-                    <div class="left-img"><img src="../images/login-leftImg.png" alt=""></div>
+                    <div class="close-icon" aria-label="Close" data-dismiss="modal"><img src="../../images/close-icon.png" alt=""></div>
+                    <div class="left-img"><img src="../../images/login-leftImg.png" alt=""></div>
                     <div class="right-info">
                         <h1>Are you sure ? </h1>
                         <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
@@ -234,7 +247,7 @@ if (isset($_POST['logoutPerson'])) {
         <div class="modal modal-vcenter fade" id="registrationModal" tabindex="-1" role="dialog">
             <div class="modal-dialog registration-popup" role="document">
                 <div class="modal-content" style="margin-top: 99px;">
-                    <div class="close-icon" aria-label="Close" data-dismiss="modal"><img src="../images/close-icon.png" alt=""></div>
+                    <div class="close-icon" aria-label="Close" data-dismiss="modal"><img src="../../images/close-icon.png" alt=""></div>
                     <h1>New Member Registration</h1>
                     <div class="registration-form">
                         <div class="info">
@@ -279,17 +292,18 @@ if (isset($_POST['logoutPerson'])) {
         <div class="searchFilter-main">
             <section class="searchFormTop">
                 <div class="container">
-                    <div class="searchCenter">
-                        <div class="refineCenter">
-                            <span class="icon icon-filter"></span>
-                            <span>Refine Results</span>
-                        </div>
-                        <div class="searchFilter">
-                            <div class="input-box">
-                                <div class="icon icon-grid-view"></div>
-                                <input type="text" placeholder="Name">
+                    <div class="toolbar" style="width:50%; position:left">
+                        <div class="finde-count">Caterers </div>
+                    </div>
+                    <div class="toolbar" style="width:50%; position:left">
+                        <div class="right-tool">
+                            <div class="select-box">
+                                <select name="sortBy" id="setUp_select" tabindex="1" onchange="packageOrderChange(this.value)">
+                                    <option value="default">Default </option>
+                                    <option value="lowToHigh">Price (Low > High)</option>
+                                    <option value="highToLow">Price (High > Low)</option>
+                                </select>
                             </div>
-                            <input type="submit" value="Search" class="btn">
                         </div>
                     </div>
                 </div>
@@ -300,111 +314,48 @@ if (isset($_POST['logoutPerson'])) {
                         <div class="row">
 
                             <div class="col-md-19 col-lg-12 col-sm-12">
-                                <div class="right-side">
-                                    <div class="toolbar">
-                                        <div class="finde-count">Caterers </div>
-                                    </div>
+                                <div class="right-side" id="changeOrder">
                                     <?php
-
                                     $result = getAllCaterers();
-                                    if ($result !== null) {
-                                        echo $result->package_name;
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            $rating = $row["rating"] * 20;
+                                            echo '<div class="venues-slide first">';
+                                            echo '<div class="img">';
+                                            echo "<img src=" . $row["image"] . ">";
+                                            echo '</div>';
+                                            echo '<div class="text">';
+                                            echo     "<h3>" . $row["package_name"] . "</h3>";
+                                            echo "    <div class=reviews>" . $row["rating"] . " <div class=star>";
+                                            echo "        <div class=fill style=width:" . $rating . "%></div>";
+                                            echo '        </div>reviews</div>';
+                                            echo '    <div class="outher-info">';
+                                            echo '        <div class="info-slide first">';
+                                            echo '            <label>Price</label>';
+                                            echo             "<span>" . $row["price"] . "</span>";
+                                            echo '        </div>';
+                                            echo '        <div class="info-slide">';
+                                            echo '            <label>Transport cost</label>';
+                                            echo             "<span>" . $row["transport_cost"] . "<small>  (Onwards)</small></span>";
+                                            echo '        </div>';
+                                            echo '        <div class="info-slide">';
+                                            echo '            <label>Quantity</label>';
+                                            echo              "<span>" . $row["quantity"] . "<small>  (set)</small></span>";
+                                            echo '        </div>';
+                                            echo '    </div>';
+                                            echo '    <div class="outher-link">';
+                                            echo           "<span>" . $row["vendor_username"] . "<small>   (vendor)</small></span>";
+                                            echo '    </div>';
+                                            echo '    <div class="button">';
+                                            echo '        <a type="submit" class="btn" name="bookPackage" >Book Now</a>';
+                                            echo '    </div>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                        }
+                                    } else {
+                                        echo "Empty";
                                     }
                                     ?>
-                                    <!-- from here ajax -->
-                                    <div class="venues-slide first">
-                                        <div class="img"><img src="../images/property-img/venues-img.jpg" alt="no"></div>
-                                        <div class="text">
-                                            <h3>package name </h3>
-                                            <div class="reviews">4.5 <div class="star">
-                                                    <div class="fill" style="width:70%;"></div>
-                                                </div>reviews</div>
-                                            <div class="outher-info">
-                                                <div class="info-slide first">
-                                                    <label>Price</label>
-                                                    <span>$ 10000</span>
-                                                </div>
-                                                <div class="info-slide">
-                                                    <label>Transport cost</label>
-                                                    <span>$ 1000 <small>(Onwards)</small></span>
-                                                </div>
-                                                <div class="info-slide">
-                                                    <label>Quantity</label>
-                                                    <span>5000 <small>(set)</small></span>
-                                                </div>
-                                            </div>
-                                            <div class="outher-link">
-                                                <ul>
-                                                    <li><a href="search-result.php#"><span class="icon icon-heart"></span>Add to Wishlist</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="button">
-                                                <a href="search-result.php#" class="btn">Book Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="venues-slide first">
-                                        <div class="img"><img src="../images/property-img/venues-img.jpg" alt="no"></div>
-                                        <div class="text">
-                                            <h3>package name </h3>
-                                            <div class="reviews">4.5 <div class="star">
-                                                    <div class="fill" style="width:70%;"></div>
-                                                </div>reviews</div>
-                                            <div class="outher-info">
-                                                <div class="info-slide first">
-                                                    <label>Price</label>
-                                                    <span>$ 10000</span>
-                                                </div>
-                                                <div class="info-slide">
-                                                    <label>Transport cost</label>
-                                                    <span>$ 1000 <small>(Onwards)</small></span>
-                                                </div>
-                                                <div class="info-slide">
-                                                    <label>Quantity</label>
-                                                    <span>5000 <small>(set)</small></span>
-                                                </div>
-                                            </div>
-                                            <div class="outher-link">
-                                                <ul>
-                                                    <li><a href="search-result.php#"><span class="icon icon-heart"></span>Add to Wishlist</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="button">
-                                                <a href="search-result.php#" class="btn">Book Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="venues-slide first">
-                                        <div class="img"><img src="../images/property-img/venues-img.jpg" alt="no"></div>
-                                        <div class="text">
-                                            <h3>package name </h3>
-                                            <div class="reviews">4.5 <div class="star">
-                                                    <div class="fill" style="width:70%;"></div>
-                                                </div>reviews</div>
-                                            <div class="outher-info">
-                                                <div class="info-slide first">
-                                                    <label>Price</label>
-                                                    <span>$ 10000</span>
-                                                </div>
-                                                <div class="info-slide">
-                                                    <label>Transport cost</label>
-                                                    <span>$ 1000 <small>(Onwards)</small></span>
-                                                </div>
-                                                <div class="info-slide">
-                                                    <label>Quantity</label>
-                                                    <span>5000 <small>(set)</small></span>
-                                                </div>
-                                            </div>
-                                            <div class="outher-link">
-                                                <ul>
-                                                    <li><a href="search-result.php#"><span class="icon icon-heart"></span>Add to Wishlist</a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="button">
-                                                <a href="search-result.php#" class="btn">Book Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -480,14 +431,14 @@ if (isset($_POST['logoutPerson'])) {
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
-    <script type="text/javascript" src="../js/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.js"></script>
-    <script type="text/javascript" src="../js/owl.carousel.js"></script>
-    <script type="text/javascript" src="../js/jquery.selectbox-0.2.js"></script>
-    <script type="text/javascript" src="../js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="../js/jquery.form-validator.min.js"></script>
-    <script type="text/javascript" src="../js/placeholder.js"></script>
-    <script type="text/javascript" src="../js/coustem.js"></script>
+    <script type="text/javascript" src="../../js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../js/owl.carousel.js"></script>
+    <script type="text/javascript" src="../../js/jquery.selectbox-0.2.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="../../js/jquery.form-validator.min.js"></script>
+    <script type="text/javascript" src="../../js/placeholder.js"></script>
+    <script type="text/javascript" src="../../js/coustem.js"></script>
 
 </body>
 
