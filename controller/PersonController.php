@@ -8,13 +8,49 @@ function insertPerson(Person $person)
     if (!$connection) {
         return -1;
     }
-    $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status) 
-    VALUES ('" . $person->getUsername() . "' ,'" . $person->getName() . "' , '" . $person->getEmail() . "', '" . $person->getPhone() . "', '" . $person->getPassword() . "', '" . $person->getAddress() . "',1)";
-    if (mysqli_query($connection, $query)) {
-        return 1;
-    } else {
-        return 0;
+    $findPerson = "SELECT user_name from person where user_name = '" . $person->getUsername() . "'";
+    $result = mysqli_query($connection, $findPerson);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $username = $row['user_name'];
     }
+    if ($username == $person->getUsername()) {
+        return -1;
+    } else {
+        $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status) 
+        VALUES ('" . $person->getUsername() . "' ,'" . $person->getName() . "' , '" . $person->getEmail() . "', '" . $person->getPhone() . "', '" . $person->getPassword() . "', '" . $person->getAddress() . "',1)";
+        if (mysqli_query($connection, $query)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    mysqli_close($connection);
+}
+
+function insertVendor(Person $person)
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    if (!$connection) {
+        return -1;
+    }
+    $findPerson = "SELECT user_name from person where user_name = '" . $person->getUsername() . "'";
+    $result = mysqli_query($connection, $findPerson);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $username = $row['user_name'];
+    }
+    if ($username == $person->getUsername()) {
+        return -1;
+    } else {
+        $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status) 
+        VALUES ('" . $person->getUsername() . "' ,'" . $person->getName() . "' , '" . $person->getEmail() . "', '" . $person->getPhone() . "', '" . $person->getPassword() . "', '" . $person->getAddress() . "',2)";
+        if (mysqli_query($connection, $query)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
     mysqli_close($connection);
 }
 
@@ -31,7 +67,9 @@ function loginPerson(Login $login)
     } else {
         return null;
     }
+    mysqli_close($connection);
 }
+
 function updatePerson(Person $person)
 {
     $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "bulbul");
@@ -40,6 +78,7 @@ function updatePerson(Person $person)
     $statement = $connection->prepare($query);
     $result = $statement->execute();
     return $result;
+    mysqli_close($connection);
 }
 function updatePassword($username, $newPassword)
 {
@@ -49,4 +88,5 @@ function updatePassword($username, $newPassword)
     $statement = $connection->prepare($query);
     $result = $statement->execute();
     return $result;
+    mysqli_close($connection);
 }

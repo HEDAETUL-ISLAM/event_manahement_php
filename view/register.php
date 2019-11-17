@@ -3,55 +3,6 @@ session_start();
 @require_once "../model/Login.php";
 @require_once "../model/Person.php";
 @require_once "../controller/PersonController.php";
-$username = "";
-$name = "";
-$email = "";
-$phone = "";
-$password = "";
-$address = "";
-
-// for login=============================================================>
-if (isset($_POST['login'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $login = new Login($username,  $password);
-    $result = loginPerson($login);
-
-    if ($result !== null) {
-        $_SESSION['username'] = $result->user_name;
-        $_SESSION['name'] = $result->name;
-        $_SESSION['email'] = $result->email;
-        $_SESSION['phone'] = $result->phone;
-        $_SESSION['password'] = $result->password;
-        $_SESSION['address'] = $result->address;
-        @include_once "./errors/success.php";
-    }
-    if ($result === null) {
-        @include_once "./errors/wrong.php";
-    }
-}
-
-// for register==========================================================>
-if (isset($_POST['insertPerson'])) {
-    $username = $_POST['username'];
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $password = $_POST['password'];
-    $address = $_POST['address'];
-    $person = new Person($username, $name, $email, $phone, $password, $address);
-    $result = insertPerson($person);
-
-    if ($result == 1) {
-        @include_once "./errors/success.php";
-    }
-    if ($result == -1) {
-        @include_once "./errors/databaseError.php";
-    }
-    if ($result == 0) {
-        @include_once "./errors/wrong.php";
-    }
-}
 
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
@@ -89,25 +40,94 @@ if (isset($_POST['logoutPerson'])) {
                 <div class="logo"><a href="index.php"><img src="images/logo.png" alt="logo" style="max-width: 80px;"></a></div>
                 <div class="register-pageLogin">
                     <div class="login-title">
-                        <label>Seller Login</label>
-                        <a href="register.php#">Forgot password ?</a>
+                        <label>Vendor Login</label>
+                        <a href="index.php"><span class="icon icon-multi-user"></span>Go Homepage</a>
                     </div>
-                    <div class="login-box">
-                        <div class="input-box">
-                            <input type="text" placeholder="Email ID">
-                            <div class="icon icon-user"></div>
+                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                        <div class="login-box">
+                            <div class="input-box">
+                                <input type="text" placeholder="User Name" name="username">
+                                <div class="icon icon-user"></div>
+                            </div>
+                            <div class="input-box">
+                                <input type="text" placeholder="Password" name="password">
+                                <div class="icon icon-lock"></div>
+                            </div>
+                            <div class="submit-box">
+                                <input type="submit" class="btn" value="Login" name="vendorLogin">
+                            </div>
                         </div>
-                        <div class="input-box">
-                            <input type="text" placeholder="Password">
-                            <div class="icon icon-lock"></div>
-                        </div>
-                        <div class="submit-box">
-                            <input type="submit" class="btn" value="Login">
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </header>
+
+        <?php
+        $username = "";
+        $name = "";
+        $email = "";
+        $phone = "";
+        $password = "";
+        $address = "";
+        // for login=============================================================>
+        if (isset($_POST['login'])) {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            if (strlen($username) == 0 || strlen($password) == 0) {
+                @include_once "./errors/blankEntry.php";
+            } else {
+                $login = new Login($username,  $password);
+                $result = loginPerson($login);
+
+                if ($result->status == 2) {
+                    if ($result !== null) {
+                        $_SESSION['username'] = $result->user_name;
+                        $_SESSION['name'] = $result->name;
+                        $_SESSION['email'] = $result->email;
+                        $_SESSION['phone'] = $result->phone;
+                        $_SESSION['password'] = $result->password;
+                        $_SESSION['address'] = $result->address;
+                        @include_once "./errors/success.php";
+                    }
+                    if ($result === null) {
+                        @include_once "./errors/wrong.php";
+                    }
+                } else {
+                    // header('Location: ' . $_SERVER['REQUEST_URI']);
+                    @include_once "./errors/invalidUser.php";
+                }
+            }
+        }
+
+        // for register vendor==========================================================>
+        if (isset($_POST['insertVendor'])) {
+
+            $username = $_POST['username'];
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $address = $_POST['address'];
+            $phone = $_POST['phone'];
+            $password = $_POST['password'];
+
+            if (strlen($username) == 0 || strlen($name) == 0 || strlen($mail) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
+                @include_once "./errors/blankEntry.php";
+            } else {
+                $person = new Person($username, $name, $email, $phone, $password, $address);
+                $result = insertVendor($person);
+
+                if ($result == 1) {
+                    @include_once "./errors/success.php";
+                }
+                if ($result == -1) {
+                    @include_once "./errors/exist.php";
+                }
+                if ($result == 0) {
+                    @include_once "./errors/wrong.php";
+                }
+            }
+        }
+
+        ?>
         <div class="register-banner">
             <img src="images/banner-img/registration-banneBg.png" alt="" class="register-bannerImg">
             <div class="inner-banner">
@@ -115,48 +135,38 @@ if (isset($_POST['logoutPerson'])) {
                 <div class="register-form">
                     <div class="inner-form">
                         <h1>Register Now</h1>
-                        <div class="form-filde">
-                            <div class="input-slide">
-                                <input type="text" placeholder="Name">
+                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                            <div class="form-filde">
+                                <div class="input-slide">
+                                    <input type="text" placeholder="User Name" name="username" min="6" max="255" required>
+                                </div>
+                                <div class="input-slide">
+                                    <input type="text" placeholder="Name" name="name" min="6" max="255" required>
+                                </div>
+                                <div class="input-slide">
+                                    <input type="email" placeholder="Email ID" name="email" min="6" max="255">
+                                </div>
+                                <div class="select-row">
+                                    <select name="address" id="country_select" tabindex="1">
+                                        <option value="">Address</option>
+                                        <option value="Uttora">Uttora</option>
+                                        <option value="Banani">Banani</option>
+                                        <option value="Guslshan">Gulshan</option>
+                                        <option value="Dhanmondi">Dhanmondi</option>
+                                        <option value="Motijheel">Motijheel</option>
+                                    </select>
+                                </div>
+                                <div class="input-slide">
+                                    <input type="text" placeholder="Phone Number" name="phone" min="11" max="13" required>
+                                </div>
+                                <div class="input-slide">
+                                    <input type="text" placeholder="Password" name="password" min="6" max="255" required>
+                                </div>
+                                <div class="submit-slide">
+                                    <input type="submit" value="Submit" class="btn" name="insertVendor">
+                                </div>
                             </div>
-                            <div class="input-slide">
-                                <input type="text" placeholder="Email ID">
-                            </div>
-                            <div class="input-slide">
-                                <input type="text" placeholder="Company Name">
-                            </div>
-                            <div class="select-row">
-                                <select name="city" id="country_select" tabindex="1">
-                                    <option>City</option>
-                                    <option>Lundan</option>
-                                    <option>Amerika</option>
-                                    <option>Peres</option>
-                                </select>
-                            </div>
-                            <div class="select-row">
-                                <select name="city" id="services_select" tabindex="1">
-                                    <option>Type of Services</option>
-                                    <option>Type of Services</option>
-                                    <option>Type of Services</option>
-                                    <option>Type of Services</option>
-                                </select>
-                            </div>
-                            <div class="input-slide">
-                                <input type="text" placeholder="Phone Number">
-                            </div>
-                            <div class="input-slide">
-                                <input type="text" placeholder="Password">
-                            </div>
-                            <div class="check-slide">
-                                <label for="checkbox-99" class="label_check c_on"><input type="checkbox" value="1" id="checkbox-99" name="sample-checkbox-01">I agree to Event Planning terms of services</label>
-                            </div>
-                            <div class="submit-slide">
-                                <input type="submit" value="Submit" class="btn">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="normal-link">
-                        <a href="register.php#">More than just a calendar</a>
+                        </form>
                     </div>
                 </div>
             </div>

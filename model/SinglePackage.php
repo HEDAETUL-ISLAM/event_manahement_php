@@ -3,11 +3,12 @@
 class SinglePackage
 {
     private $category;
+    private $packageType;
     private $packageName;
     private $vendorName;
     private $price;
     private $transportCost;
-    private $quantity;
+    private $availableStatus;
     private $image;
     private $rating;
 
@@ -19,6 +20,16 @@ class SinglePackage
     public function setCategory($category)
     {
         $this->category = $category;
+
+        return $this;
+    }
+    public function getPackageType()
+    {
+        return $this->packageType;
+    }
+    public function setPackageType($packageType)
+    {
+        $this->packageType = $packageType;
 
         return $this;
     }
@@ -62,13 +73,13 @@ class SinglePackage
 
         return $this;
     }
-    public function getQuantity()
+    public function getAvailableStatus()
     {
-        return $this->quantity;
+        return $this->availableStatus;
     }
-    public function setQuantity($quantity)
+    public function setAvailableStatus($availableStatus)
     {
-        $this->quantity = $quantity;
+        $this->availableStatus = $availableStatus;
 
         return $this;
     }
@@ -92,14 +103,15 @@ class SinglePackage
 
         return $this;
     }
-    public function SinglePackage($category, $packageName, $vendorName, $price, $transportCost, $quantity, $image, $rating)
+    public function SinglePackage($category, $packageType, $packageName, $vendorName, $price, $transportCost, $availableStatus, $image, $rating)
     {
         $this->category = $category;
+        $this->packageType = $packageType;
         $this->packageName = $packageName;
         $this->vendorName = $vendorName;
         $this->price = $price;
         $this->transportCost = $transportCost;
-        $this->quantity = $quantity;
+        $this->availableStatus = $availableStatus;
         $this->image = $image;
         $this->rating = $rating;
     }

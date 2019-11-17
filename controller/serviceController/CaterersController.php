@@ -10,6 +10,7 @@ function getAllCaterers()
     $query = "SELECT * from single_package where category = 'Caterers'";
     $result = $connection->query($query);
     return $result;
+    mysqli_close($connection);
 }
 function getCaterersByLowPrice()
 {
@@ -20,6 +21,7 @@ function getCaterersByLowPrice()
     $query = "SELECT * from single_package ORDER BY Price";
     $result = $connection->query($query);
     return $result;
+    mysqli_close($connection);
 }
 function getCaterersByHighPrice()
 {
@@ -30,4 +32,5 @@ function getCaterersByHighPrice()
     $query = "SELECT * from single_package ORDER BY Price DESC";
     $result = $connection->query($query);
     return $result;
+    mysqli_close($connection);
 }

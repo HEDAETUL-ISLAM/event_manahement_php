@@ -14,20 +14,29 @@ $address = "";
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $login = new Login($username,  $password);
-    $result = loginPerson($login);
+    if (strlen($username) == 0 || strlen($password) == 0) {
+        @include_once "./errors/blankEntry.php";
+    } else {
+        $login = new Login($username,  $password);
+        $result = loginPerson($login);
 
-    if ($result !== null) {
-        $_SESSION['username'] = $result->user_name;
-        $_SESSION['name'] = $result->name;
-        $_SESSION['email'] = $result->email;
-        $_SESSION['phone'] = $result->phone;
-        $_SESSION['password'] = $result->password;
-        $_SESSION['address'] = $result->address;
-        @include_once "./errors/success.php";
-    }
-    if ($result === null) {
-        @include_once "./errors/wrong.php";
+        if ($result->status == 1) {
+            if ($result !== null) {
+                $_SESSION['username'] = $result->user_name;
+                $_SESSION['name'] = $result->name;
+                $_SESSION['email'] = $result->email;
+                $_SESSION['phone'] = $result->phone;
+                $_SESSION['password'] = $result->password;
+                $_SESSION['address'] = $result->address;
+                @include_once "./errors/success.php";
+            }
+            if ($result === null) {
+                @include_once "./errors/wrong.php";
+            }
+        } else {
+            // header('Location: ' . $_SERVER['REQUEST_URI']);
+            @include_once "./errors/invalidUser.php";
+        }
     }
 }
 
@@ -39,17 +48,21 @@ if (isset($_POST['insertPerson'])) {
     $phone = $_POST['phone'];
     $password = $_POST['password'];
     $address = $_POST['address'];
-    $person = new Person($username, $name, $email, $phone, $password, $address);
-    $result = insertPerson($person);
+    if (strlen($username) == 0 || strlen($name) == 0 || strlen($mail) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
+        @include_once "./errors/blankEntry.php";
+    } else {
+        $person = new Person($username, $name, $email, $phone, $password, $address);
+        $result = insertVendor($person);
 
-    if ($result == 1) {
-        @include_once "./errors/success.php";
-    }
-    if ($result == -1) {
-        @include_once "./errors/databaseError.php";
-    }
-    if ($result == 0) {
-        @include_once "./errors/wrong.php";
+        if ($result == 1) {
+            @include_once "./errors/success.php";
+        }
+        if ($result == -1) {
+            @include_once "./errors/exist.php";
+        }
+        if ($result == 0) {
+            @include_once "./errors/wrong.php";
+        }
     }
 }
 
@@ -58,6 +71,34 @@ if (isset($_POST['logoutPerson'])) {
     session_destroy();
     @include_once "./errors/success.php";
 }
+
+// for Table row==========================================================
+$count = 0;
+if (isset($_POST["bookPackage"])) {
+    if (isset($_SESSION["shoppingCart"])) {
+        $item_array_id = array_column($_SESSION["shoppingCart"], "itemId");
+        if (!in_array($_GET["id"], $item_array_id)) {
+            $count = $count + 1;
+            $_SESSION["shoppingCart"][$count];
+        }
+    } else {
+        $_SESSION["shoppingCart"][$count];
+    }
+}
+
+//  for remove
+if (isset($_GET["action"])) {
+    if ($_GET["action"] == "delete") {
+        foreach ($_SESSION["shoppingCart"] as $keys => $values) {
+            if ($values["itemId"] == $_GET["id"]) {
+                unset($_SESSION["shoppingCart"][$keys]);
+                echo '<script>confirm("Item Removed")</script>';
+                echo '<script>window.location="booking_step1.php"</script>';
+            }
+        }
+    }
+}
+
 
 ?>
 
@@ -90,9 +131,20 @@ if (isset($_POST['logoutPerson'])) {
                         <ul>
                             <li><a href="register.php"><span class="icon icon-multi-user"></span>Become a Vendor</a>
                             </li>
-                            <li class="registration"><a href="javascript:;" data-toggle="modal" data-target="#registrationModal">Registration</a></li>
-                            <li><a href="javascript:;" data-toggle="modal" data-target="#loginModal">Login</a></li>
-                            <li><a href="javascript:;" data-toggle="modal" data-target="#logoutModal">Logout</a></li>
+                            <?php
+                            if ($_SESSION['name'] == "") {
+                                echo '<li>';
+                                echo '    <a href="javascript:;" data-toggle="modal" data-target="#registrationModal">Registration</a>';
+                                echo '</li>';
+                                echo '<li>';
+                                echo '    <a href="javascript:;" data-toggle="modal" data-target="#loginModal">Login</a>';
+                                echo '</li>';
+                            } else {
+                                echo '<li>';
+                                echo '    <a href="javascript:;" data-toggle="modal" data-target="#logoutModal">Logout</a>';
+                                echo '</li>';
+                            }
+                            ?>
                         </ul>
                     </div>
                 </div>
@@ -131,7 +183,7 @@ if (isset($_POST['logoutPerson'])) {
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
+                                <li class="single-col">
                                     <a href="">Pages <span class="icon icon-arrow-down"></span></a>
                                     <ul>
                                         <li><a href="search-result.php">listing Page</a></li>
@@ -284,141 +336,130 @@ if (isset($_POST['logoutPerson'])) {
                 <div class="bookin-info">
                     <table class="bookin-table">
                         <tr>
-                            <th colspan="6" class="table-heading">Leipzig Marriott Hotel <a href="booking_step1.php#" class="icon icon-delete"></a></th>
+                            <td class="first Theading" style="width:200px"> Your Address</td>
+                            <td class="Theading">Package Name</td>
+                            <td class="Theading">Vendor Name</td>
+                            <td class="Theading">Price</td>
+                            <td class="Theading">Transport Cost</td>
+                            <td class="Theading ">Total Cost</td>
+                            <td class="Theading ">Action</td>
                         </tr>
-                        <tr>
-                            <td class="first Theading">Address</td>
-                            <td class="Theading">Booking Date</td>
-                            <td class="Theading">Meal Plans</td>
-                            <td class="Theading">Price Range</td>
-                            <td class="Theading">Max Guest</td>
-                            <td class="Theading last">Min. Booking Amount to Pay</td>
-                        </tr>
-                        <tr>
-                            <td class="first">
-                                <label>Address</label>
-                                <p>Am Hallischen Tor 1 Saxony Leipzig, 04109 - Germany</p>
-                            </td>
-                            <td>
-                                <label>Booking Date</label>
-                                <p>29<sup>th</sup> Nov 2015</p>
-                            </td>
-                            <td>
-                                <label>Meal Plans</label>
-                                <p>Breakfast</p>
-                            </td>
-                            <td>
-                                <label>Price Range</label>
-                                <p>$ 1000 <small>(Onwards)</small></p>
-                            </td>
-                            <td>
-                                <label>Max Guest</label>
-                                <p>500 <a href="booking_step1.php#" class="icon icon-edit"></a></p>
+                        <?php
+                        $count = 0;
+                        if (!empty($_SESSION["shoppingCart"])) {
+                            $total = 0;
+                            foreach ($_SESSION["shoppingCart"] as $keys => $values) {
+                                ?>
+                                <tr>
+                                    <td class="first" style="width:200px">
+                                        <label>Address</label>
+                                        <p><?php echo " " . $_SESSION['address'] ?></p>
+                                    </td>
+                                    <td>
+                                        <label>Package Name</label>
+                                        <p><?php echo " " . $values["itemName"]; ?></p>
+                                    </td>
+                                    <td>
+                                        <label>Vendor Name</label>
+                                        <p><?php echo " " . $values["itemVendor"]; ?></p>
+                                    </td>
+                                    <td>
+                                        <label>Price</label>
+                                        <p>$ <?php echo " " . $values["itemPrice"]; ?></p>
+                                    </td>
+                                    <td>
+                                        <label>Transport Cost</label>
+                                        <p>$<?php echo " " . $values["itemTransportCost"]; ?></p>
 
-                            </td>
-                            <td class="last">
-                                <label>Min. Booking Amount to Pay</label>
-                                <p>$ 5,000 (Onwards)</p>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="bookin-table">
-                        <tr>
-                            <th colspan="6" class="table-heading">Hotel AMANO Grand Central <a href="booking_step1.php#" class="icon icon-delete"></a></th>
-                        </tr>
-                        <tr>
-                            <td class="first Theading">Address</td>
-                            <td class="Theading">Booking Date</td>
-                            <td class="Theading">Meal Plans</td>
-                            <td class="Theading">Price Range</td>
-                            <td class="Theading">Max Guest</td>
-                            <td class="Theading last">Min. Booking Amount to Pay</td>
-                        </tr>
-                        <tr>
-                            <td class="first">
-                                <label>Address</label>
-                                <p>Heidestrasse 62 Berlin, 10557 - Germany</p>
-                            </td>
-                            <td>
-                                <label>Booking Date</label>
-                                <p>29<sup>th</sup> Nov 2015</p>
-                            </td>
-                            <td>
-                                <label>Meal Plans</label>
-                                <p>Lunch</p>
-                            </td>
-                            <td>
-                                <label>Price Range</label>
-                                <p>$ 1200 <small>(Onwards)</small></p>
-                            </td>
-                            <td>
-                                <label>Max Guest</label>
-                                <p>300 <a href="booking_step1.php#" class="icon icon-edit"></a></p>
+                                    </td>
+                                    <td>
+                                        <label>Total Cost</label>
+                                        <p>$ <?php echo " " . $x = number_format($values["itemPrice"] + $values["itemTransportCost"], 2); ?></p>
+                                    </td>
+                                    <td class="Theading">
+                                        <a href="booking_step1.php?action=delete&id=<?php echo $values["itemId"]; ?>">
+                                            <span class="text-danger"><img src="images/close-icon.png" alt="" style="max-width: 80px"></span>
+                                        </a>
+                                    </td>
 
-                            </td>
-                            <td class="last">
-                                <label>Min. Booking Amount to Pay</label>
-                                <p>$ 8,000 (Onwards)</p>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="bookinTotal">
-                        <tr>
-                            <td class="subTotal">Subtotal</td>
-                            <td class="amount subTotal">$ 13,000</td>
-                        </tr>
-                        <tr>
-                            <td>Min. Booking Amount to pay</td>
-                            <td class="amount">$ 13,000</td>
-                        </tr>
-                    </table>
-                    <div class="check-slide">
-                        <label for="checkbox-50" class="label_check c_on">
-                            <input type="checkbox" checked="" value="1"  name="sample-checkbox-01">I agree to Event Planning
-                            <a href="booking_step1.php#">Terms & Conditions</a>
-                        </label>
-                    </div>
-                    <div class="bookinRow">
-                        <div class="input-box">
-                            <label>Your Name : </label><?php echo " " . $_SESSION['name'] ?>
-                        </div>
-                        <div class="input-box">
-                            <label>Email ID : </label><?php echo " " . $_SESSION['email'] ?>
-                        </div>
-                        <div class="input-box">
-                            <label>Phone : </label><?php echo " " . $_SESSION['phone'] ?>
-                        </div>
-                        <a href="booking_step1.php#" class="btn">Book Now</a>
-                    </div>
-                    <div class="note">
-                        <div class="inner-block">
-                            <div class="icon icon-info"></div>
-                            <label>Important Information</label>
-                            <p>Please carry any valid photo id proof at the venue</p>
-                        </div>
-                    </div>
-                    <div class="bottom-blcok">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="icon icon-assurance"></div>
-                                <span>100% Assurance</span>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummybook</p>
+                                </tr>
+                            <?php
+
+                                    $total = $total + $x;
+                                }
+                                ?>
+
+
+                        <?php
+                        }
+                        ?>
+                        <?php
+                        if (!empty($_SESSION["shoppingCart"])) {
+                            echo '<table class="bookinTotal">';
+                            echo '<tr>';
+                                echo '<td class="subTotal">Subtotal</td>';
+                                echo "<td class=amount subTotal style=padding-right: 9%;> $".  $total ."</td>";
+                            echo '</tr>';
+                            echo '<tr>';
+                            echo '<td>Min. Booking Amount to pay</td>';
+                                echo "<td class=amount style=padding-right: 9%;>$  ".$total / 2 ."</td>";
+                                echo '</tr>';
+                        echo '</table>';
+                        }
+                        ?>
+                        
+                        <?php
+                        if (!empty($_SESSION["shoppingCart"])) {
+                            echo '<div class="check-slide">';
+                            echo '<a href="privacy_policy.php" style="color: #f15b22;">Terms & Conditions</a>';
+                            echo '</div>';
+                        }
+                        ?>
+                        <div class="bookinRow">
+                            <div class="input-box">
+                                <label>Your Name : </label><?php echo " " . $_SESSION['name'] ?>
                             </div>
-                            <div class="col-sm-4">
-                                <div class="icon icon-trust"></div>
-                                <span>Trust</span>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummybook</p>
+                            <div class="input-box">
+                                <label>Email ID : </label><?php echo " " . $_SESSION['email'] ?>
                             </div>
-                            <div class="col-sm-4">
-                                <div class="icon icon-promise"></div>
-                                <span>Our Promise</span>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummybook</p>
+                            <div class="input-box">
+                                <label>Phone : </label><?php echo " " . $_SESSION['phone'] ?>
+                            </div>
+                            <?php
+                            if (!empty($_SESSION["shoppingCart"])) {
+                                echo '<a href="booking_step2.php" class="btn">Book Now</a>';
+                            }
+                            ?>
+                        </div>
+                        <div class="note">
+                            <div class="inner-block">
+                                <div class="icon icon-info"></div>
+                                <label>Important Information</label>
+                                <p>Please carry any valid photo id proof at the venue</p>
                             </div>
                         </div>
-                    </div>
+                        <div class="bottom-blcok">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="icon icon-assurance"></div>
+                                    <span>100% Assurance</span>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummybook</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="icon icon-trust"></div>
+                                    <span>Trust</span>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummybook</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="icon icon-promise"></div>
+                                    <span>Our Promise</span>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummybook</p>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>

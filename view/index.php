@@ -12,22 +12,31 @@ $address = "";
 
 // for login=============================================================>
 if (isset($_POST['login'])) {
-
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $login = new Login($username,  $password);
-    $result = loginPerson($login);
-    if ($result != null) {
-        $_SESSION['username'] = $result->user_name;
-        $_SESSION['name'] = $result->name;
-        $_SESSION['email'] = $result->email;
-        $_SESSION['phone'] = $result->phone;
-        $_SESSION['password'] = $result->password;
-        $_SESSION['address'] = $result->address;
-        @include_once "./errors/success.php";
-    }
-    if ($result == null) {
-        @include_once "./errors/wrong.php";
+    if (strlen($username) == 0 || strlen($password) == 0) {
+        @include_once "./errors/blankEntry.php";
+    } else {
+        $login = new Login($username,  $password);
+        $result = loginPerson($login);
+
+        if ($result->status == 1) {
+            if ($result !== null) {
+                $_SESSION['username'] = $result->user_name;
+                $_SESSION['name'] = $result->name;
+                $_SESSION['email'] = $result->email;
+                $_SESSION['phone'] = $result->phone;
+                $_SESSION['password'] = $result->password;
+                $_SESSION['address'] = $result->address;
+                @include_once "./errors/success.php";
+            }
+            if ($result === null) {
+                @include_once "./errors/wrong.php";
+            }
+        } else {
+            // header('Location: ' . $_SERVER['REQUEST_URI']);
+            @include_once "./errors/invalidUser.php";
+        }
     }
 }
 
@@ -39,17 +48,21 @@ if (isset($_POST['insertPerson'])) {
     $phone = $_POST['phone'];
     $password = $_POST['password'];
     $address = $_POST['address'];
-    $person = new Person($username, $name, $email, $phone, $password, $address);
-    $result = insertPerson($person);
+    if (strlen($username) == 0 || strlen($name) == 0 || strlen($mail) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
+        @include_once "./errors/blankEntry.php";
+    } else {
+        $person = new Person($username, $name, $email, $phone, $password, $address);
+        $result = insertVendor($person);
 
-    if ($result == 1) {
-        @include_once "./errors/success.php";
-    }
-    if ($result == -1) {
-        @include_once "./errors/databaseError.php";
-    }
-    if ($result == 0) {
-        @include_once "./errors/wrong.php";
+        if ($result == 1) {
+            @include_once "./errors/success.php";
+        }
+        if ($result == -1) {
+            @include_once "./errors/exist.php";
+        }
+        if ($result == 0) {
+            @include_once "./errors/wrong.php";
+        }
     }
 }
 
@@ -95,9 +108,20 @@ if (isset($_POST['logoutPerson'])) {
                         <ul>
                             <li><a href="register.php"><span class="icon icon-multi-user"></span>Become a Vendor</a>
                             </li>
-                            <li class="registration"><a href="javascript:;" data-toggle="modal" data-target="#registrationModal">Registration</a></li>
-                            <li><a href="javascript:;" data-toggle="modal" data-target="#loginModal">Login</a></li>
-                            <li><a href="javascript:;" data-toggle="modal" data-target="#logoutModal">Logout</a></li>
+                            <?php
+                            if ($_SESSION['name'] == "") {
+                                echo '<li>';
+                                echo '    <a href="javascript:;" data-toggle="modal" data-target="#registrationModal">Registration</a>';
+                                echo '</li>';
+                                echo '<li>';
+                                echo '    <a href="javascript:;" data-toggle="modal" data-target="#loginModal">Login</a>';
+                                echo '</li>';
+                            } else {
+                                echo '<li>';
+                                echo '    <a href="javascript:;" data-toggle="modal" data-target="#logoutModal">Logout</a>';
+                                echo '</li>';
+                            }
+                            ?>
                         </ul>
                     </div>
                 </div>
@@ -327,12 +351,6 @@ if (isset($_POST['logoutPerson'])) {
                         </li>
                         <li>
                             <a href="services.php">
-                                <span class="icon icon-calander"></span>
-                                <span class="text">Event Planner</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="services.php">
                                 <span class="icon icon-beauty"></span>
                                 <span class="text">Make-up and Hair</span>
                             </a>
@@ -371,6 +389,12 @@ if (isset($_POST['logoutPerson'])) {
                             <a href="services.php">
                                 <span class="icon icon-glass"></span>
                                 <span class="text">Entertainment</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="services.php">
+                                <span class="icon icon-calander"></span>
+                                <span class="text">Event Planner</span>
                             </a>
                         </li>
                     </ul>

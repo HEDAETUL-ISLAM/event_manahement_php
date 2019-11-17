@@ -1,43 +1,104 @@
 <?php
-@include_once "../../../controller/serviceController/CaterersController.php";
+include_once "../../../controller/serviceController/CaterersController.php";
 
 $result = getCaterersByLowPrice();
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $rating = $row["rating"] * 20;
-        echo '<div class="venues-slide first">';
-        echo '<div class="img">';
-        echo "<img src=" . $row["image"] . ">";
-        echo '</div>';
-        echo '<div class="text">';
-        echo     "<h3>" . $row["package_name"] . "</h3>";
-        echo "    <div class=reviews>" . $row["rating"] . "<div class=star>";
-        echo "        <div class=fill style=width:" . $rating . "% ></div>";
-        echo '        </div>reviews</div>';
-        echo '    <div class="outher-info">';
-        echo '        <div class="info-slide first">';
-        echo '            <label>Price</label>';
-        echo             "<span>" . $row["price"] . "</span>";
-        echo '        </div>';
-        echo '        <div class="info-slide">';
-        echo '            <label>Transport cost</label>';
-        echo             "<span>" . $row["transport_cost"] . "<small>  (Onwards)</small></span>";
-        echo '        </div>';
-        echo '        <div class="info-slide">';
-        echo '            <label>Quantity</label>';
-        echo              "<span>" . $row["quantity"] . "<small>  (set)</small></span>";
-        echo '        </div>';
-        echo '    </div>';
-        echo '    <div class="outher-link">';
-        echo           "<span>" . $row["vendor_username"] . "<small>   (vendor)</small></span>";
-        echo '    </div>';
-        echo '    <div class="button">';
-        echo '        <a type="submit" class="btn" name="bookPackage" >Book Now</a>';
-        echo '    </div>';
-        echo '</div>';
-        echo '</div>';
+// for Table row==========================================================
+if (isset($_POST["bookPackage"])) {
+    if (isset($_SESSION["shoppingCart"])) {
+        $item_array_id = array_column($_SESSION["shoppingCart"], "itemId");
+        if (!in_array($_POST["id"], $item_array_id)) {
+            $count = count($_SESSION["shoppingCart"]) + 1;
+            $item_array = array(
+                'itemId' => $_POST["id"],
+                'itemName' => $_POST["hiddenPackageName"],
+                'itemPrice' =>  $_POST["hiddenPrice"],
+                'itemTransportCost' => $_POST["hiddenTransportCost"],
+                'itemVendor' =>  $_POST["hiddenVendor"]
+            );
+            $_SESSION["shoppingCart"][$count] = $item_array;
+        } else {
+            @include_once "../../errors/alreadyAddedPackage.php";
+        }
+    } else {
+        $item_array = array(
+            'itemId' => $_POST["id"],
+            'itemName' => $_POST["hiddenPackageName"],
+            'itemPrice' => $_POST["hiddenPrice"],
+            'itemTransportCost' => $_POST["hiddenTransportCost"],
+            'itemVendor' => $_POST["hiddenVendor"]
+        );
+        $_SESSION["shoppingCart"][0] = $item_array;
     }
-} else {
-    echo "Empty";
 }
-?>;
+?>
+
+<html>
+
+<body>
+    <?php
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $rating = $row["rating"] * 20;
+            ?>
+            <form method="post" action="caterers.php">
+                <div class="venues-slide first">
+                    <div class="img">
+                        <img src="<?php echo $row["image"]; ?>">
+                    </div>
+                    <div class="text">
+                        <h3><?php echo $row["package_name"]; ?></h3>
+                        <input type="hidden" name="hiddenPackageName" value="<?php echo $row["package_name"]; ?>" />
+                        <div class=reviews> <?php echo $row["rating"]; ?>
+                            <div class=star>
+                                <div class=fill style="width: <?php echo   $rating; ?>%"></div>
+                            </div>reviews</div>
+                        <div class="outher-info">
+                            <div class="info-slide first">
+                                <label>Price</label>
+                                <span> <?php echo $row["price"]; ?> </span>
+                                <input type="hidden" name="hiddenPrice" value="<?php echo $row["price"]; ?>" />
+                            </div>
+                            <div class="info-slide">
+                                <label>Transport cost</label>
+                                <span> <?php echo $row["transport_cost"]; ?> <small> (Your)</small></span>
+                                <input type="hidden" name="hiddenTransportCost" value="<?php echo $row["transport_cost"]; ?>" />
+                            </div>
+                            <div class="info-slide">
+                                <label>Available</label>
+                                <span> <?php echo $row["available_status"]; ?> <small> </small></span>
+                                <input type="hidden" name="hiddenAvailableStatus" />
+                            </div>
+                        </div>
+                        <div class="outher-link">
+                            <span> <?php echo $row["vendor_username"]; ?> <small> (vendor)</small></span>
+                            <input type="hidden" name="hiddenVendor" value="<?php echo $row["vendor_username"]; ?>" />
+                        </div>
+                        <?php
+                                if ($row["available_status"] == "yes" || $row["available_status"] == "Yes") {
+                                    ?>
+                            <div class="button">
+                                <input type="submit" class="btn" name="bookPackage" value="Book Now" />
+                            </div>
+                        <?php
+                                }
+
+                                ?>
+
+
+
+
+                    </div>
+                </div>
+            </form>
+    <?php
+        }
+    } else {
+        echo "Empty";
+    }
+    ?>
+
+
+</body>
+
+</html>

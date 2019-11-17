@@ -14,20 +14,29 @@ $address = "";
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $login = new Login($username,  $password);
-    $result = loginPerson($login);
+    if (strlen($username) == 0 || strlen($password) == 0) {
+        @include_once "./errors/blankEntry.php";
+    } else {
+        $login = new Login($username,  $password);
+        $result = loginPerson($login);
 
-    if ($result !== null) {
-        $_SESSION['username'] = $result->user_name;
-        $_SESSION['name'] = $result->name;
-        $_SESSION['email'] = $result->email;
-        $_SESSION['phone'] = $result->phone;
-        $_SESSION['password'] = $result->password;
-        $_SESSION['address'] = $result->address;
-        @include_once "./errors/success.php";
-    }
-    if ($result === null) {
-        @include_once "./errors/wrong.php";
+        if ($result->status == 1) {
+            if ($result !== null) {
+                $_SESSION['username'] = $result->user_name;
+                $_SESSION['name'] = $result->name;
+                $_SESSION['email'] = $result->email;
+                $_SESSION['phone'] = $result->phone;
+                $_SESSION['password'] = $result->password;
+                $_SESSION['address'] = $result->address;
+                @include_once "./errors/success.php";
+            }
+            if ($result === null) {
+                @include_once "./errors/wrong.php";
+            }
+        } else {
+            // header('Location: ' . $_SERVER['REQUEST_URI']);
+            @include_once "./errors/invalidUser.php";
+        }
     }
 }
 
@@ -39,17 +48,21 @@ if (isset($_POST['insertPerson'])) {
     $phone = $_POST['phone'];
     $password = $_POST['password'];
     $address = $_POST['address'];
-    $person = new Person($username, $name, $email, $phone, $password, $address);
-    $result = insertPerson($person);
+    if (strlen($username) == 0 || strlen($name) == 0 || strlen($mail) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
+        @include_once "./errors/blankEntry.php";
+    } else {
+        $person = new Person($username, $name, $email, $phone, $password, $address);
+        $result = insertVendor($person);
 
-    if ($result == 1) {
-        @include_once "./errors/success.php";
-    }
-    if ($result == -1) {
-        @include_once "./errors/databaseError.php";
-    }
-    if ($result == 0) {
-        @include_once "./errors/wrong.php";
+        if ($result == 1) {
+            @include_once "./errors/success.php";
+        }
+        if ($result == -1) {
+            @include_once "./errors/exist.php";
+        }
+        if ($result == 0) {
+            @include_once "./errors/wrong.php";
+        }
     }
 }
 
@@ -67,17 +80,21 @@ if (isset($_POST['updatePerson'])) {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     $address = $_POST['address'];
-    $person = new Person($username, $name, $email, $phone, $password, $address);
-    $result = updatePerson($person);
-    if ($result == 1) {
-        $_SESSION['name'] = $_POST['name'];
-        $_SESSION['email'] = $email = $_POST['email'];
-        $_SESSION['phone'] = $_POST['phone'];
-        $_SESSION['address'] = $_POST['address'];
-        @include_once "./errors/success.php";
-    }
-    if ($result == 0) {
-        @include_once "./errors/wrong.php";
+    if (strlen($name) == 0 || strlen($email) == 0 || strlen($address) == 0 || strlen($phone) == 0) {
+        @include_once "./errors/blankEntry.php";
+    } else {
+        $person = new Person($username, $name, $email, $phone, $password, $address);
+        $result = updatePerson($person);
+        if ($result == 1) {
+            $_SESSION['name'] = $_POST['name'];
+            $_SESSION['email'] = $email = $_POST['email'];
+            $_SESSION['phone'] = $_POST['phone'];
+            $_SESSION['address'] = $_POST['address'];
+            @include_once "./errors/success.php";
+        }
+        if ($result == 0) {
+            @include_once "./errors/wrong.php";
+        }
     }
 }
 // for update password====================================================>
@@ -89,18 +106,22 @@ if (isset($_POST['updatePassword'])) {
     $currentPassword = $_POST['currentPassword'];
     $newPassword = $_POST['newPassword'];
     $confNewPassword = $_POST['confNewPassword'];
-    if ($_SESSION['password'] != $currentPassword) {
-        @include_once "./errors/password.php";
-    }
-    if ($newPassword != $confNewPassword) {
-        @include_once "./errors/password.php";
+    if (strlen($currentPassword) == 0 || strlen($newPassword) == 0 || strlen($confNewPassword) == 0) {
+        @include_once "./errors/blankEntry.php";
     } else {
-        $result = updatePassword($username, $newPassword);
-        if ($result == 1) {
-            @include_once "./errors/success.php";
+        if ($_SESSION['password'] != $currentPassword) {
+            @include_once "./errors/password.php";
         }
-        if ($result == 0) {
-            @include_once "./errors/wrong.php";
+        if ($newPassword != $confNewPassword) {
+            @include_once "./errors/password.php";
+        } else {
+            $result = updatePassword($username, $newPassword);
+            if ($result == 1) {
+                @include_once "./errors/success.php";
+            }
+            if ($result == 0) {
+                @include_once "./errors/wrong.php";
+            }
         }
     }
 }
@@ -137,9 +158,24 @@ if (isset($_POST['updatePassword'])) {
                         <ul>
                             <li><a href="register.php"><span class="icon icon-multi-user"></span>Become a Vendor</a>
                             </li>
-                            <li class="registration"><a href="javascript:;" data-toggle="modal" data-target="#registrationModal">Registration</a></li>
-                            <li><a href="javascript:;" data-toggle="modal" data-target="#loginModal">Login</a></li>
-                            <li><a href="javascript:;" data-toggle="modal" data-target="#logoutModal">Logout</a></li>
+                            <li class="sub-links">
+                                <a href="javascript:;"><?php echo $_SESSION['name'] ?><span class="icon icon-arrow-down"></span></a>
+                                <ul class="sub-nav" style="right:-40px">
+                                    <li><a href="account_profile.php">Profile</a></li>
+                                    <li><a href="account_booking.php">Booking</a></li>
+                                    <?php
+                                    if ($_SESSION['name'] == "") {
+                                        echo '<li>';
+                                        echo '    <a href="javascript:;" data-toggle="modal" data-target="#loginModal">Login</a>';
+                                        echo '</li>';
+                                    } else {
+                                        echo '<li>';
+                                        echo '    <a href="javascript:;" data-toggle="modal" data-target="#logoutModal">Logout</a>';
+                                        echo '</li>';
+                                    }
+                                    ?>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
