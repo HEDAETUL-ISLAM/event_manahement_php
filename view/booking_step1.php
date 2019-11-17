@@ -370,11 +370,10 @@ if (isset($_GET["action"])) {
                                     <td>
                                         <label>Transport Cost</label>
                                         <p>$<?php echo " " . $values["itemTransportCost"]; ?></p>
-
                                     </td>
                                     <td>
                                         <label>Total Cost</label>
-                                        <p>$ <?php echo " " . $x = number_format($values["itemPrice"] + $values["itemTransportCost"], 2); ?></p>
+                                        <p>$ <?php echo $x = number_format($values["itemPrice"] + $values["itemTransportCost"], 2); ?></p>
                                     </td>
                                     <td class="Theading">
                                         <a href="booking_step1.php?action=delete&id=<?php echo $values["itemId"]; ?>">
@@ -385,7 +384,7 @@ if (isset($_GET["action"])) {
                                 </tr>
                             <?php
 
-                                    $total = $total + $x;
+                                    $total = $total + $values["itemPrice"] + $values["itemTransportCost"];
                                 }
                                 ?>
 
@@ -397,17 +396,17 @@ if (isset($_GET["action"])) {
                         if (!empty($_SESSION["shoppingCart"])) {
                             echo '<table class="bookinTotal">';
                             echo '<tr>';
-                                echo '<td class="subTotal">Subtotal</td>';
-                                echo "<td class=amount subTotal style=padding-right: 9%;> $".  $total ."</td>";
+                            echo '<td class="subTotal">Subtotal</td>';
+                            echo "<td class=amount subTotal style=padding-right: 9%;> $" .  $total . "</td>";
                             echo '</tr>';
                             echo '<tr>';
                             echo '<td>Min. Booking Amount to pay</td>';
-                                echo "<td class=amount style=padding-right: 9%;>$  ".$total / 2 ."</td>";
-                                echo '</tr>';
-                        echo '</table>';
+                            echo "<td class=amount style=padding-right: 9%;>$  " . $total / 2 . "</td>";
+                            echo '</tr>';
+                            echo '</table>';
                         }
                         ?>
-                        
+
                         <?php
                         if (!empty($_SESSION["shoppingCart"])) {
                             echo '<div class="check-slide">';

@@ -37,8 +37,8 @@ if ($result->num_rows > 0) {
         $rating = $row["rating"] * 20;
         echo '<div class="venues-slide first">';
         echo '<form method="post"  >';
-        echo '<div class="img">';
-        echo "<img src=" . $row["image"] . ">";
+        echo '<div class="img" >';
+        echo "<img src=" . $row["image"] . "style=max-height:260px>";
         echo '</div>';
         echo '<div class="text">';
         echo     "<h3>" . $row["package_name"] . "</h3>";
@@ -69,7 +69,7 @@ if ($result->num_rows > 0) {
         echo "         <input type=hidden name=hiddenVendor value=" . $row["vendor_username"] . " >";
         echo '    </div>';
         echo '    <div class="button">';
-        echo '        <input type="submit" class="btn" name="bookPackage" value="Book Now" />';
+        echo '        <input type="submit" class="btn" name="bookPackage" value="Book Now" onclick=>';
         echo '    </div>';
         echo '</div>';
         echo '</form>';

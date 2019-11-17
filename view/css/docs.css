@@ -5097,8 +5097,8 @@ ul.customList li:before {
 
 .bookin-info .bookinTotal td.amount {
    color: #000;
-   width: 355px;
-   padding-right: 24px;
+   width: 380px;
+   padding-right: 100px;
    text-align: right;
 }
 

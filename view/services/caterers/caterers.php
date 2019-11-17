@@ -105,7 +105,7 @@ if (isset($_POST['logoutPerson'])) {
                     <div class="mail"><a href="MailTo:eventorganizer@gmail.com"><span class="icon icon-envelope"></span>eventorganizer@gmail.com</a></div>
                     <div class="right-link">
                         <ul>
-                            <li><a href="register.php"><span class="icon icon-multi-user"></span>Become a Vendor</a>
+                            <li><a href="../../register.php"><span class="icon icon-multi-user"></span>Become a Vendor</a>
                             </li>
                             <?php
                             if ($_SESSION['name'] == "") {

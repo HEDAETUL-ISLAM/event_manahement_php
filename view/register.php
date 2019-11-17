@@ -70,7 +70,7 @@ if (isset($_POST['logoutPerson'])) {
         $password = "";
         $address = "";
         // for login=============================================================>
-        if (isset($_POST['login'])) {
+        if (isset($_POST['vendorLogin'])) {
             $username = $_POST['username'];
             $password = $_POST['password'];
             if (strlen($username) == 0 || strlen($password) == 0) {
@@ -87,7 +87,7 @@ if (isset($_POST['logoutPerson'])) {
                         $_SESSION['phone'] = $result->phone;
                         $_SESSION['password'] = $result->password;
                         $_SESSION['address'] = $result->address;
-                        @include_once "./errors/success.php";
+                        header('Location: ./vendor/dashboard.php');
                     }
                     if ($result === null) {
                         @include_once "./errors/wrong.php";
