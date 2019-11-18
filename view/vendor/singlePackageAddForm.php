@@ -150,7 +150,7 @@ if (isset($_POST['logoutPerson'])) {
                     @include_once "../errors/blankEntry.php";
                 } else {
 
-                    $targetDir = "singlePackagePicture/";
+                    $targetDir = "../packageImage/singlePackagePicture/";
                     $fileName =  basename($_FILES["imageUpload"]["name"]);
                     $fileName =  $fileName;
                     $targetFilePath = $targetDir . $fileName;

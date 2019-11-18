@@ -6,10 +6,10 @@ $result = getAllCaterers();
 if (isset($_POST["bookPackage"])) {
     if (isset($_SESSION["shoppingCart"])) {
         $item_array_id = array_column($_SESSION["shoppingCart"], "itemId");
-        if (!in_array($_POST["id"], $item_array_id)) {
+        if (!in_array($_POST["hiddenPackageId"], $item_array_id)) {
             $count = count($_SESSION["shoppingCart"]) + 1;
             $item_array = array(
-                'itemId' => $_POST["id"],
+                'itemId' => $_POST["hiddenPackageId"],
                 'itemName' => $_POST["hiddenPackageName"],
                 'itemPrice' =>  $_POST["hiddenPrice"],
                 'itemTransportCost' => $_POST["hiddenTransportCost"],
@@ -21,7 +21,7 @@ if (isset($_POST["bookPackage"])) {
         }
     } else {
         $item_array = array(
-            'itemId' => $_POST["id"],
+            'itemId' => $_POST["hiddenPackageId"],
             'itemName' => $_POST["hiddenPackageName"],
             'itemPrice' => $_POST["hiddenPrice"],
             'itemTransportCost' => $_POST["hiddenTransportCost"],
@@ -48,8 +48,8 @@ if (isset($_POST["bookPackage"])) {
                     </div>
                     <div class="text">
                         <h3><?php echo $row["package_name"]; ?></h3>
-                        <input type="text" name="hiddenPackageName" value="<?php echo $row["package_name"]; ?>" />
-                        <input type=hidden name=hiddenPackageId value=<?php echo $row["id"]  ?>>
+                        <input type="hidden" name="hiddenPackageName" value="<?php echo $row["package_name"]; ?>" />
+                        <input type="hidden" name=hiddenPackageId value=<?php echo $row["id"]  ?>>
                         <div class=reviews> <?php echo $row["rating"]; ?>
                             <div class=star>
                                 <div class=fill style="width: <?php echo   $rating; ?>%"></div>

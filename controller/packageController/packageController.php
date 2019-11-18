@@ -31,7 +31,7 @@ function insertSinglePackage(SinglePackage $singlePackage)
     }
 
     $query = "INSERT into single_package (category, package_type, package_name,vendor_username,price, transport_cost, available_status, image, rating ) 
-    VALUES ('" . $singlePackage->getCategory() . "' , '" . $singlePackage->getPackageType() . "', '" . $singlePackage->getPackageName() . "','" . $singlePackage->getVendorName() . "','" . $singlePackage->getPrice() . "','" . $singlePackage->getTransportCost() . "','" . $singlePackage->getAvailableStatus() . "','" . "./singlePackagePicture/" . $singlePackage->getImage() . "','') ";
+    VALUES ('" . $singlePackage->getCategory() . "' , '" . $singlePackage->getPackageType() . "', '" . $singlePackage->getPackageName() . "','" . $singlePackage->getVendorName() . "','" . $singlePackage->getPrice() . "','" . $singlePackage->getTransportCost() . "','" . $singlePackage->getAvailableStatus() . "','" . "../../packageImage/singlePackagePicture/" . $singlePackage->getImage() . "','') ";
     if (mysqli_query($connection, $query)) {
         return 1;
     } else {

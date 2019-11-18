@@ -1,5 +1,5 @@
 <?php
-@include_once "../../../controller/serviceController/CaterersController.php";
+@include_once "../../controller/serviceController/CaterersController.php";
 
 $result = getAllBundlePackage();
 if ($result->num_rows > 0) {
@@ -7,7 +7,7 @@ if ($result->num_rows > 0) {
         $rating = $row["rating"] * 20;
         echo '<div class="venues-slide first">';
         echo '<div class="img" >';
-        echo "<img src=" . $row["image"] . " style=max-height:260px>";
+        echo "<img src=" . substr($row["image"],3) . " style=max-height:260px>";
         echo '</div>';
         echo '<div class="text">';
         echo     "<h3>" . $row["package_name"] . "</h3>";
