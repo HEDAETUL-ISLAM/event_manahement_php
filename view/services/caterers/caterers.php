@@ -148,13 +148,13 @@ if (isset($_POST['logoutPerson'])) {
                                         <li>
                                             <a href="#">Single Package <span class="icon icon-arrow-right"></span></a>
                                             <ul>
-                                                <li><a href="../../services.php">Caterers</a></li>
+                                                <li><a href="../../services/caterers/caterers.php">Caterers</a></li>
                                             </ul>
                                         </li>
                                         <li>
                                             <a href="#">Bundle Package <span class="icon icon-arrow-right"></span></a>
                                             <ul>
-                                                <li><a href="../../services.php">Caterers</a></li>
+                                                <li><a href="../../#">Caterers</a></li>
                                             </ul>
                                         </li>
                                     </ul>

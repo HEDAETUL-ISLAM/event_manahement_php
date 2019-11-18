@@ -1,7 +1,7 @@
 <?php
 include_once "../../../controller/serviceController/CaterersController.php";
 
-$result = getCaterersByLowPrice();
+$result = getAllCaterers();
 // for Table row==========================================================
 if (isset($_POST["bookPackage"])) {
     if (isset($_SESSION["shoppingCart"])) {
@@ -48,7 +48,8 @@ if (isset($_POST["bookPackage"])) {
                     </div>
                     <div class="text">
                         <h3><?php echo $row["package_name"]; ?></h3>
-                        <input type="hidden" name="hiddenPackageName" value="<?php echo $row["package_name"]; ?>" />
+                        <input type="text" name="hiddenPackageName" value="<?php echo $row["package_name"]; ?>" />
+                        <input type=hidden name=hiddenPackageId value=<?php echo $row["id"]  ?>>
                         <div class=reviews> <?php echo $row["rating"]; ?>
                             <div class=star>
                                 <div class=fill style="width: <?php echo   $rating; ?>%"></div>
