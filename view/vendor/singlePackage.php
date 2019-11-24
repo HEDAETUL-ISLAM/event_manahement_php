@@ -8,7 +8,7 @@ if ($result->num_rows > 0) {
         $rating = $row["rating"] * 20;
         echo '<div class="venues-slide first">';
         echo '<div class="img" >';
-        echo "<img src=" . substr($row["image"],3) . " style=max-height:260px>";
+        echo "<img src=" . substr($row["image"], 3) . " style=max-height:260px>";
         echo '</div>';
         echo '<div class="text">';
         echo     "<h3>" . $row["package_name"] . "</h3>";
@@ -33,5 +33,5 @@ if ($result->num_rows > 0) {
         echo '</div>';
     }
 } else {
-    echo "Empty";
+    include_once "../errors/spinner.php";
 }

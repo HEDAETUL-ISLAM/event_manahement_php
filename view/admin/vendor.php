@@ -1,17 +1,22 @@
 <?php
 session_start();
-@include_once "../../model/Login.php";
-@include_once "../../model/Person.php";
-@include_once "../../model/SinglePackage.php";
+@require_once "../../model/Login.php";
+@require_once "../../model/Person.php";
 @include_once "../../controller/PersonController.php";
-@include_once "../../controller/packageController/packageController.php";
+$username = "";
+$name = "";
+$email = "";
+$phone = "";
+$password = "";
+$address = "";
 
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
-    header("Location: ../register.php");
+    @include_once "../errors/success.php";
 }
 
+// include "../register.php";
 ?>
 
 
@@ -23,11 +28,8 @@ if (isset($_POST['logoutPerson'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Event Organizer</title>
 
-
     <link rel="../shortcut icon" href="../images/Favicon.ico">
-    <link href="../css/imageUpload.css" rel="stylesheet">
     <link href="../css/bootstrap.css" rel="stylesheet">
-    <link href="../css/formStyle.css" rel="stylesheet">
     <link href="../css/owl.carousel.css" rel="stylesheet">
     <link href="../css/styles.css" rel="stylesheet" />
     <link href="../css/datepicker.css" rel="stylesheet" />
@@ -36,9 +38,67 @@ if (isset($_POST['logoutPerson'])) {
     <link href="../css/jquery.selectbox.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Domine:400,700%7COpen+Sans:300,300i,400,400i,600,600i,700,700i%7CRoboto:400,500" rel="stylesheet">
 
+    <script>
+        function searchByName() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("nameInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function searchByLocation() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("locationInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[3];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function searchByDate() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("dateInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[4];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
-<body class="registerPage">
+<body class="inner-page">
     <div class="page">
         <header id="header">
             <div class="quck-link">
@@ -46,6 +106,8 @@ if (isset($_POST['logoutPerson'])) {
                     <div class="mail"><a href="MailTo:eventorganizer@gmail.com"><span class="icon icon-envelope"></span>eventorganizer@gmail.com</a></div>
                     <div class="right-link">
                         <ul>
+                            <li class="sub-links">
+                                <a href="../index.php"><span class="icon icon-envelope"></span>Go to Homepage</a>
                             </li>
                             <li class="sub-links">
                                 <a href="javascript:;"><?php echo $_SESSION['name'] ?><span class="icon icon-arrow-down"></span></a>
@@ -86,14 +148,21 @@ if (isset($_POST['logoutPerson'])) {
                                     <a href="dashboard.php">Home </a>
                                 </li>
                                 <li class="single-col active">
-                                    <a href="#">Add Packages <span class="icon icon-arrow-down"></span></a>
+                                    <a href="vendor.php">Vendor </a>
+                                </li>
+                                <li class="single-col ">
+                                    <a href="customer.php">Customer </a>
+                                </li>
+                                <li class="single-col ">
+                                    <a href="#">Show Packages <span class="icon icon-arrow-down"></span></a>
                                     <ul>
                                         <li> <a href="singlePackageAddForm.php">Single Package </span></a> </li>
                                         <li> <a href="#">Bundle Package </span></a> </li>
                                     </ul>
                                 </li>
                                 <li class="single-col ">
-                                    <a href="vendor_account_profile.php">My Account </a>
+                                    <a href="vendor_account_profile.php">My Account </span></a>
+
                                 </li>
                             </ul>
                         </div>
@@ -101,7 +170,6 @@ if (isset($_POST['logoutPerson'])) {
                 </div>
             </nav>
         </header>
-
 
         <!-- logout -->
         <div class="modal modal-vcenter fade" id="logoutModal" role="dialog">
@@ -123,120 +191,95 @@ if (isset($_POST['logoutPerson'])) {
             </div>
         </div>
 
-        <div class="dashboard-banner">
-            <div class="container">
-                <h2>Add your Package </h2>
-            </div>
-        </div>
-
-        <?php
-        // <======================================================fro single package add================================================>
-        if (isset($_POST["insertSinglePackage"])) {
-
-            $category = $_POST['category'];
-            $packageType = "single";
-            $packageName = $_POST['packageName'];
-            $vendorName = $_SESSION['name'];
-            $price = $_POST['price'];
-            $transportCost = $_POST['transportCost'];
-            $availableStatus = $_POST['availableStatus'];
-            $rating = "";
-
-            if (strlen($vendorName) == 0) {
-                @include_once "../errors/loginError.php";
-            } else {
-                if (strlen($category) == 0 || strlen($packageName) == 0  || strlen((string) $price) == 0 || strlen((string) $transportCost) == 0 || strlen($availableStatus) == 0) {
-                    @include_once "../errors/blankEntry.php";
-                } else {
-
-                    $targetDir = "../packageImage/singlePackagePicture/";
-                    $fileName =  basename($_FILES["imageUpload"]["name"]);
-                    $fileName =  $fileName;
-                    $targetFilePath = $targetDir . $fileName;
-                    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-                    $allowTypes = array("jpg", "png", "jpeg", "gif");
-                    if (in_array($fileType, $allowTypes)) {
-                        if (move_uploaded_file($_FILES["imageUpload"]["tmp_name"], $targetFilePath)) {
-                            $singlePackage = new SinglePackage($category, $packageType, $packageName, $vendorName, $price, $transportCost, $availableStatus, $fileName, $rating);
-                            $insert = insertSinglePackage($singlePackage);
-                            if ($insert == 1) {
-                                @include_once "../errors/productAddSuccess.php";
-                            } else {
-                                @include_once "../errors/fileUploadError.php";
-                            }
-                        } else {
-                            @include_once "../errors/fileUploadError.php";
-                        }
-                    } else {
-                        @include_once "../errors/fileUploadError.php";
-                    }
-                }
-            }
-        }
-
-        ?>
-        <!-- add form -->
-        <div class="register-banner">
-            <div class="inner-banner">
-                <div class="register-form" style="padding: 0px 10% 0px 10%;">
-                    <div class="inner-form">
-                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" style="width: 100%;" enctype="multipart/form-data">
-                            <div class="form-filde" style="border-radius: 10px 10px 10px 10px;padding: 20px 45px 25px 25px;">
-                                <div class="select-row">
-                                    <select name="category" id="country_select" tabindex="1">
-                                        <option value="">Select Category</option>
-                                        <option value="Caterers">Caterers</option>
-                                        <option value="Decor&Flower">Decor & Flower</option>
-                                        <option value="Makeup&Hair">Make-up & Hair</option>
-                                        <option value="WeedingCard">Weeding Card</option>
-                                        <option value="Mehedi">Mehedi</option>
-                                        <option value="Cake">Cake</option>
-                                        <option value="Dj">DJ</option>
-                                        <option value="Photographer">Photographers</option>
-                                        <option value="Entertainment">Entertainment</option>
-                                    </select>
-                                </div>
-                                <div class="input-slide">
-                                    <input type="text" placeholder="Package Name" name="packageName">
-                                </div>
-                                <div class="input-slide">
-                                    <input type="number" placeholder="Price" name="price">
-                                </div>
-                                <div class="input-slide">
-                                    <input type="number" placeholder="Transport Cost" name="transportCost">
-                                </div>
-                                <div class="select-row">
-                                    <select name="availableStatus" id="month_select" tabindex="1">
-                                        <option value="">Choose availability</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
-                                    </select>
-                                </div>
-                                <div class="file-upload">
-                                    <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
-
-                                    <div class="image-upload-wrap">
-                                        <input class="file-upload-input" type="file" onchange="readURL(this);" accept="image/*" name="imageUpload" />
-                                        <div class="drag-text">
-                                            <h3>Drag and drop a file or select add Image</h3>
-                                        </div>
-                                    </div>
-                                    <div class="file-upload-content">
-                                        <img class="file-upload-image" src="#" alt="your image" />
-                                        <div class="image-title-wrap">
-                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <br /> <span class="image-title"></span></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="submit-slide">
-                                    <input type="submit" value="Submit" class="btn" name="insertSinglePackage" style="width: 100px;    margin-left: 10px; margin-top: 15px; ">
-                                </div>
+        <div class="searchFilter-main">
+            <section class="searchFormTop">
+                <div class="container">
+                    <div class="searchCenter">
+                        <div class="refineCenter">
+                            <span class="icon icon-filter"></span>
+                            <span>Refine Customer</span>
+                        </div>
+                        <div class="searchFilter" style="width: 100%;">
+                            <div class="input-box" style="width: 33.3%;">
+                                <div class="icon icon-grid-view"></div>
+                                <input type="text" id="nameInput" onkeyup="searchByName()" placeholder="Search for name" title="Type a name">
                             </div>
-                        </form>
+                            <div class="input-box searchlocation" style="width: 33.3%;">
+                                <div class="icon icon-location-1"></div>
+                                <input type="text" id="locationInput" onkeyup="searchByLocation()" placeholder="Search for Location" title="Type a location">
+                            </div>
+                            <div class="input-box date" style="width: 33.3%;">
+                                <div class="icon icon-calander-month"></div>
+                                <input type="text" id="dateInput" onkeyup="searchByDate()" placeholder="Search for Date" title="Type a date">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
+            <section class="content">
+                <div class="container">
+                    <div class="venues-view">
+                        <div class="row">
+
+                            <!-- <div class="right-side" id="changeOrder">
+
+                                </div> -->
+                            <div class="content">
+                                <div class="container">
+                                    <div class="bookin-info">
+                                        <table class="bookin-table" id="myTable">
+                                            <tr>
+                                                <td class="first Theading">Name</td>
+                                                <td class="Theading">Email</td>
+                                                <td class="Theading">Phone</td>
+                                                <td class="Theading">Address</td>
+                                                <td class="Theading last">Registration Date</td>
+                                            </tr>
+
+                                            <?php
+                                            $result = getAllVendor();
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "<tr>";
+                                                    echo '    <td class="first">';
+                                                    echo '        <label>Name</label>';
+                                                    echo         "<p>" .  $row["name"] . "</p>";
+                                                    echo '    </td>';
+                                                    echo '    <td>';
+                                                    echo '        <label>Email</label>';
+                                                    echo         "<p>" . $row["email"] . "</p>";
+                                                    echo '    </td>';
+                                                    echo '    <td>';
+                                                    echo '        <label>Phone</label>';
+                                                    echo         "<p>" . $row["phone"] . "</p>";
+                                                    echo '    </td>';
+                                                    echo '    <td>';
+                                                    echo '        <label>Address</label>';
+                                                    echo         "<p>" . $row["address"] . "</p>";
+                                                    echo '    </td>';
+                                                    echo '    <td class="last">';
+                                                    echo '        <label>Registration date</label>';
+                                                    echo         "<p>" . $row["registration_date"] . "</p>";
+                                                    echo '    </td>';
+                                                    echo '</tr> ';
+                                                }
+                                            } else {
+                                                @include_once "../errors/spinner.php";
+                                            }
+                                            ?>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
+
+
+
+
         <footer id="footer">
             <div class="footer-top">
                 <div class="container">
@@ -310,7 +353,6 @@ if (isset($_POST['logoutPerson'])) {
     <script type="text/javascript" src="../js/jquery.selectbox-0.2.js"></script>
     <script type="text/javascript" src="../js/coustem.js"></script>
     <script type="text/javascript" src="../js/placeholder.js"></script>
-    <script type="text/javascript" src="../js/imageUpload.js"></script>
 </body>
 
 </html>

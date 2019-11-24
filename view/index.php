@@ -3,12 +3,7 @@ session_start();
 @require_once "../model/Login.php";
 @require_once "../model/Person.php";
 @require_once "../controller/PersonController.php";
-$username = "";
-$name = "";
-$email = "";
-$phone = "";
-$password = "";
-$address = "";
+
 
 // for login=============================================================>
 if (isset($_POST['login'])) {
@@ -30,6 +25,22 @@ if (isset($_POST['login'])) {
                 $_SESSION['address'] = $result->address;
                 @include_once "./errors/success.php";
             }
+
+            if ($result === null) {
+                @include_once "./errors/wrong.php";
+            }
+        }
+        if ($result->status == 0) {
+            if ($result !== null) {
+                $_SESSION['username'] = $result->user_name;
+                $_SESSION['name'] = $result->name;
+                $_SESSION['email'] = $result->email;
+                $_SESSION['phone'] = $result->phone;
+                $_SESSION['password'] = $result->password;
+                $_SESSION['address'] = $result->address;
+                header('Location: ./admin/dashboard.php');
+            }
+
             if ($result === null) {
                 @include_once "./errors/wrong.php";
             }
@@ -48,11 +59,11 @@ if (isset($_POST['insertPerson'])) {
     $phone = $_POST['phone'];
     $password = $_POST['password'];
     $address = $_POST['address'];
-    if (strlen($username) == 0 || strlen($name) == 0 || strlen($mail) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
+    if (strlen($username) == 0 || strlen($name) == 0 || strlen($email) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
         @include_once "./errors/blankEntry.php";
     } else {
         $person = new Person($username, $name, $email, $phone, $password, $address);
-        $result = insertVendor($person);
+        $result = insertPerson($person);
 
         if ($result == 1) {
             @include_once "./errors/success.php";
@@ -70,6 +81,7 @@ if (isset($_POST['insertPerson'])) {
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
     @include_once "./errors/success.php";
+    header('Location: ./index.php');
 }
 
 ?>
@@ -185,8 +197,6 @@ if (isset($_POST['logoutPerson'])) {
                                     <a href="">Booking <span class="icon icon-arrow-down"></span></a>
                                     <ul>
                                         <li><a href="booking_step1.php">Booking Step1</a></li>
-                                        <li><a href="booking_step2.php">Booking Step2</a></li>
-                                        <li><a href="booking_step3.php">Booking Step3</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="aboutUs.php">About Us</a></li>

@@ -48,11 +48,11 @@ if (isset($_POST['insertPerson'])) {
     $phone = $_POST['phone'];
     $password = $_POST['password'];
     $address = $_POST['address'];
-    if (strlen($username) == 0 || strlen($name) == 0 || strlen($mail) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
+    if (strlen($username) == 0 || strlen($name) == 0 || strlen($email) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
         @include_once "./errors/blankEntry.php";
     } else {
         $person = new Person($username, $name, $email, $phone, $password, $address);
-        $result = insertVendor($person);
+        $result = insertPerson($person);
 
         if ($result == 1) {
             @include_once "./errors/success.php";
@@ -70,6 +70,34 @@ if (isset($_POST['insertPerson'])) {
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
     @include_once "./errors/success.php";
+    header('Location: ./booking_step3.php');
+}
+
+// for Table row==========================================================
+$count = 0;
+if (isset($_POST["bookPackage"])) {
+    if (isset($_SESSION["shoppingCart"])) {
+        $item_array_id = array_column($_SESSION["shoppingCart"], "itemId");
+        if (!in_array($_GET["id"], $item_array_id)) {
+            $count = $count + 1;
+            $_SESSION["shoppingCart"][$count];
+        }
+    } else {
+        $_SESSION["shoppingCart"][$count];
+    }
+}
+
+//  for remove
+if (isset($_GET["action"])) {
+    if ($_GET["action"] == "delete") {
+        foreach ($_SESSION["shoppingCart"] as $keys => $values) {
+            if ($values["itemId"] == $_GET["id"]) {
+                unset($_SESSION["shoppingCart"][$keys]);
+                echo '<script>confirm("Item Removed")</script>';
+                echo '<script>window.location="booking_step1.php"</script>';
+            }
+        }
+    }
 }
 
 ?>
@@ -307,7 +335,7 @@ if (isset($_POST['logoutPerson'])) {
                 <div class="bookin-info">
                     <div class="bookin-infoRow">
                         <div class="bookin-id">Booking ID : <span> 1196760272</span></div>
-                        <div class="date">31 Aug ‘ 15 4:20 pm</div>
+                        <div class="date"><?php echo date("Y/m/d") ?> </div>
                     </div>
                     <div class="thanks-msg">
                         <div class="icon icon-right-sign"></div>
@@ -318,140 +346,130 @@ if (isset($_POST['logoutPerson'])) {
                     </div>
                     <table class="bookin-table">
                         <tr>
-                            <th colspan="6" class="table-heading">Leipzig Marriott Hotel <a href="booking_step3.php#" class="icon icon-delete"></a></th>
+                            <td class="first Theading" style="width:200px"> Your Address</td>
+                            <td class="Theading">Package Name</td>
+                            <td class="Theading">Vendor Name</td>
+                            <td class="Theading">Price</td>
+                            <td class="Theading">Transport Cost</td>
+                            <td class="Theading ">Total Cost</td>
                         </tr>
-                        <tr>
-                            <td class="first Theading">Address</td>
-                            <td class="Theading">Booking Date</td>
-                            <td class="Theading">Meal Plans</td>
-                            <td class="Theading">Price Range</td>
-                            <td class="Theading">Max Guest</td>
-                            <td class="Theading last">Min. Booking Amount to Pay</td>
-                        </tr>
-                        <tr>
-                            <td class="first">
-                                <label>Address</label>
-                                <p>Am Hallischen Tor 1 Saxony Leipzig, 04109 - Germany</p>
-                            </td>
-                            <td>
-                                <label>Booking Date</label>
-                                <p>29<sup>th</sup> Nov 2015</p>
-                            </td>
-                            <td>
-                                <label>Meal Plans</label>
-                                <p>Breakfast</p>
-                            </td>
-                            <td>
-                                <label>Price Range</label>
-                                <p>$ 1000 <small>(Onwards)</small></p>
-                            </td>
-                            <td>
-                                <label>Max Guest</label>
-                                <p>500 <a href="booking_step3.php#" class="icon icon-edit"></a></p>
+                        <?php
+                        $count = 0;
+                        if (!empty($_SESSION["shoppingCart"])) {
+                            $total = 0;
+                            foreach ($_SESSION["shoppingCart"] as $keys => $values) {
+                                ?>
+                                <tr>
+                                    <td class="first" style="width:200px">
+                                        <label>Address</label>
+                                        <p><?php echo " " . $_SESSION['address'] ?></p>
+                                    </td>
+                                    <td>
+                                        <label>Package Name</label>
+                                        <p><?php echo " " . $values["itemName"]; ?></p>
+                                    </td>
+                                    <td>
+                                        <label>Vendor Name</label>
+                                        <p><?php echo " " . $values["itemVendor"]; ?></p>
+                                    </td>
+                                    <td>
+                                        <label>Price</label>
+                                        <p>$ <?php echo " " . $values["itemPrice"]; ?></p>
+                                    </td>
+                                    <td>
+                                        <label>Transport Cost</label>
+                                        <p>$<?php echo " " . $values["itemTransportCost"]; ?></p>
+                                    </td>
+                                    <td>
+                                        <label>Total Cost</label>
+                                        <p>$ <?php echo $x = number_format($values["itemPrice"] + $values["itemTransportCost"], 2); ?></p>
+                                    </td>
 
-                            </td>
-                            <td class="last">
-                                <label>Min. Booking Amount to Pay</label>
-                                <p>$ 5,000 (Onwards)</p>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="bookin-table">
-                        <tr>
-                            <th colspan="6" class="table-heading">Hotel AMANO Grand Central <a href="booking_step3.php#" class="icon icon-delete"></a></th>
-                        </tr>
-                        <tr>
-                            <td class="first Theading">Address</td>
-                            <td class="Theading">Booking Date</td>
-                            <td class="Theading">Meal Plans</td>
-                            <td class="Theading">Price Range</td>
-                            <td class="Theading">Max Guest</td>
-                            <td class="Theading last">Min. Booking Amount to Pay</td>
-                        </tr>
-                        <tr>
-                            <td class="first">
-                                <label>Address</label>
-                                <p>Heidestrasse 62 Berlin, 10557 - Germany</p>
-                            </td>
-                            <td>
-                                <label>Booking Date</label>
-                                <p>29<sup>th</sup> Nov 2015</p>
-                            </td>
-                            <td>
-                                <label>Meal Plans</label>
-                                <p>Lunch</p>
-                            </td>
-                            <td>
-                                <label>Price Range</label>
-                                <p>$ 1200 <small>(Onwards)</small></p>
-                            </td>
-                            <td>
-                                <label>Max Guest</label>
-                                <p>300 <a href="booking_step3.php#" class="icon icon-edit"></a></p>
+                                </tr>
+                            <?php
 
-                            </td>
-                            <td class="last">
-                                <label>Min. Booking Amount to Pay</label>
-                                <p>$ 8,000 (Onwards)</p>
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="bookinTotal">
-                        <tr>
-                            <td class="subTotal">Subtotal</td>
-                            <td class="amount subTotal">$ 13,000</td>
-                        </tr>
-                        <tr>
-                            <td>Min. Booking Amount to pay</td>
-                            <td class="amount">$ 13,000</td>
-                        </tr>
-                    </table>
-                    <div class="bookinRow">
-                        <div class="input-box">
-                            <label>Your Name :</label>
-                            <input type="text" placeholder="User name">
-                        </div>
-                        <div class="input-box">
-                            <label>Email ID :</label>
-                            <input type="text" placeholder="User@yahoo.com">
-                        </div>
-                        <div class="input-box">
-                            <label>Phone :</label>
-                            <input type="text" placeholder="1234568970">
-                        </div>
-                        <a href="booking_step3.php#" class="btn">Cancel Booking</a>
-                    </div>
-                    <div class="note">
-                        <div class="inner-block">
-                            <div class="icon icon-info"></div>
-                            <label>Important Information</label>
-                            <p>Please carry any valid photo id proof at the venue</p>
-                        </div>
-                    </div>
-                    <div class="contact-info">Lorem Ipsum has been the industry's standard dummy text ever since the
-                        1500s, when an unknown printer took a galley of Contact <a href="mailTo:eventorganizer@gmail.com">eventorganizer@gmail.com</a></div>
-                    <div class="bottom-blcok">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="icon icon-assurance"></div>
-                                <span>100% Assurance</span>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummybook</p>
+                                    $total = $total + $values["itemPrice"] + $values["itemTransportCost"];
+                                }
+                                ?>
+
+
+                        <?php
+                        }
+                        ?>
+                        <?php
+                        if (!empty($_SESSION["shoppingCart"])) {
+                            echo '<table class="bookinTotal">';
+                            echo '<tr>';
+                            echo '<td class="subTotal">Subtotal</td>';
+                            echo "<td class=amount subTotal style=padding-right: 9%;> $" .  $total . "</td>";
+                            echo '</tr>';
+                            echo '<tr>';
+                            echo '<td>Min. Booking Amount to pay</td>';
+                            echo "<td class=amount style=padding-right: 9%;>$  " . $total / 2 . "</td>";
+                            echo '</tr>';
+                            echo '</table>';
+                            $_SESSION["total"] = $total;
+                        }
+                        ?>
+
+                        <?php
+                        if (!empty($_SESSION["shoppingCart"])) {
+                            echo '<div class="check-slide">';
+                            echo '<a href="privacy_policy.php" style="color: #f15b22;">Terms & Conditions</a>';
+                            echo '</div>';
+                        }
+                        ?>
+                        <div class="bookinRow">
+                            <div class="input-box">
+                                <label>Your Name : </label><?php echo " " . $_SESSION['name'] ?>
                             </div>
-                            <div class="col-sm-4">
-                                <div class="icon icon-trust"></div>
-                                <span>Trust</span>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummybook</p>
+                            <div class="input-box">
+                                <label>Email ID : </label><?php echo " " . $_SESSION['email'] ?>
                             </div>
-                            <div class="col-sm-4">
-                                <div class="icon icon-promise"></div>
-                                <span>Our Promise</span>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummybook</p>
+                            <div class="input-box">
+                                <label>Phone : </label><?php echo " " . $_SESSION['phone'] ?>
+                            </div>
+                            <?php
+                            if (!empty($_SESSION["shoppingCart"])) {
+                                if ($_SESSION['name'] == "") {
+                                    echo '    <a href="javascript:;" data-toggle="modal" data-target="#loginModal" class="btn">Book Now</a>';
+                                } else {
+                                    echo '<a href="booking_step2.php" class="btn">Book Now</a>';
+                                }
+                            }
+                            ?>
+                        </div>
+                        <div class="note">
+                            <div class="inner-block">
+                                <div class="icon icon-info"></div>
+                                <label>Important Information</label>
+                                <p>Please carry any valid photo id proof at the venue</p>
                             </div>
                         </div>
-                    </div>
+                        <div class="contact-info">Lorem Ipsum has been the industry's standard dummy text ever since the
+                            1500s, when an unknown printer took a galley of Contact <a href="mailTo:eventorganizer@gmail.com">eventorganizer@gmail.com</a></div>
+                        <div class="bottom-blcok">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="icon icon-assurance"></div>
+                                    <span>100% Assurance</span>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummybook</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="icon icon-trust"></div>
+                                    <span>Trust</span>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummybook</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="icon icon-promise"></div>
+                                    <span>Our Promise</span>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummybook</p>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>

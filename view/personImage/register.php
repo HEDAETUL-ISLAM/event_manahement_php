@@ -101,18 +101,45 @@ if (isset($_POST['logoutPerson'])) {
             }
         }
 
+        // for register vendor==========================================================>
         if (isset($_POST['insertVendor'])) {
+
             $username = $_POST['username'];
             $name = $_POST['name'];
             $email = $_POST['email'];
             $address = $_POST['address'];
             $phone = $_POST['phone'];
             $password = $_POST['password'];
-            if (strlen($username) == 0 || strlen($name) == 0 || strlen($mail) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
+
+            if (strlen($username) == 0 || strlen($name) == 0 || strlen($email) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
                 @include_once "./errors/blankEntry.php";
             } else {
-                $person = new Person($username, $name, $email, $phone, $password, $address);
-                $result = insertVendor($person);
+                $targetDir = "./personImage/";
+                $fileName =  basename($_FILES["imageUpload"]["name"]);
+                $fileName =  $fileName;
+                $targetFilePath = $targetDir . $fileName;
+                $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+                $allowTypes = array("jpg", "png", "jpeg", "gif");
+                if (in_array($fileType, $allowTypes)) {
+                    if (move_uploaded_file($_FILES["imageUpload"]["tmp_name"], $targetFilePath)) {
+                        $person = new Person($username, $name, $email, $phone, $password, $address, $fileName);
+                        $result = insertVendor($person);
+                        if ($insert == 1) {
+                            @include_once "./errors/productAddSuccess.php";
+                            echo "=======================   1";
+                        } else {
+                            @include_once "./errors/fileUploadError.php";
+                            echo "=======================   2";
+                        }
+                    } else {
+                        @include_once "./errors/fileUploadError.php";
+                        echo "=======================   3";
+                    }
+                } else {
+                    @include_once "./errors/fileUploadError.php";
+                    echo "=======================   4";
+                }
+
                 if ($result == 1) {
                     @include_once "./errors/success.php";
                 }
@@ -124,6 +151,7 @@ if (isset($_POST['logoutPerson'])) {
                 }
             }
         }
+
         ?>
         <div class="register-banner">
             <img src="images/banner-img/registration-banneBg.png" alt="" class="register-bannerImg">
@@ -158,6 +186,22 @@ if (isset($_POST['logoutPerson'])) {
                                 </div>
                                 <div class="input-slide">
                                     <input type="text" placeholder="Password" name="password" min="6" max="255" required>
+                                </div>
+                                <div class="file-upload">
+                                    <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+
+                                    <div class="image-upload-wrap">
+                                        <input class="file-upload-input" type="file" onchange="readURL(this);" accept="image/*" name="imageUpload" />
+                                        <div class="drag-text">
+                                            <h3>Drag and drop a file or select add Image</h3>
+                                        </div>
+                                    </div>
+                                    <div class="file-upload-content">
+                                        <img class="file-upload-image" src="#" alt="your image" />
+                                        <div class="image-title-wrap">
+                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <br /> <span class="image-title"></span></button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="submit-slide">
                                     <input type="submit" value="Submit" class="btn" name="insertVendor">

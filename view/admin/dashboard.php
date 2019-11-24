@@ -1,15 +1,19 @@
 <?php
 session_start();
-@include_once "../../model/Login.php";
-@include_once "../../model/Person.php";
-@include_once "../../model/SinglePackage.php";
-@include_once "../../controller/PersonController.php";
-@include_once "../../controller/packageController/packageController.php";
+@require_once "../../model/Login.php";
+@require_once "../../model/Person.php";
+@require_once "../../controller/PersonController.php";
+$username = "";
+$name = "";
+$email = "";
+$phone = "";
+$password = "";
+$address = "";
 
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
-    header("Location: ../register.php");
+    @include_once "../errors/success.php";
 }
 
 ?>
@@ -23,11 +27,9 @@ if (isset($_POST['logoutPerson'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Event Organizer</title>
 
-
     <link rel="../shortcut icon" href="../images/Favicon.ico">
-    <link href="../css/imageUpload.css" rel="stylesheet">
+    <!-- <link href="../css/bootstrap.min.css" rel="stylesheet" /> -->
     <link href="../css/bootstrap.css" rel="stylesheet">
-    <link href="../css/formStyle.css" rel="stylesheet">
     <link href="../css/owl.carousel.css" rel="stylesheet">
     <link href="../css/styles.css" rel="stylesheet" />
     <link href="../css/datepicker.css" rel="stylesheet" />
@@ -38,7 +40,7 @@ if (isset($_POST['logoutPerson'])) {
 
 </head>
 
-<body class="registerPage">
+<body class="inner-page">
     <div class="page">
         <header id="header">
             <div class="quck-link">
@@ -46,6 +48,8 @@ if (isset($_POST['logoutPerson'])) {
                     <div class="mail"><a href="MailTo:eventorganizer@gmail.com"><span class="icon icon-envelope"></span>eventorganizer@gmail.com</a></div>
                     <div class="right-link">
                         <ul>
+                            <li class="sub-links">
+                                <a href="../index.php"><span class="icon icon-envelope"></span>Go to Homepage</a>
                             </li>
                             <li class="sub-links">
                                 <a href="javascript:;"><?php echo $_SESSION['name'] ?><span class="icon icon-arrow-down"></span></a>
@@ -82,18 +86,25 @@ if (isset($_POST['logoutPerson'])) {
                         </div>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="single-col ">
+                                <li class="single-col active">
                                     <a href="dashboard.php">Home </a>
                                 </li>
-                                <li class="single-col active">
-                                    <a href="#">Add Packages <span class="icon icon-arrow-down"></span></a>
+                                <li class="single-col ">
+                                    <a href="vendor.php">Vendor </a>
+                                </li>
+                                <li class="single-col ">
+                                    <a href="customer.php">Customer </a>
+                                </li>
+                                <li class="single-col ">
+                                    <a href="#">Show Packages <span class="icon icon-arrow-down"></span></a>
                                     <ul>
                                         <li> <a href="singlePackageAddForm.php">Single Package </span></a> </li>
                                         <li> <a href="#">Bundle Package </span></a> </li>
                                     </ul>
                                 </li>
                                 <li class="single-col ">
-                                    <a href="vendor_account_profile.php">My Account </a>
+                                    <a href="vendor_account_profile.php">My Account </span></a>
+
                                 </li>
                             </ul>
                         </div>
@@ -101,7 +112,6 @@ if (isset($_POST['logoutPerson'])) {
                 </div>
             </nav>
         </header>
-
 
         <!-- logout -->
         <div class="modal modal-vcenter fade" id="logoutModal" role="dialog">
@@ -123,120 +133,82 @@ if (isset($_POST['logoutPerson'])) {
             </div>
         </div>
 
-        <div class="dashboard-banner">
+        <section class="content">
             <div class="container">
-                <h2>Add your Package </h2>
-            </div>
-        </div>
-
-        <?php
-        // <======================================================fro single package add================================================>
-        if (isset($_POST["insertSinglePackage"])) {
-
-            $category = $_POST['category'];
-            $packageType = "single";
-            $packageName = $_POST['packageName'];
-            $vendorName = $_SESSION['name'];
-            $price = $_POST['price'];
-            $transportCost = $_POST['transportCost'];
-            $availableStatus = $_POST['availableStatus'];
-            $rating = "";
-
-            if (strlen($vendorName) == 0) {
-                @include_once "../errors/loginError.php";
-            } else {
-                if (strlen($category) == 0 || strlen($packageName) == 0  || strlen((string) $price) == 0 || strlen((string) $transportCost) == 0 || strlen($availableStatus) == 0) {
-                    @include_once "../errors/blankEntry.php";
-                } else {
-
-                    $targetDir = "../packageImage/singlePackagePicture/";
-                    $fileName =  basename($_FILES["imageUpload"]["name"]);
-                    $fileName =  $fileName;
-                    $targetFilePath = $targetDir . $fileName;
-                    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-                    $allowTypes = array("jpg", "png", "jpeg", "gif");
-                    if (in_array($fileType, $allowTypes)) {
-                        if (move_uploaded_file($_FILES["imageUpload"]["tmp_name"], $targetFilePath)) {
-                            $singlePackage = new SinglePackage($category, $packageType, $packageName, $vendorName, $price, $transportCost, $availableStatus, $fileName, $rating);
-                            $insert = insertSinglePackage($singlePackage);
-                            if ($insert == 1) {
-                                @include_once "../errors/productAddSuccess.php";
-                            } else {
-                                @include_once "../errors/fileUploadError.php";
-                            }
-                        } else {
-                            @include_once "../errors/fileUploadError.php";
-                        }
-                    } else {
-                        @include_once "../errors/fileUploadError.php";
-                    }
-                }
-            }
-        }
-
-        ?>
-        <!-- add form -->
-        <div class="register-banner">
-            <div class="inner-banner">
-                <div class="register-form" style="padding: 0px 10% 0px 10%;">
-                    <div class="inner-form">
-                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" style="width: 100%;" enctype="multipart/form-data">
-                            <div class="form-filde" style="border-radius: 10px 10px 10px 10px;padding: 20px 45px 25px 25px;">
-                                <div class="select-row">
-                                    <select name="category" id="country_select" tabindex="1">
-                                        <option value="">Select Category</option>
-                                        <option value="Caterers">Caterers</option>
-                                        <option value="Decor&Flower">Decor & Flower</option>
-                                        <option value="Makeup&Hair">Make-up & Hair</option>
-                                        <option value="WeedingCard">Weeding Card</option>
-                                        <option value="Mehedi">Mehedi</option>
-                                        <option value="Cake">Cake</option>
-                                        <option value="Dj">DJ</option>
-                                        <option value="Photographer">Photographers</option>
-                                        <option value="Entertainment">Entertainment</option>
-                                    </select>
+                <div class="venues-view">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12">
+                            <div class="right-side">
+                                <div class="toolbar">
+                                    <div class="finde-count">Customer. </div>
                                 </div>
-                                <div class="input-slide">
-                                    <input type="text" placeholder="Package Name" name="packageName">
-                                </div>
-                                <div class="input-slide">
-                                    <input type="number" placeholder="Price" name="price">
-                                </div>
-                                <div class="input-slide">
-                                    <input type="number" placeholder="Transport Cost" name="transportCost">
-                                </div>
-                                <div class="select-row">
-                                    <select name="availableStatus" id="month_select" tabindex="1">
-                                        <option value="">Choose availability</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
-                                    </select>
-                                </div>
-                                <div class="file-upload">
-                                    <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+                                <div class="content">
+                                    <div class="container">
+                                        <div class="bookin-info">
+                                            <table id="myTable" class="bookin-table">
+                                                <thead>
+                                                    <tr>
+                                                        <td class="first Theading">Name</td>
+                                                        <td class="Theading">Email</td>
+                                                        <td class="Theading">Phone</td>
+                                                        <td class="Theading">Address</td>
+                                                        <td class="Theading last">Registration Date</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
 
-                                    <div class="image-upload-wrap">
-                                        <input class="file-upload-input" type="file" onchange="readURL(this);" accept="image/*" name="imageUpload" />
-                                        <div class="drag-text">
-                                            <h3>Drag and drop a file or select add Image</h3>
+                                                    <?php
+                                                    $result = getAllCustomer();
+                                                    if ($result->num_rows > 0) {
+                                                        while ($row = $result->fetch_assoc()) {
+                                                            echo "<tr>";
+                                                            echo '    <td class="first">';
+                                                            echo '        <label>Name</label>';
+                                                            echo         "<p>" .  $row["name"] . "</p>";
+                                                            echo '    </td>';
+                                                            echo '    <td>';
+                                                            echo '        <label>Email</label>';
+                                                            echo         "<p>" . $row["email"] . "</p>";
+                                                            echo '    </td>';
+                                                            echo '    <td>';
+                                                            echo '        <label>Phone</label>';
+                                                            echo         "<p>" . $row["phone"] . "</p>";
+                                                            echo '    </td>';
+                                                            echo '    <td>';
+                                                            echo '        <label>Address</label>';
+                                                            echo         "<p>" . $row["address"] . "</p>";
+                                                            echo '    </td>';
+                                                            echo '    <td class="last">';
+                                                            echo '        <label>Registration date</label>';
+                                                            echo         "<p>" . $row["registration_date"] . "</p>";
+                                                            echo '    </td>';
+                                                            echo '</tr> ';
+                                                        }
+                                                    } else {
+                                                        @include_once "../errors/spinner.php";
+                                                    }
+                                                    ?>
+                                                </tbody>
+                                            </table>
+                                            <div>
+                                                <nav>
+                                                    <ul class="pagination"> </ul>
+                                                </nav>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="file-upload-content">
-                                        <img class="file-upload-image" src="#" alt="your image" />
-                                        <div class="image-title-wrap">
-                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <br /> <span class="image-title"></span></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="submit-slide">
-                                    <input type="submit" value="Submit" class="btn" name="insertSinglePackage" style="width: 100px;    margin-left: 10px; margin-top: 15px; ">
                                 </div>
                             </div>
-                        </form>
+                        </div>
+
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+
+
+
         <footer id="footer">
             <div class="footer-top">
                 <div class="container">
@@ -310,7 +282,56 @@ if (isset($_POST['logoutPerson'])) {
     <script type="text/javascript" src="../js/jquery.selectbox-0.2.js"></script>
     <script type="text/javascript" src="../js/coustem.js"></script>
     <script type="text/javascript" src="../js/placeholder.js"></script>
-    <script type="text/javascript" src="../js/imageUpload.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script>
+        var table = '#myTable'
+        $('#maxRows').on('change', function() {
+            $('.pagination').html('')
+            var trNumber = 0;
+            var maxRows = 1;
+            var totalRows = $(table + 'tbody tr').length
+            $(table + 'tr:gt(0)').each(function() {
+                trNumber++
+                if (trNumber > maxRows) {
+                    $(this).hide()
+                }
+                if (trNumber <= maxRows) {
+                    $(this).show()
+                }
+            })
+            if (totalRows > maxRows) {
+                var pageNumber = Math.ceil(totalRows / maxRows)
+                for (var i = 1; i <= pageNumber;) {
+                    $('.pagination')
+                        .append('<li data-page="' + i + '">\<span>' + i++ + '<span class="sr-only">(current)</span></span>\</li>').show();
+                }
+            }
+            $('.pagination li:first-child').addClass('active')
+            $('.pagination li').on('click', function() {
+                var pageNumber = $(this).attr('data-page')
+                var trIndex = 0;
+                $('.pagination li').removeClass('active')
+                $(this).addClass('active');
+                $(table + ' tr:gt(0)').each(function() {
+                    trIndex++
+                    if (trIndex > (maxRows * pageNumber) || trIndex <= ((maxRows * pageNumber) - maxRows)) {
+                        $(this).hide();
+                    }.else {
+                        $(this).show();
+                    }
+                })
+            })
+        })
+        $(function() {
+            $('table tr:eq(0)').prepend('<td>ID</td>')
+            var id = 0;
+            $('table tr:gt(0)').each(function() {
+                id++
+                $(this).prepend('<td>' + id + '</td>')
+            })
+        })
+    </script>
 </body>
 
 </html>

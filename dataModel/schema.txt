@@ -19,7 +19,7 @@ create table single_package (
     vendor_username varchar(256) not null,
     price int(255) not null,
     transport_cost int(255),
-    availableStatus varchar(256) not null,
+    available_status varchar(256) not null,
     image varchar(256),
     rating varchar(256)
 );

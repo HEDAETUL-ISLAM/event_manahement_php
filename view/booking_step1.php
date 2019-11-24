@@ -48,11 +48,11 @@ if (isset($_POST['insertPerson'])) {
     $phone = $_POST['phone'];
     $password = $_POST['password'];
     $address = $_POST['address'];
-    if (strlen($username) == 0 || strlen($name) == 0 || strlen($mail) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
+    if (strlen($username) == 0 || strlen($name) == 0 || strlen($email) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
         @include_once "./errors/blankEntry.php";
     } else {
         $person = new Person($username, $name, $email, $phone, $password, $address);
-        $result = insertVendor($person);
+        $result = insertPerson($person);
 
         if ($result == 1) {
             @include_once "./errors/success.php";
@@ -70,6 +70,7 @@ if (isset($_POST['insertPerson'])) {
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
     @include_once "./errors/success.php";
+    header('Location: ./booking_step1.php');
 }
 
 // for Table row==========================================================
@@ -208,8 +209,6 @@ if (isset($_GET["action"])) {
                                     <a href="">Booking <span class="icon icon-arrow-down"></span></a>
                                     <ul>
                                         <li><a href="booking_step1.php">Booking Step1</a></li>
-                                        <li><a href="booking_step2.php">Booking Step2</a></li>
-                                        <li><a href="booking_step3.php">Booking Step3</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="aboutUs.php">About Us</a></li>
@@ -323,10 +322,9 @@ if (isset($_GET["action"])) {
             <div class="container">
                 <div class="inner-nav">
                     <ul>
-                        <li class="first active"><a href="booking_step1.php#"><span class="number">1</span><span class="text">Cart Summary</span></a></li>
-                        <li><a href="booking_step1.php#"><span class="number">2</span><span class="text">Payment
-                                    Details</span></a></li>
-                        <li class="last"><a href="booking_step1.php#"><span class="number">3</span><span class="text">Order Confirm</span></a></li>
+                        <li class="first active"><a href="booking_step1.php"><span class="number">1</span><span class="text">Cart Summary</span></a></li>
+                        <li><a href="booking_step2.php"><span class="number">2</span><span class="text">Payment Details</span></a></li>
+                        <li class="last"><a href=""><span class="number">3</span><span class="text">Order Confirm</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -404,6 +402,7 @@ if (isset($_GET["action"])) {
                             echo "<td class=amount style=padding-right: 9%;>$  " . $total / 2 . "</td>";
                             echo '</tr>';
                             echo '</table>';
+                            $_SESSION["total"] = $total;
                         }
                         ?>
 
@@ -426,7 +425,11 @@ if (isset($_GET["action"])) {
                             </div>
                             <?php
                             if (!empty($_SESSION["shoppingCart"])) {
-                                echo '<a href="booking_step2.php" class="btn">Book Now</a>';
+                                if ($_SESSION['name'] == "") {
+                                    echo '    <a href="javascript:;" data-toggle="modal" data-target="#loginModal" class="btn">Book Now</a>';
+                                } else {
+                                    echo '<a href="booking_step2.php" class="btn">Book Now</a>';
+                                }
                             }
                             ?>
                         </div>

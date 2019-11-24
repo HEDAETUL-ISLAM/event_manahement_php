@@ -16,7 +16,7 @@ function insertPerson(Person $person)
     if ($username == $person->getUsername()) {
         return -1;
     } else {
-        $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status) 
+        $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status, image) 
         VALUES ('" . $person->getUsername() . "' ,'" . $person->getName() . "' , '" . $person->getEmail() . "', '" . $person->getPhone() . "', '" . $person->getPassword() . "', '" . $person->getAddress() . "',1)";
         if (mysqli_query($connection, $query)) {
             return 1;
@@ -42,7 +42,7 @@ function insertVendor(Person $person)
     if ($username == $person->getUsername()) {
         return -1;
     } else {
-        $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status) 
+        $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status, image) 
         VALUES ('" . $person->getUsername() . "' ,'" . $person->getName() . "' , '" . $person->getEmail() . "', '" . $person->getPhone() . "', '" . $person->getPassword() . "', '" . $person->getAddress() . "',2)";
         if (mysqli_query($connection, $query)) {
             return 1;
@@ -87,6 +87,28 @@ function updatePassword($username, $newPassword)
     $query = "update person set password = '" . $newPassword . "'  where user_name = '" . $username . "'";
     $statement = $connection->prepare($query);
     $result = $statement->execute();
+    return $result;
+    mysqli_close($connection);
+}
+function getAllCustomer()
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    if (!$connection) {
+        return -1;
+    }
+    $query = "SELECT * from person where status = 1";
+    $result = $connection->query($query);
+    return $result;
+    mysqli_close($connection);
+}
+function getAllVendor()
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    if (!$connection) {
+        return -1;
+    }
+    $query = "SELECT * from person where status = 2";
+    $result = $connection->query($query);
     return $result;
     mysqli_close($connection);
 }

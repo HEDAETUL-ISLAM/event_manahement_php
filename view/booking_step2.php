@@ -48,11 +48,11 @@ if (isset($_POST['insertPerson'])) {
     $phone = $_POST['phone'];
     $password = $_POST['password'];
     $address = $_POST['address'];
-    if (strlen($username) == 0 || strlen($name) == 0 || strlen($mail) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
+    if (strlen($username) == 0 || strlen($name) == 0 || strlen($email) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
         @include_once "./errors/blankEntry.php";
     } else {
         $person = new Person($username, $name, $email, $phone, $password, $address);
-        $result = insertVendor($person);
+        $result = insertPerson($person);
 
         if ($result == 1) {
             @include_once "./errors/success.php";
@@ -70,8 +70,31 @@ if (isset($_POST['insertPerson'])) {
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
     @include_once "./errors/success.php";
+    header('Location: ./booking_step2.php');
 }
 
+// for payment ==========================================================>
+if (isset($_POST['partialPaymentConfirm'])) {
+    $selectedPaymentMethod = $_POST['selectedPaymentMethod'];
+    $accountNumber = $_POST['accountNumber'];
+    if (strlen($selectedPaymentMethod) == 0 && strlen($accountNumber) == 0) {
+        @include_once "./errors/blankEntry.php";
+    } else {
+        header('Location: ./booking_step3.php');
+    }
+}
+
+// for payment ==========================================================>
+if (isset($_POST['fullPaymentConfirm'])) {
+    $selectedPaymentMethod = $_POST['selectedPaymentMethod'];
+    $accountNumber = $_POST['accountNumber'];
+    $_SESSION["total"];
+    if (strlen($selectedPaymentMethod) == 0 && strlen($accountNumber) == 0) {
+        @include_once "./errors/blankEntry.php";
+    } else {
+        header('Location: ./booking_step3.php');
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -181,7 +204,6 @@ if (isset($_POST['logoutPerson'])) {
                                     <ul>
                                         <li><a href="booking_step1.php">Booking Step1</a></li>
                                         <li><a href="booking_step2.php">Booking Step2</a></li>
-                                        <li><a href="booking_step3.php">Booking Step3</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="aboutUs.php">About Us</a></li>
@@ -295,9 +317,9 @@ if (isset($_POST['logoutPerson'])) {
             <div class="container">
                 <div class="inner-nav">
                     <ul>
-                        <li class="first fill"><a href="booking_step2.php#"><span class="number">1</span><span class="text">Cart Summary</span></a></li>
-                        <li class="active"><a href="booking_step2.php#"><span class="number">2</span><span class="text">Payment Details</span></a></li>
-                        <li class="last"><a href="booking_step2.php#"><span class="number">3</span><span class="text">Order Confirm</span></a></li>
+                        <li class="first fill"><a href="booking_step1.php"><span class="number">1</span><span class="text">Cart Summary</span></a></li>
+                        <li class="active"><a href=""><span class="number">2</span><span class="text">Payment Details</span></a></li>
+                        <li class="last"><a href=""><span class="number">3</span><span class="text">Order Confirm</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -307,162 +329,68 @@ if (isset($_POST['logoutPerson'])) {
                 <div class="bookin-info">
                     <div class="payment-detail">
                         <div class="totalPayment">
-                            <div class="total">Total payment to be made : <span> $ 5,00,000</span></div>
-                            <div class="oderId">Transaction ID : <span>1196760272</span></div>
+                            <div class="total">Total payment to be made : <span> $ <?php echo $_SESSION["total"] ?></span></div>
+                            <div class="total" style="display: block; ">Partial payment to be made : <span> $ <?php echo $_SESSION["total"] / 2 ?></span></div>
                         </div>
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="payment-opction">
                                     <ul>
-                                        <li class="active"><a href="javascript:;" id="saveCard">Saved Details<span class="icon icon-arrow-right"></span></a></li>
-                                        <li><a href="javascript:;" id="debitCard">Debit Card<span class="icon icon-arrow-right"></span></a></li>
-                                        <li><a href="javascript:;" id="creditCard">Credit Card<span class="icon icon-arrow-right"></span></a></li>
+                                        <li class="active"><a href="javascript:;" id="saveCard">Full Payment<span class="icon icon-arrow-right"></span></a></li>
+                                        <li class=""><a href="javascript:;" id="debitCard">Partial Payment<span class="icon icon-arrow-right"></span></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-sm-8">
                                 <div class="payment-type saveCard-info">
-                                    <div class="saveCard">
-                                        <div class="card-row">Your Saved card<a href="booking_step2.php#">Remove
-                                                card</a></div>
-                                        <div class="card-slide">
-                                            <div class="radio-row">
-                                                <label class="label_radio" for="radio-01">
-                                                    <input type="radio" name="sample-radio" id="radio-01" value="1">
-                                                    <span class="card-name">State Bank of India <img src="images/visaCard-img.png" alt=""></span>
-                                                    <span class="card-number">2025 XXXX XXXX 1234</span>
-                                                </label>
+                                    <form action="" method="POST">
+                                        <div class="saveCard">
+                                            <div class="card-slide">
+                                                <div class="select-box">
+                                                    <select name="selectedPaymentMethod" class="customSelectBox">
+                                                        <option value="">Select Payment Method </option>
+                                                        <option value="Bkash">Bkash</option>
+                                                        <option value="DBBL">DBBL</option>
+                                                        <option value="Card">Card</option>
+                                                    </select>
+                                                </div>
                                             </div>
+                                            <div class="cvv-input">
+                                                <label>Enter Account Number</label>
+                                                <input type="password" name="accountNumber">
+                                            </div>
+                                            <div class="submit-slide">
+                                                <input type="submit" value="Pay Now" class="btn" name="partialPaymentConfirm">
+                                                <a href="index.php" class="cancle">Cancel</a>
+                                            </div>
+                                            <div class="note"><span class="icon icon-lock"></span>Your payment details are secured </div>
                                         </div>
-                                        <div class="cvv-input">
-                                            <label>Enter CVV</label>
-                                            <input type="password">
-                                        </div>
-                                        <div class="submit-slide">
-                                            <input type="submit" value="Pay Now" class="btn">
-                                            <a href="booking_step2.php#" class="cancle">Cancel</a>
-                                        </div>
-                                        <div class="note"><span class="icon icon-lock"></span>Your payment details are
-                                            secured via 128 Bit encryption by Version</div>
-                                    </div>
+                                    </form>
                                 </div>
                                 <div class="payment-type debitCard-info">
-                                    <div class="debitCard">
-                                        <div class="input-box">
-                                            <label>Enter Debit Card Number</label>
-                                            <input type="text">
-                                            <div class="card-logo">
-                                                <img src="images/visaCard-img.png" alt="">
-                                                <img src="images/card-logo2.png" alt="">
-                                                <img src="images/card-logo3.png" alt="">
-                                                <img src="images/card-logo4.png" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="date-info">
-                                            <div class="input-slide">
-                                                <label>Expiry Date</label>
-                                                <div class="month-select">
-                                                    <select name="month_select" id="month_select" tabindex="1">
-                                                        <option>MM</option>
-                                                        <option>Jan</option>
-                                                        <option>Feb</option>
-                                                        <option>Mar</option>
-                                                        <option>Apr</option>
-                                                    </select>
-                                                </div>
-                                                <div class="month-select">
-                                                    <select name="month_select" id="year_select" tabindex="1">
-                                                        <option>YY</option>
-                                                        <option>2006</option>
-                                                        <option>2007</option>
-                                                        <option>2008</option>
-                                                        <option>2009</option>
-                                                        <option>2010</option>
-                                                        <option>2011</option>
-                                                        <option>2012</option>
-                                                        <option>2013</option>
-                                                        <option>2014</option>
-                                                        <option>2015</option>
-                                                        <option>2016</option>
-                                                        <option>2017</option>
+                                    <form action="" method="POST">
+                                        <div class="saveCard">
+                                            <div class="card-slide">
+                                                <div class="select-box">
+                                                    <select name="selectedPaymentMethod" class="customSelectBox">
+                                                        <option value="">Select Payment Method </option>
+                                                        <option value="Bkash">Bkash</option>
+                                                        <option value="DBBL">DBBL</option>
+                                                        <option value="Card">Card</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="cvv-input">
-                                                <label>CVV</label>
-                                                <input type="password">
+                                                <label>Enter Account Number</label>
+                                                <input type="password" name="accountNumber">
                                             </div>
-                                        </div>
-                                        <div class="save-detail">
-                                            <label class="label_radio" for="radio-02"><input type="radio" name="sample-radio2" id="radio-02" value="1">Save this card for
-                                                faster checkout</label>
-                                        </div>
-                                        <div class="submit-slide">
-                                            <input type="submit" value="Pay Now" class="btn">
-                                            <a href="booking_step2.php#" class="cancle">Cancel</a>
-                                        </div>
-                                        <div class="note"><span class="icon icon-lock"></span>Your payment details are
-                                            secured via 128 Bit encryption by Version</div>
-                                    </div>
-                                </div>
-                                <div class="payment-type creditCard-info">
-                                    <div class="debitCard">
-                                        <div class="input-box">
-                                            <label>Enter Debit Card Number</label>
-                                            <input type="text">
-                                            <div class="card-logo">
-                                                <img src="images/visaCard-img.png" alt="">
-                                                <img src="images/card-logo2.png" alt="">
-                                                <img src="images/card-logo5.png" alt="">
-                                                <img src="images/card-logo6.png" alt="">
+                                            <div class="submit-slide">
+                                                <input type="submit" value="Pay Now" class="btn" name="fullPaymentConfirm">
+                                                <a href="index.php" class="cancle">Cancel</a>
                                             </div>
+                                            <div class="note"><span class="icon icon-lock"></span>Your payment details are secured </div>
                                         </div>
-                                        <div class="date-info">
-                                            <div class="input-slide">
-                                                <label>Expiry Date</label>
-                                                <div class="month-select">
-                                                    <select name="month_select" id="month_select2" tabindex="1">
-                                                        <option>MM</option>
-                                                        <option>Jan</option>
-                                                        <option>Feb</option>
-                                                        <option>Mar</option>
-                                                        <option>Apr</option>
-                                                    </select>
-                                                </div>
-                                                <div class="month-select">
-                                                    <select name="month_select" id="year_select2" tabindex="1">
-                                                        <option>YY</option>
-                                                        <option>2006</option>
-                                                        <option>2007</option>
-                                                        <option>2008</option>
-                                                        <option>2009</option>
-                                                        <option>2010</option>
-                                                        <option>2011</option>
-                                                        <option>2012</option>
-                                                        <option>2013</option>
-                                                        <option>2014</option>
-                                                        <option>2015</option>
-                                                        <option>2016</option>
-                                                        <option>2017</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="cvv-input">
-                                                <label>CVV</label>
-                                                <input type="password">
-                                            </div>
-                                        </div>
-                                        <div class="save-detail">
-                                            <label class="label_radio" for="radio-03"><input type="radio" name="sample-radio3" id="radio-03" value="1">Save this card for
-                                                faster checkout</label>
-                                        </div>
-                                        <div class="submit-slide">
-                                            <input type="submit" value="Pay Now" class="btn">
-                                            <a href="booking_step2.php#" class="cancle">Cancel</a>
-                                        </div>
-                                        <div class="note"><span class="icon icon-lock"></span>Your payment details are
-                                            secured via 128 Bit encryption by Version</div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

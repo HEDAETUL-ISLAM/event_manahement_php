@@ -74,15 +74,15 @@ if ($result->num_rows > 0) {
                         <input type="hidden" name="hiddenVendor" value="<?php echo $row["vendor_username"]; ?>" />
                     </div>
                     <?php
-                            if ($row["available_status"] == "yes" || $row["available_status"] == "Yes") {
-                                ?>
-                        <div class="button">
-                            <input type="submit" class="btn" name="bookPackage" value="Book Now" />
-                        </div>
+                        if ($row["available_status"] == "yes" || $row["available_status"] == "Yes") {
+                    ?>
+                    <div class="button">
+                        <input type="submit" class="btn" name="bookPackage" value="Book Now" />
+                    </div>
                     <?php
-                            }
+                        }
 
-                            ?>
+                    ?>
 
 
 
@@ -93,6 +93,6 @@ if ($result->num_rows > 0) {
 <?php
     }
 } else {
-    echo "Empty";
+    include_once "../../errors/spinner.php";
 }
 ?>

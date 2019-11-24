@@ -8,7 +8,7 @@ class Person
     private $phone;
     private $password;
     private $address;
-    private $status;
+    private $status; 
 
     public function getId()
     {
@@ -90,6 +90,7 @@ class Person
 
         return $this;
     }
+
     public function Person($username, $name, $email, $phone, $password, $address)
     {
         $this->username = $username;

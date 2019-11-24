@@ -48,11 +48,11 @@ if (isset($_POST['insertPerson'])) {
     $phone = $_POST['phone'];
     $password = $_POST['password'];
     $address = $_POST['address'];
-    if (strlen($username) == 0 || strlen($name) == 0 || strlen($mail) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
+    if (strlen($username) == 0 || strlen($name) == 0 || strlen($email) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
         @include_once "./errors/blankEntry.php";
     } else {
         $person = new Person($username, $name, $email, $phone, $password, $address);
-        $result = insertVendor($person);
+        $result = insertPerson($person);
 
         if ($result == 1) {
             @include_once "./errors/success.php";
@@ -70,6 +70,7 @@ if (isset($_POST['insertPerson'])) {
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
     @include_once "./errors/success.php";
+    header('Location: ./search-result.php');
 }
 
 ?>
@@ -180,9 +181,7 @@ if (isset($_POST['logoutPerson'])) {
                                 <li class="single-col">
                                     <a href="">Booking <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li><a href="booking_step1.php">Booking Step1</a></li>
-                                        <li><a href="booking_step2.php">Booking Step2</a></li>
-                                        <li><a href="booking_step3.php">Booking Step3</a></li>
+                                        <li><a href="booking_step1.php">Booking Step1</a></li> 
                                     </ul>
                                 </li>
                                 <li><a href="aboutUs.php">About Us</a></li>
