@@ -154,10 +154,13 @@ if (isset($_POST['logoutPerson'])) {
                                     <a href="customer.php">Customer </a>
                                 </li>
                                 <li class="single-col ">
-                                    <a href="#">Show Packages <span class="icon icon-arrow-down"></span></a>
+                                    <a href="pendingBook.php">Pending Book </a>
+                                </li>
+                                <li class="single-col ">
+                                    <a href="">Booking <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li> <a href="singlePackageAddForm.php">Single Package </span></a> </li>
-                                        <li> <a href="#">Bundle Package </span></a> </li>
+                                        <li><a href="halfBookingPage.php">Half Paid</a></li>
+                                        <li><a href="fullBookingPage.php">Full Paid</a></li>
                                     </ul>
                                 </li>
                                 <li class="single-col ">

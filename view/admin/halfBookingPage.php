@@ -2,7 +2,7 @@
 session_start();
 @require_once "../../model/Login.php";
 @require_once "../../model/Person.php";
-@require_once "../../controller/PersonController.php";
+@include_once "../../controller/PersonController.php";
 $username = "";
 $name = "";
 $email = "";
@@ -16,6 +16,7 @@ if (isset($_POST['logoutPerson'])) {
     @include_once "../errors/success.php";
 }
 
+// include "../register.php";
 ?>
 
 
@@ -37,6 +38,64 @@ if (isset($_POST['logoutPerson'])) {
     <link href="../css/jquery.selectbox.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Domine:400,700%7COpen+Sans:300,300i,400,400i,600,600i,700,700i%7CRoboto:400,500" rel="stylesheet">
 
+    <script>
+        function searchByName() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("nameInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function searchByLocation() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("locationInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[3];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function searchByDate() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("dateInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[4];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
 <body class="inner-page">
@@ -85,7 +144,7 @@ if (isset($_POST['logoutPerson'])) {
                         </div>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="single-col active">
+                                <li class="single-col ">
                                     <a href="dashboard.php">Home </a>
                                 </li>
                                 <li class="single-col ">
@@ -95,7 +154,14 @@ if (isset($_POST['logoutPerson'])) {
                                     <a href="customer.php">Customer </a>
                                 </li>
                                 <li class="single-col ">
-                                    <a href="bookingPage.php">Booking </a>
+                                    <a href="pendingBook.php">Pending Book </a>
+                                </li>
+                                <li class="single-col active">
+                                    <a href="">Booking <span class="icon icon-arrow-down"></span></a>
+                                    <ul>
+                                        <li><a href="halfBookingPage.php">Half Paid</a></li>
+                                        <li><a href="fullBookingPage.php">Full Paid</a></li>
+                                    </ul>
                                 </li>
                                 <li class="single-col ">
                                     <a href="adminAccount.php">My Account </span></a>
@@ -128,7 +194,89 @@ if (isset($_POST['logoutPerson'])) {
             </div>
         </div>
 
-        
+        <div class="searchFilter-main">
+            <section class="searchFormTop">
+                <div class="container">
+                    <div class="searchCenter">
+                        <div class="refineCenter">
+                            <span class="icon icon-filter"></span>
+                            <span>Refine Customer</span>
+                        </div>
+                        <div class="searchFilter" style="width: 100%;">
+                            <div class="input-box" style="width: 33.3%;">
+                                <div class="icon icon-grid-view"></div>
+                                <input type="text" id="nameInput" onkeyup="searchByName()" placeholder="Search for name" title="Type a name">
+                            </div>
+                            <div class="input-box searchlocation" style="width: 33.3%;">
+                                <div class="icon icon-location-1"></div>
+                                <input type="text" id="locationInput" onkeyup="searchByLocation()" placeholder="Search for Location" title="Type a location">
+                            </div>
+                            <div class="input-box date" style="width: 33.3%;">
+                                <div class="icon icon-calander-month"></div>
+                                <input type="text" id="dateInput" onkeyup="searchByDate()" placeholder="Search for Date" title="Type a date">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content">
+                <div class="container">
+                    <div class="venues-view">
+                        <div class="row">
+
+                            <!-- <div class="right-side" id="changeOrder">
+
+                                </div> -->
+                            <div class="content">
+                                <div class="container">
+                                    <div class="bookin-info">
+                                        <table class="bookin-table" id="myTable">
+                                            <tr>
+                                                <td class="first Theading">Name</td>
+                                                <td class="Theading">Email</td>
+                                                <td class="Theading">Phone</td>
+                                                <td class="Theading">Address</td>
+                                                <td class="Theading last">Registration Date</td>
+                                            </tr>
+                                            <?php
+                                            $result = getAllCustomer();
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "<tr>";
+                                                    echo '    <td class="first">';
+                                                    echo '        <label>Name</label>';
+                                                    echo         "<p>" .  $row["name"] . "</p>";
+                                                    echo '    </td>';
+                                                    echo '    <td>';
+                                                    echo '        <label>Email</label>';
+                                                    echo         "<p>" . $row["email"] . "</p>";
+                                                    echo '    </td>';
+                                                    echo '    <td>';
+                                                    echo '        <label>Phone</label>';
+                                                    echo         "<p>" . $row["phone"] . "</p>";
+                                                    echo '    </td>';
+                                                    echo '    <td>';
+                                                    echo '        <label>Address</label>';
+                                                    echo         "<p>" . $row["address"] . "</p>";
+                                                    echo '    </td>';
+                                                    echo '    <td class="last">';
+                                                    echo '        <label>Registration date</label>';
+                                                    echo         "<p>" . $row["registration_date"] . "</p>";
+                                                    echo '    </td>';
+                                                    echo '</tr> ';
+                                                }
+                                            }
+                                            ?>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
 
 
 
@@ -205,9 +353,6 @@ if (isset($_POST['logoutPerson'])) {
     <script type="text/javascript" src="../js/jquery.selectbox-0.2.js"></script>
     <script type="text/javascript" src="../js/coustem.js"></script>
     <script type="text/javascript" src="../js/placeholder.js"></script>
-    <!-- <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/Chart.min.js"></script> -->
-
 </body>
 
 </html>

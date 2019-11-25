@@ -31,7 +31,7 @@
 
         function showGraph() {
             {
-                $.post("../../controller/customerGraphController.php",
+                $.post("../../controller/graph/customerGraphController.php",
                     function(data) {
                         console.log(data);
                         var year = [];

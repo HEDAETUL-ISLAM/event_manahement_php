@@ -9,7 +9,6 @@ $email = "";
 $phone = "";
 $password = "";
 $address = "";
-
 // for login=============================================================>
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
@@ -70,35 +69,10 @@ if (isset($_POST['insertPerson'])) {
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
     @include_once "./errors/success.php";
-    header('Location: ./booking_step3.php');
+    header('Location: ./index.php');
 }
 
-// for Table row==========================================================
-$count = 0;
-if (isset($_POST["bookPackage"])) {
-    if (isset($_SESSION["shoppingCart"])) {
-        $item_array_id = array_column($_SESSION["shoppingCart"], "itemId");
-        if (!in_array($_GET["id"], $item_array_id)) {
-            $count = $count + 1;
-            $_SESSION["shoppingCart"][$count];
-        }
-    } else {
-        $_SESSION["shoppingCart"][$count];
-    }
-}
 
-//  for remove
-if (isset($_GET["action"])) {
-    if ($_GET["action"] == "delete") {
-        foreach ($_SESSION["shoppingCart"] as $keys => $values) {
-            if ($values["itemId"] == $_GET["id"]) {
-                unset($_SESSION["shoppingCart"][$keys]);
-                echo '<script>confirm("Item Removed")</script>';
-                echo '<script>window.location="booking_step1.php"</script>';
-            }
-        }
-    }
-}
 
 ?>
 
@@ -323,7 +297,7 @@ if (isset($_GET["action"])) {
                 <div class="inner-nav">
                     <ul>
                         <li class="first fill"><a href="booking_step2.php#"><span class="number">1</span><span class="text">Cart Summary</span></a></li>
-                        <li class="last active"><a href="booking_step2.php#"><span class="number">2</span><span class="text">Order Confirm</span></a></li> 
+                        <li class="last active"><a href="booking_step2.php#"><span class="number">2</span><span class="text">Order Confirm</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -332,8 +306,8 @@ if (isset($_GET["action"])) {
             <div class="container">
                 <div class="bookin-info">
                     <div class="bookin-infoRow">
-                        <div class="bookin-id">Booking ID : <span> 1196760272</span></div>
-                        <div class="date"><?php echo date("Y/m/d") ?> </div>
+                        <div class="bookin-id">Booking ID : <span> <?php echo $_SESSION["transaction"]  ?> </span></div>
+                        <div class="date">Booking Date : <?php echo $_SESSION["bookingDate"]; ?> </div>
                     </div>
                     <div class="thanks-msg">
                         <div class="icon icon-right-sign"></div>
@@ -342,38 +316,38 @@ if (isset($_GET["action"])) {
                             been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
                             galley of type and scrambled it to make a type specimen book.</p>
                     </div>
-                    
-                        <div class="note">
-                            <div class="inner-block">
-                                <div class="icon icon-info"></div>
-                                <label>Important Information</label>
-                                <p>Please carry any valid photo id proof at the venue</p>
+
+                    <div class="note">
+                        <div class="inner-block">
+                            <div class="icon icon-info"></div>
+                            <label>Important Information</label>
+                            <p>Please carry any valid photo id proof at the venue</p>
+                        </div>
+                    </div>
+                    <div class="contact-info">Lorem Ipsum has been the industry's standard dummy text ever since the
+                        1500s, when an unknown printer took a galley of Contact <a href="mailTo:eventorganizer@gmail.com">eventorganizer@gmail.com</a></div>
+                    <div class="bottom-blcok">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="icon icon-assurance"></div>
+                                <span>100% Assurance</span>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                    Ipsum has been the industry's standard dummybook</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="icon icon-trust"></div>
+                                <span>Trust</span>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                    Ipsum has been the industry's standard dummybook</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="icon icon-promise"></div>
+                                <span>Our Promise</span>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                    Ipsum has been the industry's standard dummybook</p>
                             </div>
                         </div>
-                        <div class="contact-info">Lorem Ipsum has been the industry's standard dummy text ever since the
-                            1500s, when an unknown printer took a galley of Contact <a href="mailTo:eventorganizer@gmail.com">eventorganizer@gmail.com</a></div>
-                        <div class="bottom-blcok">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="icon icon-assurance"></div>
-                                    <span>100% Assurance</span>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummybook</p>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="icon icon-trust"></div>
-                                    <span>Trust</span>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummybook</p>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="icon icon-promise"></div>
-                                    <span>Our Promise</span>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummybook</p>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -95,7 +95,14 @@ if (isset($_POST['logoutPerson'])) {
                                     <a href="customer.php">Customer </a>
                                 </li>
                                 <li class="single-col ">
-                                    <a href="bookingPage.php">Booking </a>
+                                    <a href="pendingBook.php">Pending Book </a>
+                                </li>
+                                <li class="single-col ">
+                                    <a href="">Booking <span class="icon icon-arrow-down"></span></a>
+                                    <ul>
+                                        <li><a href="halfBookingPage.php">Half Paid</a></li>
+                                        <li><a href="fullBookingPage.php">Full Paid</a></li>
+                                    </ul>
                                 </li>
                                 <li class="single-col ">
                                     <a href="adminAccount.php">My Account </span></a>
@@ -148,7 +155,7 @@ if (isset($_POST['logoutPerson'])) {
                 </div>
             </section>
         </div>
-        <div style="  display: table; clear: both; background-color: #efefef; margin-left:35%;">
+        <div style="  display: table; clear: both; background-color: #efefef; margin-left:10%;">
             <section class="content" style="float:left; width:50%; padding: 10px; height:300px">
                 <div class="container">
                     <div class="venues-view">

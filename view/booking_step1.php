@@ -103,6 +103,10 @@ if (isset($_GET["action"])) {
 
 // for booking============================================
 if (isset($_POST["bookingbtn"])) {
+    $transaction = strtoupper(uniqid());
+
+    $_SESSION["transaction"] =  $transaction;
+    $_SESSION["bookingDate"] = $_POST['bookingDate'];
 
     foreach ($_SESSION["shoppingCart"] as $keys => $values) {
         $username = $_SESSION['username'];
@@ -115,10 +119,11 @@ if (isset($_POST["bookingbtn"])) {
         $totalcost = number_format($values["itemPrice"] + $values["itemTransportCost"], 5);
         $halfpaid = "no";
         $fullpaid = "no";
+
         if (strlen($bookingDate) == 0) {
             @include_once "./errors/blankEntry.php";
         } else {
-            $booking = new Booking($username, $email, $phone, $address, $bookingDate, $vendorname, $packagename, $totalcost, $halfpaid, $fullpaid);
+            $booking = new Booking($username, $transaction, $email, $phone, $address, $bookingDate, $vendorname, $packagename, $totalcost, $halfpaid, $fullpaid);
 
             $result = insertBookingDetails($booking);
 
@@ -131,6 +136,7 @@ if (isset($_POST["bookingbtn"])) {
             if ($result == 0) {
                 @include_once "./errors/wrong.php";
             }
+
             unset($_SESSION["shoppingCart"]);
         }
     }

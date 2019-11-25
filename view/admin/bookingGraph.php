@@ -27,7 +27,7 @@
 
         function showBookingGraph() {
 
-            $.post("../../controller/bookingGraphController.php",
+            $.post("../../controller/graph/bookingGraphController.php",
                 function(data) {
                     console.log(data);
                     var year = [];

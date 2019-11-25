@@ -57,6 +57,7 @@ if (isset($_POST['logoutPerson'])) {
                 }
             }
         }
+
         function searchByLocation() {
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("locationInput");
@@ -75,6 +76,7 @@ if (isset($_POST['logoutPerson'])) {
                 }
             }
         }
+
         function searchByDate() {
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("dateInput");
@@ -152,10 +154,13 @@ if (isset($_POST['logoutPerson'])) {
                                     <a href="customer.php">Customer </a>
                                 </li>
                                 <li class="single-col ">
-                                    <a href="#">Show Packages <span class="icon icon-arrow-down"></span></a>
+                                    <a href="pendingBook.php">Pending Book </a>
+                                </li>
+                                <li class="single-col ">
+                                    <a href="">Booking <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li> <a href="singlePackageAddForm.php">Single Package </span></a> </li>
-                                        <li> <a href="#">Bundle Package </span></a> </li>
+                                        <li><a href="halfBookingPage.php">Half Paid</a></li>
+                                        <li><a href="fullBookingPage.php">Full Paid</a></li>
                                     </ul>
                                 </li>
                                 <li class="single-col ">
@@ -208,7 +213,7 @@ if (isset($_POST['logoutPerson'])) {
                             </div>
                             <div class="input-box date" style="width: 33.3%;">
                                 <div class="icon icon-calander-month"></div>
-                                <input type="text" id="dateInput" onkeyup="searchByDate()" placeholder="Search for Date"  title="Type a date">
+                                <input type="text" id="dateInput" onkeyup="searchByDate()" placeholder="Search for Date" title="Type a date">
                             </div>
                         </div>
                     </div>

@@ -27,7 +27,7 @@
 
         function showVendorGraph() {
 
-            $.post("../../controller/vendorGraphController.php",
+            $.post("../../controller/graph/vendorGraphController.php",
                 function(data) {
                     console.log(data);
                     var year = [];

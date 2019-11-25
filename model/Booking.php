@@ -3,6 +3,7 @@ class Booking
 {
     private $id;
     private $username;
+    private $transaction;
     private $email;
     private $phone;
     private $address;
@@ -32,6 +33,17 @@ class Booking
     public function setUsername($username)
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    public function getTransaction()
+    {
+        return $this->transaction;
+    }
+    public function setTransaction($transaction)
+    {
+        $this->transaction = $transaction;
 
         return $this;
     }
@@ -136,9 +148,10 @@ class Booking
 
         return $this;
     }
-    public function Booking($username, $email, $phone, $address, $bookingDate, $vendorName, $packageName, $totalCost, $halfPaid, $fullPaid)
+    public function Booking($username, $transaction, $email, $phone, $address, $bookingDate, $vendorName, $packageName, $totalCost, $halfPaid, $fullPaid)
     {
         $this->username = $username;
+        $this->transaction = $transaction;
         $this->email = $email;
         $this->phone = $phone;
         $this->address = $address;
