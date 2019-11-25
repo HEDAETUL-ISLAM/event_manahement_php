@@ -16,7 +16,7 @@ function insertPerson(Person $person)
     if ($username == $person->getUsername()) {
         return -1;
     } else {
-        $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status, image) 
+        $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status) 
         VALUES ('" . $person->getUsername() . "' ,'" . $person->getName() . "' , '" . $person->getEmail() . "', '" . $person->getPhone() . "', '" . $person->getPassword() . "', '" . $person->getAddress() . "',1)";
         if (mysqli_query($connection, $query)) {
             return 1;
@@ -42,7 +42,7 @@ function insertVendor(Person $person)
     if ($username == $person->getUsername()) {
         return -1;
     } else {
-        $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status, image) 
+        $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status) 
         VALUES ('" . $person->getUsername() . "' ,'" . $person->getName() . "' , '" . $person->getEmail() . "', '" . $person->getPhone() . "', '" . $person->getPassword() . "', '" . $person->getAddress() . "',2)";
         if (mysqli_query($connection, $query)) {
             return 1;

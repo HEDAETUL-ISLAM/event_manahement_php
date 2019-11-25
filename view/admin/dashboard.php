@@ -28,7 +28,6 @@ if (isset($_POST['logoutPerson'])) {
     <title>Event Organizer</title>
 
     <link rel="../shortcut icon" href="../images/Favicon.ico">
-    <!-- <link href="../css/bootstrap.min.css" rel="stylesheet" /> -->
     <link href="../css/bootstrap.css" rel="stylesheet">
     <link href="../css/owl.carousel.css" rel="stylesheet">
     <link href="../css/styles.css" rel="stylesheet" />
@@ -62,7 +61,7 @@ if (isset($_POST['logoutPerson'])) {
                                     }
                                     if ($_SESSION['name'] == "") {
                                         echo '<li>';
-                                        echo '    <a href="../register.php">Login</a>';
+                                        echo '    <a href="../index.php">Login</a>';
                                         echo '</li>';
                                     }
                                     ?>
@@ -103,7 +102,7 @@ if (isset($_POST['logoutPerson'])) {
                                     </ul>
                                 </li>
                                 <li class="single-col ">
-                                    <a href="vendor_account_profile.php">My Account </span></a>
+                                    <a href="adminAccount.php">My Account </span></a>
 
                                 </li>
                             </ul>
@@ -133,78 +132,26 @@ if (isset($_POST['logoutPerson'])) {
             </div>
         </div>
 
-        <section class="content">
-            <div class="container">
-                <div class="venues-view">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12 col-sm-12">
-                            <div class="right-side">
-                                <div class="toolbar">
-                                    <div class="finde-count">Customer. </div>
-                                </div>
-                                <div class="content">
-                                    <div class="container">
-                                        <div class="bookin-info">
-                                            <table id="myTable" class="bookin-table">
-                                                <thead>
-                                                    <tr>
-                                                        <td class="first Theading">Name</td>
-                                                        <td class="Theading">Email</td>
-                                                        <td class="Theading">Phone</td>
-                                                        <td class="Theading">Address</td>
-                                                        <td class="Theading last">Registration Date</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                    <?php
-                                                    $result = getAllCustomer();
-                                                    if ($result->num_rows > 0) {
-                                                        while ($row = $result->fetch_assoc()) {
-                                                            echo "<tr>";
-                                                            echo '    <td class="first">';
-                                                            echo '        <label>Name</label>';
-                                                            echo         "<p>" .  $row["name"] . "</p>";
-                                                            echo '    </td>';
-                                                            echo '    <td>';
-                                                            echo '        <label>Email</label>';
-                                                            echo         "<p>" . $row["email"] . "</p>";
-                                                            echo '    </td>';
-                                                            echo '    <td>';
-                                                            echo '        <label>Phone</label>';
-                                                            echo         "<p>" . $row["phone"] . "</p>";
-                                                            echo '    </td>';
-                                                            echo '    <td>';
-                                                            echo '        <label>Address</label>';
-                                                            echo         "<p>" . $row["address"] . "</p>";
-                                                            echo '    </td>';
-                                                            echo '    <td class="last">';
-                                                            echo '        <label>Registration date</label>';
-                                                            echo         "<p>" . $row["registration_date"] . "</p>";
-                                                            echo '    </td>';
-                                                            echo '</tr> ';
-                                                        }
-                                                    } else {
-                                                        @include_once "../errors/spinner.php";
-                                                    }
-                                                    ?>
-                                                </tbody>
-                                            </table>
-                                            <div>
-                                                <nav>
-                                                    <ul class="pagination"> </ul>
-                                                </nav>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+        <div style="  display: table; clear: both; background-color: whitesmoke; margin-left:10%;">
+            <section class="content" style="float:left; width:50%; padding: 10px; height:300px">
+                <div class="container">
+                    <div class="venues-view">
+                        <?php
+                        @include_once  "./customerGraph.php";
+                        ?>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+            <section class="content" style="float:left; width:50%; padding: 10px; height:300px">
+                <div class="container">
+                    <div class="venues-view">
+                        <?php
+                        @include_once  "./vendorGraph.php";
+                        ?>
+                    </div>
+                </div>
+            </section>
+        </div>
 
 
 
@@ -282,56 +229,9 @@ if (isset($_POST['logoutPerson'])) {
     <script type="text/javascript" src="../js/jquery.selectbox-0.2.js"></script>
     <script type="text/javascript" src="../js/coustem.js"></script>
     <script type="text/javascript" src="../js/placeholder.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script>
-        var table = '#myTable'
-        $('#maxRows').on('change', function() {
-            $('.pagination').html('')
-            var trNumber = 0;
-            var maxRows = 1;
-            var totalRows = $(table + 'tbody tr').length
-            $(table + 'tr:gt(0)').each(function() {
-                trNumber++
-                if (trNumber > maxRows) {
-                    $(this).hide()
-                }
-                if (trNumber <= maxRows) {
-                    $(this).show()
-                }
-            })
-            if (totalRows > maxRows) {
-                var pageNumber = Math.ceil(totalRows / maxRows)
-                for (var i = 1; i <= pageNumber;) {
-                    $('.pagination')
-                        .append('<li data-page="' + i + '">\<span>' + i++ + '<span class="sr-only">(current)</span></span>\</li>').show();
-                }
-            }
-            $('.pagination li:first-child').addClass('active')
-            $('.pagination li').on('click', function() {
-                var pageNumber = $(this).attr('data-page')
-                var trIndex = 0;
-                $('.pagination li').removeClass('active')
-                $(this).addClass('active');
-                $(table + ' tr:gt(0)').each(function() {
-                    trIndex++
-                    if (trIndex > (maxRows * pageNumber) || trIndex <= ((maxRows * pageNumber) - maxRows)) {
-                        $(this).hide();
-                    }.else {
-                        $(this).show();
-                    }
-                })
-            })
-        })
-        $(function() {
-            $('table tr:eq(0)').prepend('<td>ID</td>')
-            var id = 0;
-            $('table tr:gt(0)').each(function() {
-                id++
-                $(this).prepend('<td>' + id + '</td>')
-            })
-        })
-    </script>
+    <!-- <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/Chart.min.js"></script> -->
+
 </body>
 
 </html>

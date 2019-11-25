@@ -11826,3 +11826,10 @@ body {
    top: 1px;
 
 }
+
+.rowAfterGraph:after {
+   content: "";
+   display: table;
+   clear: both;
+   background-color: whitesmoke;
+}

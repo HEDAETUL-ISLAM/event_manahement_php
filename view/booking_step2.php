@@ -70,31 +70,36 @@ if (isset($_POST['insertPerson'])) {
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
     @include_once "./errors/success.php";
-    header('Location: ./booking_step2.php');
+    header('Location: ./booking_step3.php');
 }
 
-// for payment ==========================================================>
-if (isset($_POST['partialPaymentConfirm'])) {
-    $selectedPaymentMethod = $_POST['selectedPaymentMethod'];
-    $accountNumber = $_POST['accountNumber'];
-    if (strlen($selectedPaymentMethod) == 0 && strlen($accountNumber) == 0) {
-        @include_once "./errors/blankEntry.php";
+// for Table row==========================================================
+$count = 0;
+if (isset($_POST["bookPackage"])) {
+    if (isset($_SESSION["shoppingCart"])) {
+        $item_array_id = array_column($_SESSION["shoppingCart"], "itemId");
+        if (!in_array($_GET["id"], $item_array_id)) {
+            $count = $count + 1;
+            $_SESSION["shoppingCart"][$count];
+        }
     } else {
-        header('Location: ./booking_step3.php');
+        $_SESSION["shoppingCart"][$count];
     }
 }
 
-// for payment ==========================================================>
-if (isset($_POST['fullPaymentConfirm'])) {
-    $selectedPaymentMethod = $_POST['selectedPaymentMethod'];
-    $accountNumber = $_POST['accountNumber'];
-    $_SESSION["total"];
-    if (strlen($selectedPaymentMethod) == 0 && strlen($accountNumber) == 0) {
-        @include_once "./errors/blankEntry.php";
-    } else {
-        header('Location: ./booking_step3.php');
+//  for remove
+if (isset($_GET["action"])) {
+    if ($_GET["action"] == "delete") {
+        foreach ($_SESSION["shoppingCart"] as $keys => $values) {
+            if ($values["itemId"] == $_GET["id"]) {
+                unset($_SESSION["shoppingCart"][$keys]);
+                echo '<script>confirm("Item Removed")</script>';
+                echo '<script>window.location="booking_step1.php"</script>';
+            }
+        }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -317,9 +322,8 @@ if (isset($_POST['fullPaymentConfirm'])) {
             <div class="container">
                 <div class="inner-nav">
                     <ul>
-                        <li class="first fill"><a href="booking_step1.php"><span class="number">1</span><span class="text">Cart Summary</span></a></li>
-                        <li class="active"><a href=""><span class="number">2</span><span class="text">Payment Details</span></a></li>
-                        <li class="last"><a href=""><span class="number">3</span><span class="text">Order Confirm</span></a></li>
+                        <li class="first fill"><a href="booking_step2.php#"><span class="number">1</span><span class="text">Cart Summary</span></a></li>
+                        <li class="last active"><a href="booking_step2.php#"><span class="number">2</span><span class="text">Order Confirm</span></a></li> 
                     </ul>
                 </div>
             </div>
@@ -327,74 +331,49 @@ if (isset($_POST['fullPaymentConfirm'])) {
         <div class="content">
             <div class="container">
                 <div class="bookin-info">
-                    <div class="payment-detail">
-                        <div class="totalPayment">
-                            <div class="total">Total payment to be made : <span> $ <?php echo $_SESSION["total"] ?></span></div>
-                            <div class="total" style="display: block; ">Partial payment to be made : <span> $ <?php echo $_SESSION["total"] / 2 ?></span></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="payment-opction">
-                                    <ul>
-                                        <li class="active"><a href="javascript:;" id="saveCard">Full Payment<span class="icon icon-arrow-right"></span></a></li>
-                                        <li class=""><a href="javascript:;" id="debitCard">Partial Payment<span class="icon icon-arrow-right"></span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="payment-type saveCard-info">
-                                    <form action="" method="POST">
-                                        <div class="saveCard">
-                                            <div class="card-slide">
-                                                <div class="select-box">
-                                                    <select name="selectedPaymentMethod" class="customSelectBox">
-                                                        <option value="">Select Payment Method </option>
-                                                        <option value="Bkash">Bkash</option>
-                                                        <option value="DBBL">DBBL</option>
-                                                        <option value="Card">Card</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="cvv-input">
-                                                <label>Enter Account Number</label>
-                                                <input type="password" name="accountNumber">
-                                            </div>
-                                            <div class="submit-slide">
-                                                <input type="submit" value="Pay Now" class="btn" name="partialPaymentConfirm">
-                                                <a href="index.php" class="cancle">Cancel</a>
-                                            </div>
-                                            <div class="note"><span class="icon icon-lock"></span>Your payment details are secured </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="payment-type debitCard-info">
-                                    <form action="" method="POST">
-                                        <div class="saveCard">
-                                            <div class="card-slide">
-                                                <div class="select-box">
-                                                    <select name="selectedPaymentMethod" class="customSelectBox">
-                                                        <option value="">Select Payment Method </option>
-                                                        <option value="Bkash">Bkash</option>
-                                                        <option value="DBBL">DBBL</option>
-                                                        <option value="Card">Card</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="cvv-input">
-                                                <label>Enter Account Number</label>
-                                                <input type="password" name="accountNumber">
-                                            </div>
-                                            <div class="submit-slide">
-                                                <input type="submit" value="Pay Now" class="btn" name="fullPaymentConfirm">
-                                                <a href="index.php" class="cancle">Cancel</a>
-                                            </div>
-                                            <div class="note"><span class="icon icon-lock"></span>Your payment details are secured </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="bookin-infoRow">
+                        <div class="bookin-id">Booking ID : <span> 1196760272</span></div>
+                        <div class="date"><?php echo date("Y/m/d") ?> </div>
                     </div>
+                    <div class="thanks-msg">
+                        <div class="icon icon-right-sign"></div>
+                        <h3>Thank you for your payment</h3>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
+                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                            galley of type and scrambled it to make a type specimen book.</p>
+                    </div>
+                    
+                        <div class="note">
+                            <div class="inner-block">
+                                <div class="icon icon-info"></div>
+                                <label>Important Information</label>
+                                <p>Please carry any valid photo id proof at the venue</p>
+                            </div>
+                        </div>
+                        <div class="contact-info">Lorem Ipsum has been the industry's standard dummy text ever since the
+                            1500s, when an unknown printer took a galley of Contact <a href="mailTo:eventorganizer@gmail.com">eventorganizer@gmail.com</a></div>
+                        <div class="bottom-blcok">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="icon icon-assurance"></div>
+                                    <span>100% Assurance</span>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummybook</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="icon icon-trust"></div>
+                                    <span>Trust</span>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummybook</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="icon icon-promise"></div>
+                                    <span>Our Promise</span>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummybook</p>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>

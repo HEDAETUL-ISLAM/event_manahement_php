@@ -2,14 +2,15 @@
 session_start();
 @require_once "../model/Login.php";
 @require_once "../model/Person.php";
+@require_once "../model/Booking.php";
 @require_once "../controller/PersonController.php";
+@require_once "../controller/bookingController.php";
 $username = "";
 $name = "";
 $email = "";
 $phone = "";
 $password = "";
 $address = "";
-
 // for login=============================================================>
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
@@ -48,11 +49,11 @@ if (isset($_POST['insertPerson'])) {
     $phone = $_POST['phone'];
     $password = $_POST['password'];
     $address = $_POST['address'];
-    if (strlen($username) == 0 || strlen($name) == 0 || strlen($email) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
+    if (strlen($username) == 0 || strlen($name) == 0 || strlen($mail) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
         @include_once "./errors/blankEntry.php";
     } else {
         $person = new Person($username, $name, $email, $phone, $password, $address);
-        $result = insertPerson($person);
+        $result = insertVendor($person);
 
         if ($result == 1) {
             @include_once "./errors/success.php";
@@ -70,7 +71,6 @@ if (isset($_POST['insertPerson'])) {
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
     @include_once "./errors/success.php";
-    header('Location: ./booking_step1.php');
 }
 
 // for Table row==========================================================
@@ -101,7 +101,43 @@ if (isset($_GET["action"])) {
 }
 
 
+// for booking============================================
+if (isset($_POST["bookingbtn"])) {
+
+    foreach ($_SESSION["shoppingCart"] as $keys => $values) {
+        $username = $_SESSION['username'];
+        $email = $_SESSION['email'];
+        $phone = $_SESSION['phone'];
+        $address = $_SESSION['address'];
+        $date = $_POST['bookingDate'];
+        $vendorname = $values["itemVendor"];
+        $packagename = $values["itemName"];
+        $totalcost = number_format($values["itemPrice"] + $values["itemTransportCost"], 5);
+        $halfpaid = "no";
+        $fullpaid = "no";
+        if (strlen($date) == 0) {
+            @include_once "./errors/blankEntry.php";
+        } else {
+            $booking = new Booking($username, $email, $phone, $address, $date, $vendorname, $packagename, $totalcost, $halfpaid, $fullpaid);
+
+            $result = insertBookingDetails($booking);
+
+            if ($result == 1) {
+                header("Location: ./booking_step2.php");
+            }
+            if ($result == -1) {
+                @include_once "./errors/exist.php";
+            }
+            if ($result == 0) {
+                @include_once "./errors/wrong.php";
+            }
+            unset($_SESSION["shoppingCart"]);
+        }
+    }
+}
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -209,6 +245,7 @@ if (isset($_GET["action"])) {
                                     <a href="">Booking <span class="icon icon-arrow-down"></span></a>
                                     <ul>
                                         <li><a href="booking_step1.php">Booking Step1</a></li>
+                                        <li><a href="booking_step2.php">Booking Step2</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="aboutUs.php">About Us</a></li>
@@ -322,9 +359,8 @@ if (isset($_GET["action"])) {
             <div class="container">
                 <div class="inner-nav">
                     <ul>
-                        <li class="first active"><a href="booking_step1.php"><span class="number">1</span><span class="text">Cart Summary</span></a></li>
-                        <li><a href="booking_step2.php"><span class="number">2</span><span class="text">Payment Details</span></a></li>
-                        <li class="last"><a href=""><span class="number">3</span><span class="text">Order Confirm</span></a></li>
+                        <li class="first active"><a href="booking_step1.php#"><span class="number">1</span><span class="text">Cart Summary</span></a></li>
+                        <li class="last"><a href="booking_step1.php#"><span class="number">2</span><span class="text">Order Confirm</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -332,136 +368,146 @@ if (isset($_GET["action"])) {
         <div class="content">
             <div class="container">
                 <div class="bookin-info">
-                    <table class="bookin-table">
-                        <tr>
-                            <td class="first Theading" style="width:200px"> Your Address</td>
-                            <td class="Theading">Package Name</td>
-                            <td class="Theading">Vendor Name</td>
-                            <td class="Theading">Price</td>
-                            <td class="Theading">Transport Cost</td>
-                            <td class="Theading ">Total Cost</td>
-                            <td class="Theading ">Action</td>
-                        </tr>
-                        <?php
-                        $count = 0;
-                        if (!empty($_SESSION["shoppingCart"])) {
-                            $total = 0;
-                            foreach ($_SESSION["shoppingCart"] as $keys => $values) {
-                                ?>
-                                <tr>
-                                    <td class="first" style="width:200px">
-                                        <label>Address</label>
-                                        <p><?php echo " " . $_SESSION['address'] ?></p>
-                                    </td>
-                                    <td>
-                                        <label>Package Name</label>
-                                        <p><?php echo " " . $values["itemName"]; ?></p>
-                                    </td>
-                                    <td>
-                                        <label>Vendor Name</label>
-                                        <p><?php echo " " . $values["itemVendor"]; ?></p>
-                                    </td>
-                                    <td>
-                                        <label>Price</label>
-                                        <p>$ <?php echo " " . $values["itemPrice"]; ?></p>
-                                    </td>
-                                    <td>
-                                        <label>Transport Cost</label>
-                                        <p>$<?php echo " " . $values["itemTransportCost"]; ?></p>
-                                    </td>
-                                    <td>
-                                        <label>Total Cost</label>
-                                        <p>$ <?php echo $x = number_format($values["itemPrice"] + $values["itemTransportCost"], 2); ?></p>
-                                    </td>
-                                    <td class="Theading">
-                                        <a href="booking_step1.php?action=delete&id=<?php echo $values["itemId"]; ?>">
-                                            <span class="text-danger"><img src="images/close-icon.png" alt="" style="max-width: 80px"></span>
-                                        </a>
-                                    </td>
-
-                                </tr>
+                    <form action="" method="post">
+                        <table class="bookin-table">
+                            <tr>
+                                <td class="first Theading" style="width:200px"> Your Address</td>
+                                <td class="Theading">Package Name</td>
+                                <td class="Theading">Vendor Name</td>
+                                <td class="Theading">Price</td>
+                                <td class="Theading">Transport Cost</td>
+                                <td class="Theading ">Total Cost</td>
+                                <td class="Theading ">Action</td>
+                            </tr>
                             <?php
-
-                                    $total = $total + $values["itemPrice"] + $values["itemTransportCost"];
-                                }
-                                ?>
-
-
-                        <?php
-                        }
-                        ?>
-                        <?php
-                        if (!empty($_SESSION["shoppingCart"])) {
-                            echo '<table class="bookinTotal">';
-                            echo '<tr>';
-                            echo '<td class="subTotal">Subtotal</td>';
-                            echo "<td class=amount subTotal style=padding-right: 9%;> $" .  $total . "</td>";
-                            echo '</tr>';
-                            echo '<tr>';
-                            echo '<td>Min. Booking Amount to pay</td>';
-                            echo "<td class=amount style=padding-right: 9%;>$  " . $total / 2 . "</td>";
-                            echo '</tr>';
-                            echo '</table>';
-                            $_SESSION["total"] = $total;
-                        }
-                        ?>
-
-                        <?php
-                        if (!empty($_SESSION["shoppingCart"])) {
-                            echo '<div class="check-slide">';
-                            echo '<a href="privacy_policy.php" style="color: #f15b22;">Terms & Conditions</a>';
-                            echo '</div>';
-                        }
-                        ?>
-                        <div class="bookinRow">
-                            <div class="input-box">
-                                <label>Your Name : </label><?php echo " " . $_SESSION['name'] ?>
-                            </div>
-                            <div class="input-box">
-                                <label>Email ID : </label><?php echo " " . $_SESSION['email'] ?>
-                            </div>
-                            <div class="input-box">
-                                <label>Phone : </label><?php echo " " . $_SESSION['phone'] ?>
-                            </div>
-                            <?php
+                            $count = 0;
                             if (!empty($_SESSION["shoppingCart"])) {
-                                if ($_SESSION['name'] == "") {
-                                    echo '    <a href="javascript:;" data-toggle="modal" data-target="#loginModal" class="btn">Book Now</a>';
-                                } else {
-                                    echo '<a href="booking_step2.php" class="btn">Book Now</a>';
-                                }
+                                $total = 0;
+                                foreach ($_SESSION["shoppingCart"] as $keys => $values) {
+                                    ?>
+                                    <tr>
+                                        <td class="first" style="width:200px">
+                                            <label>Address</label>
+                                            <p><?php echo " " . $_SESSION['address'] ?></p>
+                                        </td>
+                                        <td>
+                                            <label>Package Name</label>
+                                            <p><?php echo " " . $values["itemName"]; ?></p>
+                                        </td>
+                                        <td>
+                                            <label>Vendor Name</label>
+                                            <p><?php echo " " . $values["itemVendor"]; ?></p>
+                                        </td>
+                                        <td>
+                                            <label>Price</label>
+                                            <p>$ <?php echo " " . $values["itemPrice"]; ?></p>
+                                        </td>
+                                        <td>
+                                            <label>Transport Cost</label>
+                                            <p>$<?php echo " " . $values["itemTransportCost"]; ?></p>
+                                        </td>
+                                        <td>
+                                            <label>Total Cost</label>
+                                            <p>$ <?php echo $x = number_format($values["itemPrice"] + $values["itemTransportCost"], 2); ?></p>
+                                        </td>
+                                        <td class="Theading">
+                                            <a href="booking_step1.php?action=delete&id=<?php echo $values["itemId"]; ?>">
+                                                <span class="text-danger"><img src="images/close-icon.png" alt="" style="max-width: 80px"></span>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                <?php
+
+                                        $total = $total + $values["itemPrice"] + $values["itemTransportCost"];
+                                    }
+                                    ?>
+
+
+                            <?php
                             }
                             ?>
-                        </div>
-                        <div class="note">
-                            <div class="inner-block">
-                                <div class="icon icon-info"></div>
-                                <label>Important Information</label>
-                                <p>Please carry any valid photo id proof at the venue</p>
+                            <?php
+                            if (!empty($_SESSION["shoppingCart"])) {
+                                echo '<table class="bookinTotal">';
+                                echo '<tr>';
+                                echo '<td class="subTotal">Subtotal</td>';
+                                echo "<td class=amount subTotal style=padding-right: 9%;> $" .  $total . "</td>";
+                                echo '</tr>';
+                                echo '<tr>';
+                                echo '<td>Min. Booking Amount to pay</td>';
+                                echo "<td class=amount style=padding-right: 9%;>$  " . $total / 2 . "</td>";
+                                echo '</tr>';
+                                echo '</table>';
+                            } else {
+                                echo "";
+                            }
+                            ?>
+
+                            <?php
+                            if (!empty($_SESSION["shoppingCart"])) {
+                                echo '<div class="check-slide">';
+                                echo '<a href="privacy_policy.php" style="color: #f15b22;">Terms & Conditions</a>';
+                                echo '</div>';
+                            }
+                            ?>
+                            <div class="bookinRow">
+                                <div class="input-box">
+                                    <label>Your Name : </label><?php if (!empty($_SESSION["name"])) echo " " . $_SESSION['name'] ?>
+                                </div>
+                                <div class="input-box">
+                                    <label>Email ID : </label><?php if (!empty($_SESSION["name"])) echo " " . $_SESSION['email'] ?>
+                                </div>
+                                <div class="input-box">
+                                    <label>Phone : </label><?php if (!empty($_SESSION["name"])) echo " " . $_SESSION['phone'] ?>
+                                </div>
+                                <div class="input-box">
+                                    <label>Booking Date : </label> <input type="date" name="bookingDate">
+                                </div>
+                                <?php
+                                if (!empty($_SESSION["shoppingCart"]) && !empty($_SESSION["name"])) {
+                                    ?>
+                                    <input type="submit" name="bookingbtn" class="btn" value="Book Now">
+                                <?php
+                                } else if (empty($_SESSION["name"])) {
+
+                                    echo '    <a href="javascript:;" data-toggle="modal" data-target="#registrationModal" style="font-weight: bold;">Registration</a>';
+                                    echo " or ";
+                                    echo '    <a href="javascript:;" data-toggle="modal" data-target="#loginModal" style="font-weight: bold;">Login</a>';
+                                    echo " first ";
+                                }
+                                ?>
                             </div>
-                        </div>
-                        <div class="bottom-blcok">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="icon icon-assurance"></div>
-                                    <span>100% Assurance</span>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummybook</p>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="icon icon-trust"></div>
-                                    <span>Trust</span>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummybook</p>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="icon icon-promise"></div>
-                                    <span>Our Promise</span>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummybook</p>
+                            <div class="note">
+                                <div class="inner-block">
+                                    <div class="icon icon-info"></div>
+                                    <label>Important Information</label>
+                                    <p>Please carry any valid photo id proof at the venue</p>
                                 </div>
                             </div>
-                        </div>
+                            <div class="bottom-blcok">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="icon icon-assurance"></div>
+                                        <span>100% Assurance</span>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                            Ipsum has been the industry's standard dummybook</p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="icon icon-trust"></div>
+                                        <span>Trust</span>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                            Ipsum has been the industry's standard dummybook</p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="icon icon-promise"></div>
+                                        <span>Our Promise</span>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                            Ipsum has been the industry's standard dummybook</p>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
                 </div>
             </div>
         </div>

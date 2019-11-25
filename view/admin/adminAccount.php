@@ -2,7 +2,7 @@
 session_start();
 @require_once "../../model/Login.php";
 @require_once "../../model/Person.php";
-@include_once "../../controller/PersonController.php";
+@require_once "../../controller/PersonController.php";
 $username = "";
 $name = "";
 $email = "";
@@ -14,9 +14,9 @@ $address = "";
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
     @include_once "../errors/success.php";
+    header("Location: ../register.php");
 }
 
-// include "../register.php";
 ?>
 
 
@@ -38,62 +38,6 @@ if (isset($_POST['logoutPerson'])) {
     <link href="../css/jquery.selectbox.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Domine:400,700%7COpen+Sans:300,300i,400,400i,600,600i,700,700i%7CRoboto:400,500" rel="stylesheet">
 
-    <script>
-        function searchByName() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("nameInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-        function searchByLocation() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("locationInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[3];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-        function searchByDate() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("dateInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[4];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 
 <body class="inner-page">
@@ -104,8 +48,6 @@ if (isset($_POST['logoutPerson'])) {
                     <div class="mail"><a href="MailTo:eventorganizer@gmail.com"><span class="icon icon-envelope"></span>eventorganizer@gmail.com</a></div>
                     <div class="right-link">
                         <ul>
-                            <li class="sub-links">
-                                <a href="../index.php"><span class="icon icon-envelope"></span>Go to Homepage</a>
                             </li>
                             <li class="sub-links">
                                 <a href="javascript:;"><?php echo $_SESSION['name'] ?><span class="icon icon-arrow-down"></span></a>
@@ -142,13 +84,13 @@ if (isset($_POST['logoutPerson'])) {
                         </div>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="single-col ">
+                            <li class="single-col ">
                                     <a href="dashboard.php">Home </a>
                                 </li>
                                 <li class="single-col ">
                                     <a href="vendor.php">Vendor </a>
                                 </li>
-                                <li class="single-col active">
+                                <li class="single-col ">
                                     <a href="customer.php">Customer </a>
                                 </li>
                                 <li class="single-col ">
@@ -158,7 +100,7 @@ if (isset($_POST['logoutPerson'])) {
                                         <li> <a href="#">Bundle Package </span></a> </li>
                                     </ul>
                                 </li>
-                                <li class="single-col ">
+                                <li class="single-col active">
                                     <a href="adminAccount.php">My Account </span></a>
 
                                 </li>
@@ -189,92 +131,157 @@ if (isset($_POST['logoutPerson'])) {
             </div>
         </div>
 
-        <div class="searchFilter-main">
-            <section class="searchFormTop">
-                <div class="container">
-                    <div class="searchCenter">
-                        <div class="refineCenter">
-                            <span class="icon icon-filter"></span>
-                            <span>Refine Customer</span>
+        <!-- update profile -->
+        <div class="modal modal-vcenter fade" id="updateProfileModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog registration-popup" role="document">
+                <div class="modal-content" style="margin-top: 99px;">
+                    <div class="close-icon" aria-label="Close" data-dismiss="modal"><img src="../images/close-icon.png" alt=""></div>
+                    <h1>Update Your Profile</h1>
+                    <div class="registration-form">
+                        <div class="info">
+                            <h2>Why to update</h2>
+                            <ul>
+                                <li>Exclusive discounts for all bookings</li>
+                                <li>Full access all discounted prices</li>
+                                <li>Dedicated wed-ordination for your event</li>
+                                <li>Custom event planner for your event</li>
+                            </ul>
                         </div>
-                        <div class="searchFilter" style="width: 100%;">
-                            <div class="input-box" style="width: 33.3%;">
-                                <div class="icon icon-grid-view"></div>
-                                <input type="text" id="nameInput" onkeyup="searchByName()" placeholder="Search for name" title="Type a name">
-                            </div>
-                            <div class="input-box searchlocation" style="width: 33.3%;">
-                                <div class="icon icon-location-1"></div>
-                                <input type="text" id="locationInput" onkeyup="searchByLocation()" placeholder="Search for Location" title="Type a location">
-                            </div>
-                            <div class="input-box date" style="width: 33.3%;">
-                                <div class="icon icon-calander-month"></div>
-                                <input type="text" id="dateInput" onkeyup="searchByDate()" placeholder="Search for Date"  title="Type a date">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="content">
-                <div class="container">
-                    <div class="venues-view">
-                        <div class="row">
-
-                            <!-- <div class="right-side" id="changeOrder">
-
-                                </div> -->
-                            <div class="content">
-                                <div class="container">
-                                    <div class="bookin-info">
-                                        <table class="bookin-table" id="myTable">
-                                            <tr>
-                                                <td class="first Theading">Name</td>
-                                                <td class="Theading">Email</td>
-                                                <td class="Theading">Phone</td>
-                                                <td class="Theading">Address</td>
-                                                <td class="Theading last">Registration Date</td>
-                                            </tr>
-                                            <?php
-                                            $result = getAllCustomer();
-                                            if ($result->num_rows > 0) {
-                                                while ($row = $result->fetch_assoc()) {
-                                                    echo "<tr>";
-                                                    echo '    <td class="first">';
-                                                    echo '        <label>Name</label>';
-                                                    echo         "<p>" .  $row["name"] . "</p>";
-                                                    echo '    </td>';
-                                                    echo '    <td>';
-                                                    echo '        <label>Email</label>';
-                                                    echo         "<p>" . $row["email"] . "</p>";
-                                                    echo '    </td>';
-                                                    echo '    <td>';
-                                                    echo '        <label>Phone</label>';
-                                                    echo         "<p>" . $row["phone"] . "</p>";
-                                                    echo '    </td>';
-                                                    echo '    <td>';
-                                                    echo '        <label>Address</label>';
-                                                    echo         "<p>" . $row["address"] . "</p>";
-                                                    echo '    </td>';
-                                                    echo '    <td class="last">';
-                                                    echo '        <label>Registration date</label>';
-                                                    echo         "<p>" . $row["registration_date"] . "</p>";
-                                                    echo '    </td>';
-                                                    echo '</tr> ';
-                                                }
-                                            }
-                                            ?>
-                                        </table>
-                                    </div>
+                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                            <div class="form-filde">
+                                <div class="input-box">
+                                    <input type="text" placeholder="Name" name="name" required>
+                                </div>
+                                <div class="input-box">
+                                    <input type="email" placeholder="Email ID" name="email">
+                                </div>
+                                <div class="input-box">
+                                    <input type="text" placeholder="Phone" name="phone" required>
+                                </div>
+                                <div class=" select-row">
+                                    <select name="address" id="country_select" tabindex="1">
+                                        <option value="">Address</option>
+                                        <option value="Uttora">Uttora</option>
+                                        <option value="Banani">Banani</option>
+                                        <option value="Guslshan">Gulshan</option>
+                                        <option value="Dhanmondi">Dhanmondi</option>
+                                        <option value="Motijheel">Motijheel</option>
+                                    </select>
+                                </div>
+                                <div class="submit-slide">
+                                    <input type="submit" class="btn" name="updatePerson">
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
 
 
+        <div class="dashboard-banner">
+            <div class="container">
+                <h2>My Dashboard</h2>
+            </div>
+        </div>
+        <div class="content">
+            <div class="container">
+                <div class="my-account">
+                    <div class="account-tab">
+                        <ul>
+                            <li class="active"><a href="javascript:void(0);" id="profile">Profile</a></li>
+                            <li><a href="javascript:void(0);" id="changePassword">Change Password</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content profile-con open">
+                        <div class="personal-edit">
+                            <a href="javascript:;" data-toggle="modal" data-target="#updateProfileModal"> <span class="icon icon-pencile"></span>Edit Profile</a>
+                        </div>
+                        <div class="personal-information">
+                            <div class="info-slide">
+                                <p><span>Name :</span><?php echo $_SESSION['name'] ?></p>
+                            </div>
+                            <div class="info-slide">
+                                <p><span>Email ID :</span><?php echo $_SESSION['email'] ?></p>
+                            </div>
+                            <div class="info-slide">
+                                <p><span>Mobile Number :</span><?php echo $_SESSION['phone'] ?></p>
+                            </div>
+                            <div class="info-slide">
+                                <p><span>Address :</span><?php echo $_SESSION['address'] ?></p>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- change password -->
+                    <div class="tab-content changePassword-con">
+                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                            <div class="change-password ">
+                                <div class="input-box">
+                                    <input type="text" placeholder="Current Password" name="currentPassword" required>
+                                </div>
+                                <div class="input-box">
+                                    <input type="text" placeholder="New Password" name="newPassword" required>
+                                </div>
+                                <div class="input-box">
+                                    <input type="text" placeholder="Confirm Password" name="confNewPassword" required>
+                                </div>
+                                <div class="submit-box">
+                                    <input type="submit" value="Save" class="btn" name="updatePassword">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
 
+                </div>
+                <div class="functionality-view">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3">
+                            <div class="functionality-box">
+                                <div class="iconBox">
+                                    <div class="icon icon-lead-management"></div>
+                                </div>
+                                <h3>Lead Management</h3>
+                                <p>Increase occupancy, automate the lead management process, grow your customer
+                                    relationships, match sales-ready leads to the appropriate sales people.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="functionality-box">
+                                <div class="iconBox">
+                                    <div class="icon icon-sales"></div>
+                                </div>
+                                <h3>Sales</h3>
+                                <p>Track sales opportunities, manage the sales process and generate proposals. Built-in
+                                    process provides an aggregate view of account activity from the past, present and
+                                    future.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="functionality-box">
+                                <div class="iconBox">
+                                    <div class="icon icon-booking"></div>
+                                </div>
+                                <h3>Booking</h3>
+                                <p>Manage calendars , share availability, easily view events color-coded by status, type
+                                    or location. Book and manage multiple spaces, venues, and sites all from one master
+                                    calendar.</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="functionality-box">
+                                <div class="iconBox">
+                                    <div class="icon icon-operations"></div>
+                                </div>
+                                <h3>Operations</h3>
+                                <p>Assign resources and review stock alerts. Create detailed reports, work orders, and
+                                    generate invoices. Receive alerts on changes as they take place.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <footer id="footer">
             <div class="footer-top">
                 <div class="container">
@@ -337,7 +344,6 @@ if (isset($_POST['logoutPerson'])) {
             </div>
         </footer>
     </div>
-
 
     <!-- Bootstrap core JavaScript
         ================================================== -->

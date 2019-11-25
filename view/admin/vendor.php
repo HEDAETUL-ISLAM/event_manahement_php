@@ -120,7 +120,7 @@ if (isset($_POST['logoutPerson'])) {
                                     }
                                     if ($_SESSION['name'] == "") {
                                         echo '<li>';
-                                        echo '    <a href="../register.php">Login</a>';
+                                        echo '    <a href="../index.php">Login</a>';
                                         echo '</li>';
                                     }
                                     ?>
@@ -161,7 +161,7 @@ if (isset($_POST['logoutPerson'])) {
                                     </ul>
                                 </li>
                                 <li class="single-col ">
-                                    <a href="vendor_account_profile.php">My Account </span></a>
+                                    <a href="adminAccount.php">My Account </span></a>
 
                                 </li>
                             </ul>
