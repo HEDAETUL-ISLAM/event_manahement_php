@@ -128,40 +128,7 @@ if (isset($_POST['logoutPerson'])) {
             </div>
         </div>
 
-        <div style="  display: table; clear: both; background-color: #efefef ; margin-left:10%;">
-            <section class="content" style="float:left; width:50%; padding: 10px; height:300px">
-                <div class="container">
-                    <div class="venues-view">
-                        <?php
-                        @include_once  "./customerGraph.php";
-                        ?>
-                    </div>
-                </div>
-            </section>
-            <section class="content" style="float:left; width:50%; padding: 10px; height:300px">
-                <div class="container">
-                    <div class="venues-view">
-                        <?php
-                        @include_once  "./vendorGraph.php";
-                        ?>
-                    </div>
-                </div>
-            </section>
-        </div>
-        <div style="  display: table; clear: both; background-color: #efefef; margin-left:35%;">
-            <section class="content" style="float:left; width:50%; padding: 10px; height:300px">
-                <div class="container">
-                    <div class="venues-view">
-                        <?php
-                        @include_once  "./bookingGraph.php";
-                        // echo "hi baby"
-                        ?>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-
+        
 
 
 

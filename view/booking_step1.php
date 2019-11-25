@@ -109,16 +109,16 @@ if (isset($_POST["bookingbtn"])) {
         $email = $_SESSION['email'];
         $phone = $_SESSION['phone'];
         $address = $_SESSION['address'];
-        $date = $_POST['bookingDate'];
+        $bookingDate = $_POST['bookingDate'];
         $vendorname = $values["itemVendor"];
         $packagename = $values["itemName"];
         $totalcost = number_format($values["itemPrice"] + $values["itemTransportCost"], 5);
         $halfpaid = "no";
         $fullpaid = "no";
-        if (strlen($date) == 0) {
+        if (strlen($bookingDate) == 0) {
             @include_once "./errors/blankEntry.php";
         } else {
-            $booking = new Booking($username, $email, $phone, $address, $date, $vendorname, $packagename, $totalcost, $halfpaid, $fullpaid);
+            $booking = new Booking($username, $email, $phone, $address, $bookingDate, $vendorname, $packagename, $totalcost, $halfpaid, $fullpaid);
 
             $result = insertBookingDetails($booking);
 

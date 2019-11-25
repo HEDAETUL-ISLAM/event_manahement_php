@@ -6,14 +6,14 @@ class Booking
     private $email;
     private $phone;
     private $address;
-    private $date;
+    private $bookingDate;
     private $vendorName;
     private $packageName;
     private $totalCost;
     private $halfPaid;
     private $fullPaid;
 
- 
+
     public function getId()
     {
         return $this->id;
@@ -70,13 +70,13 @@ class Booking
         return $this;
     }
 
-    public function getDate()
+    public function getBookingDate()
     {
-        return $this->date;
+        return $this->bookingDate;
     }
-    public function setDate($date)
+    public function setBookingDate($bookingDate)
     {
-        $this->date = $date;
+        $this->bookingDate = $bookingDate;
 
         return $this;
     }
@@ -136,19 +136,17 @@ class Booking
 
         return $this;
     }
-    public function Booking($username, $email, $phone, $address, $date, $vendorName,$packageName, $totalCost, $halfPaid, $fullPaid)
+    public function Booking($username, $email, $phone, $address, $bookingDate, $vendorName, $packageName, $totalCost, $halfPaid, $fullPaid)
     {
         $this->username = $username;
         $this->email = $email;
         $this->phone = $phone;
         $this->address = $address;
-        $this->date = $date;
+        $this->bookingDate = $bookingDate;
         $this->vendorName = $vendorName;
         $this->packageName = $packageName;
         $this->totalCost = $totalCost;
         $this->halfPaid = $halfPaid;
         $this->fullPaid = $fullPaid;
     }
-
-
 }

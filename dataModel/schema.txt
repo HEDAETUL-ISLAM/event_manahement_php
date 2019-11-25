@@ -28,7 +28,7 @@ create table booking (
     username varchar(256) not null, 
     email varchar(256), phone varchar(256) not null, 
     address varchar(256),
-    date date, 
+    bookingdate date, 
     vendorname varchar(256),
     packagename varchar(256), 
     totalcost int(255), 
