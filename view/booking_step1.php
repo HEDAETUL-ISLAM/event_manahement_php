@@ -433,87 +433,88 @@ if (isset($_POST["bookingbtn"])) {
                             <?php
                             }
                             ?>
-                            <?php
-                            if (!empty($_SESSION["shoppingCart"])) {
-                                echo '<table class="bookinTotal">';
-                                echo '<tr>';
-                                echo '<td class="subTotal">Subtotal</td>';
-                                echo "<td class=amount subTotal style=padding-right: 9%;> $" .  $total . "</td>";
-                                echo '</tr>';
-                                echo '<tr>';
-                                echo '<td>Min. Booking Amount to pay</td>';
-                                echo "<td class=amount style=padding-right: 9%;>$  " . $total / 2 . "</td>";
-                                echo '</tr>';
-                                echo '</table>';
-                            } else {
-                                echo "";
-                            }
-                            ?>
+                        </table>
+                        <?php
+                        if (!empty($_SESSION["shoppingCart"])) {
+                            echo '<table class="bookinTotal">';
+                            echo '<tr>';
+                            echo '<td class="subTotal">Subtotal</td>';
+                            echo "<td class=amount subTotal style=padding-right: 9%;> $" .  $total . "</td>";
+                            echo '</tr>';
+                            echo '<tr>';
+                            echo '<td>Min. Booking Amount to pay</td>';
+                            echo "<td class=amount style=padding-right: 9%;>$  " . $total / 2 . "</td>";
+                            echo '</tr>';
+                            echo '</table>';
+                        } else {
+                            echo "";
+                        }
+                        ?>
 
+                        <?php
+                        if (!empty($_SESSION["shoppingCart"])) {
+                            echo '<div class="check-slide">';
+                            echo '<a href="privacy_policy.php" style="color: #f15b22;">Terms & Conditions</a>';
+                            echo '</div>';
+                        }
+                        ?>
+                        <div class="bookinRow">
+                            <div class="input-box">
+                                <label>Your Name : </label><?php if (!empty($_SESSION["name"])) echo " " . $_SESSION['name'] ?>
+                            </div>
+                            <div class="input-box">
+                                <label>Email ID : </label><?php if (!empty($_SESSION["name"])) echo " " . $_SESSION['email'] ?>
+                            </div>
+                            <div class="input-box">
+                                <label>Phone : </label><?php if (!empty($_SESSION["name"])) echo " " . $_SESSION['phone'] ?>
+                            </div>
+                            <div class="input-box">
+                                <label>Booking Date : </label> <input type="date" name="bookingDate">
+                            </div>
                             <?php
-                            if (!empty($_SESSION["shoppingCart"])) {
-                                echo '<div class="check-slide">';
-                                echo '<a href="privacy_policy.php" style="color: #f15b22;">Terms & Conditions</a>';
-                                echo '</div>';
-                            }
-                            ?>
-                            <div class="bookinRow">
-                                <div class="input-box">
-                                    <label>Your Name : </label><?php if (!empty($_SESSION["name"])) echo " " . $_SESSION['name'] ?>
-                                </div>
-                                <div class="input-box">
-                                    <label>Email ID : </label><?php if (!empty($_SESSION["name"])) echo " " . $_SESSION['email'] ?>
-                                </div>
-                                <div class="input-box">
-                                    <label>Phone : </label><?php if (!empty($_SESSION["name"])) echo " " . $_SESSION['phone'] ?>
-                                </div>
-                                <div class="input-box">
-                                    <label>Booking Date : </label> <input type="date" name="bookingDate">
-                                </div>
-                                <?php
-                                if (!empty($_SESSION["shoppingCart"]) && !empty($_SESSION["name"])) {
-                                    ?>
-                                    <input type="submit" name="bookingbtn" class="btn" value="Book Now">
-                                <?php
-                                } else if (empty($_SESSION["name"])) {
-
-                                    echo '    <a href="javascript:;" data-toggle="modal" data-target="#registrationModal" style="font-weight: bold;">Registration</a>';
-                                    echo " or ";
-                                    echo '    <a href="javascript:;" data-toggle="modal" data-target="#loginModal" style="font-weight: bold;">Login</a>';
-                                    echo " first ";
-                                }
+                            if (!empty($_SESSION["shoppingCart"]) && !empty($_SESSION["name"])) {
                                 ?>
-                            </div>
-                            <div class="note">
-                                <div class="inner-block">
-                                    <div class="icon icon-info"></div>
-                                    <label>Important Information</label>
-                                    <p>Please carry any valid photo id proof at the venue</p>
-                                </div>
-                            </div>
-                            <div class="bottom-blcok">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="icon icon-assurance"></div>
-                                        <span>100% Assurance</span>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                            Ipsum has been the industry's standard dummybook</p>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="icon icon-trust"></div>
-                                        <span>Trust</span>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                            Ipsum has been the industry's standard dummybook</p>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="icon icon-promise"></div>
-                                        <span>Our Promise</span>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                            Ipsum has been the industry's standard dummybook</p>
-                                    </div>
-                                </div>
-                            </div>
+                                <input type="submit" name="bookingbtn" class="btn" value="Book Now">
+                            <?php
+                            } else if (empty($_SESSION["name"])) {
+
+                                echo '    <a href="javascript:;" data-toggle="modal" data-target="#registrationModal" style="font-weight: bold;">Registration</a>';
+                                echo " or ";
+                                echo '    <a href="javascript:;" data-toggle="modal" data-target="#loginModal" style="font-weight: bold;">Login</a>';
+                                echo " first ";
+                            }
+                            ?>
+                        </div> 
                     </form>
+                    <div class="note">
+                        <div class="inner-block">
+                            <div class="icon icon-info"></div>
+                            <label>Important Information</label>
+                            <p>Please carry any valid photo id proof at the venue</p>
+                        </div>
+                    </div>
+                    <div class="bottom-blcok">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="icon icon-assurance"></div>
+                                <span>100% Assurance</span>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                    Ipsum has been the industry's standard dummybook</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="icon icon-trust"></div>
+                                <span>Trust</span>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                    Ipsum has been the industry's standard dummybook</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="icon icon-promise"></div>
+                                <span>Our Promise</span>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                    Ipsum has been the industry's standard dummybook</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
