@@ -105,7 +105,7 @@ class Booking
     }
 
 
-    public function getPackagename()
+    public function getPackageName()
     {
         return $this->packageName;
     }

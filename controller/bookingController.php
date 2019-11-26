@@ -24,7 +24,7 @@ function getAllBooking()
     if (!$connection) {
         return -1;
     }
-    $query = "SELECT * from booking";
+    $query = "SELECT * from booking order by transaction DESC";
     $result = $connection->query($query);
     return $result;
     mysqli_close($connection);
