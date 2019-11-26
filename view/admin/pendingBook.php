@@ -46,7 +46,7 @@ if (isset($_POST['logoutPerson'])) {
             filter = input.value.toUpperCase();
             table = document.getElementById("myTable");
             tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
+            for (i = 1; i < tr.length; i++) {
                 td = tr[i].getElementsByTagName("td")[1];
                 if (td) {
                     txtValue = td.textContent || td.innerText;
@@ -65,7 +65,7 @@ if (isset($_POST['logoutPerson'])) {
             filter = input.value.toUpperCase();
             table = document.getElementById("myTable");
             tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
+            for (i = 1; i < tr.length; i++) {
                 td = tr[i].getElementsByTagName("td")[0];
                 if (td) {
                     txtValue = td.textContent || td.innerText;
@@ -84,7 +84,7 @@ if (isset($_POST['logoutPerson'])) {
             filter = input.value.toUpperCase();
             table = document.getElementById("myTable");
             tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
+            for (i = 1; i < tr.length; i++) {
                 td = tr[i].getElementsByTagName("td")[5];
                 if (td) {
                     txtValue = td.textContent || td.innerText;
@@ -210,7 +210,7 @@ if (isset($_POST['logoutPerson'])) {
                             </div>
                             <div class="input-box searchlocation" style="width: 33.3%;">
                                 <div class="icon icon-grid-view"></div>
-                                <input type="text" id="transactionInput" onkeyup="searchByTransaction()" placeholder="Search for transaction" title="Type a location">
+                                <input type="text" id="transactionInput" onkeyup="searchByTransaction()" placeholder="Search for transaction" title="Type a transaction">
                             </div>
                             <div class="input-box date" style="width: 33.3%;">
                                 <div class="icon icon-calander-month"></div>

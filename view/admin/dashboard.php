@@ -154,8 +154,6 @@ if (isset($_POST['logoutPerson'])) {
                     </div>
                 </div>
             </section>
-        </div>
-        <div style="  display: table; clear: both; background-color: #efefef; margin-left:10%;">
             <section class="content" style="float:left; width:50%; padding: 10px; height:300px">
                 <div class="container">
                     <div class="venues-view">
@@ -166,8 +164,7 @@ if (isset($_POST['logoutPerson'])) {
                     </div>
                 </div>
             </section>
-
-        </div>
+        </div> 
 
 
 
