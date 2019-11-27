@@ -2,6 +2,7 @@
 session_start();
 @require_once "../../model/Login.php";
 @require_once "../../model/Person.php";
+@require_once "../../model/PendingBook.php";
 @include_once "../../controller/PersonController.php";
 @include_once "../../controller/bookingController.php";
 $username = "";
@@ -15,9 +16,51 @@ $address = "";
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
     @include_once "../errors/success.php";
+    header('Location: home.php');
 }
 
 // include "../register.php";
+
+//for Halfpaid============================================================
+if (isset($_GET["action"])) {
+    if ($_GET["action"] == "half") {
+        $transaction = $_GET["id"];
+        $halfPaid = "yes";
+        $pendingbook = new PendingBook();
+        $pendingbook->setTransaction($transaction);
+        $pendingbook->setHalfPaid($halfPaid);
+        $result = halfBooking($pendingbook);
+        echo '<script>confirm("Half Paid")</script>';
+        echo '<script>window.location="pendingBook.php"</script>';
+    }
+}
+
+
+//for fulpaid============================================================
+if (isset($_GET["action"])) {
+    if ($_GET["action"] == "full") {
+        $transaction = $_GET["id"];
+        $fullPaid = "yes";
+        $pendingbook = new PendingBook();
+        $pendingbook->setTransaction($transaction);
+        $pendingbook->setFullPaid($fullPaid);
+        $result = fullBooking($pendingbook);
+        echo '<script>confirm("Full paid")</script>';
+        echo '<script>window.location="pendingBook.php"</script>';
+    }
+}
+
+//for remove============================================================
+if (isset($_GET["action"])) {
+    if ($_GET["action"] == "delete") {
+        $transaction = $_GET["id"];
+        $pendingbook = new PendingBook();
+        $pendingbook->setTransaction($transaction);
+        $result = cancelBooking($pendingbook);
+        echo '<script>confirm("Booking cancle")</script>';
+        echo '<script>window.location="pendingBook.php"</script>';
+    }
+}
 ?>
 
 
@@ -210,7 +253,7 @@ if (isset($_POST['logoutPerson'])) {
                             </div>
                             <div class="input-box searchlocation" style="width: 33.3%;">
                                 <div class="icon icon-grid-view"></div>
-                                <input type="text" id="transactionInput" onkeyup="searchByTransaction()" placeholder="Search for transaction" title="Type a transaction">
+                                <input type="text" id="transactionInput" onkeyup="searchByTransaction()" placeholder="Search for transaction" title="Type a location">
                             </div>
                             <div class="input-box date" style="width: 33.3%;">
                                 <div class="icon icon-calander-month"></div>
@@ -239,10 +282,11 @@ if (isset($_POST['logoutPerson'])) {
                                                 <td class="Theading">Phone</td>
                                                 <td class="Theading">Address</td>
                                                 <td class="Theading">Booking Date</td>
+                                                <td class="Theading">Order Date</td>
                                                 <td class="Theading">Vendor Name</td>
                                                 <td class="Theading">Package Name</td>
                                                 <td class="Theading">Total Cost</td>
-                                                <td class="Theading last">Action</td>
+                                                <td class="Theading ">Action</td>
                                             </tr>
                                             <?php
                                             $result = getAllBooking();
@@ -250,41 +294,62 @@ if (isset($_POST['logoutPerson'])) {
                                                 while ($row = $result->fetch_assoc()) {
                                                     echo "<tr>";
                                                     echo '    <td >';
-                                                    echo '        <label>Transaction</label>';
                                                     echo         "<p>" .  $row["transaction"] . "</p>";
                                                     echo '    </td>';
                                                     echo '    <td >';
-                                                    echo '        <label>Username</label>';
                                                     echo         "<p>" .  $row["username"] . "</p>";
                                                     echo '    </td>';
                                                     echo '    <td>';
-                                                    echo '        <label>Email</label>';
                                                     echo         "<p>" . $row["email"] . "</p>";
                                                     echo '    </td>';
                                                     echo '    <td>';
-                                                    echo '        <label>Phone</label>';
                                                     echo         "<p>" . $row["phone"] . "</p>";
                                                     echo '    </td>';
                                                     echo '    <td>';
-                                                    echo '        <label>Address</label>';
                                                     echo         "<p>" . $row["address"] . "</p>";
                                                     echo '    </td>';
                                                     echo '    <td>';
-                                                    echo '        <label>Booking Date</label>';
                                                     echo         "<p>" . $row["bookingdate"] . "</p>";
                                                     echo '    </td>';
                                                     echo '    <td>';
-                                                    echo '        <label>Vendor Name</label>';
+                                                    echo         "<p>" . $row["pendingdate"] . "</p>";
+                                                    echo '    </td>';
+                                                    echo '    <td>';
                                                     echo         "<p>" . $row["vendorname"] . "</p>";
                                                     echo '    </td>';
                                                     echo '    <td>';
-                                                    echo '        <label>Package Name</label>';
                                                     echo         "<p>" . $row["packagename"] . "</p>";
                                                     echo '    </td>';
                                                     echo '    <td>';
-                                                    echo '        <label>Total Cost</label>';
                                                     echo         "<p>" . $row["totalcost"] . "</p>";
                                                     echo '    </td>';
+                                                    ?>
+                                                    <td class="Theading">
+                                                        <?php
+                                                                if ($row["halfpaid"] == "no") {
+                                                                    ?>
+                                                            <a href="pendingBook.php?action=half&id=<?php echo $row["transaction"]; ?>">
+                                                                <span class="text-danger"><img src="../../view/images/half-icon.png" alt="" style="max-width: 80px"> </span>
+                                                            </a>
+                                                        <?php
+                                                                } else {
+                                                                    echo "";
+                                                                }
+                                                                if ($row["fullpaid"] == "no") {
+                                                                    ?>
+                                                            <a href="pendingBook.php?action=full&id=<?php echo $row["transaction"]; ?>">
+                                                                <span class="text-danger"><img src="../../view/images/done-icon.png" alt="" style="max-width: 100px"> </span>
+                                                            </a>
+                                                        <?php
+                                                                } else {
+                                                                    echo "";
+                                                                }
+                                                                ?>
+                                                        <a href="pendingBook.php?action=delete&id=<?php echo $row["transaction"]; ?>">
+                                                            <span class="text-danger"><img src="../../view/images/close-icon.png" alt="" style="max-width: 80px"> </span>
+                                                        </a>
+                                                    </td>
+                                            <?php
                                                     echo '</tr> ';
                                                 }
                                             }

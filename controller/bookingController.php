@@ -1,6 +1,6 @@
 <?php
 @include_once "../model/booking.php";
-
+@include_once "../model/PendingBook.php";
 function insertBookingDetails(Booking $booking)
 {
     $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
@@ -17,7 +17,6 @@ function insertBookingDetails(Booking $booking)
     }
     mysqli_close($connection);
 }
-
 function getAllBooking()
 {
     $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
@@ -27,5 +26,38 @@ function getAllBooking()
     $query = "SELECT * from booking order by transaction DESC";
     $result = $connection->query($query);
     return $result;
+    mysqli_close($connection);
+}
+
+function halfBooking(PendingBook $pendingbook)
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    if (!$connection) {
+        return -1;
+    }
+    $query = "UPDATE booking SET halfpaid = '" . $pendingbook->getHalfPaid() . "'  where transaction = '" . $pendingbook->getTransaction() . "'";
+    mysqli_query($connection, $query);
+    mysqli_close($connection);
+}
+
+function fullBooking(PendingBook $pendingbook)
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    if (!$connection) {
+        return -1;
+    }
+    $query = "UPDATE booking SET fullpaid = '" . $pendingbook->getFullPaid() . "'  where transaction = '" . $pendingbook->getTransaction() . "'";
+    mysqli_query($connection, $query);
+    mysqli_close($connection);
+}
+
+function cancelBooking(PendingBook $pendingbook)
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    if (!$connection) {
+        return -1;
+    }
+    $query = "DELETE from booking where transaction = '" . $pendingbook->getTransaction() . "'";
+    $result = $connection->query($query);
     mysqli_close($connection);
 }

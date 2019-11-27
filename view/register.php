@@ -21,8 +21,7 @@ if (isset($_POST['logoutPerson'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Event Organizer</title>
 
-    <link rel="shortcut icon" href="images/Favicon.ico">
-    <link href="./css/imageUpload.css" rel="stylesheet">
+    <link rel="shortcut icon" href="images/Favicon.ico"> 
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/owl.carousel.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet" />
@@ -108,7 +107,7 @@ if (isset($_POST['logoutPerson'])) {
             $address = $_POST['address'];
             $phone = $_POST['phone'];
             $password = $_POST['password'];
-            if (strlen($username) == 0 || strlen($name) == 0 || strlen($mail) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
+            if (strlen($username) == 0 || strlen($name) == 0 || strlen($email) == 0 || strlen($address) == 0 || strlen($phone) == 0 || strlen($password) == 0) {
                 @include_once "./errors/blankEntry.php";
             } else {
                 $person = new Person($username, $name, $email, $phone, $password, $address);
@@ -410,8 +409,7 @@ if (isset($_POST['logoutPerson'])) {
     <script type="text/javascript" src="js/jquery.selectbox-0.2.js"></script>
     <script type="text/javascript" src="js/jquery.form-validator.min.js"></script>
     <script type="text/javascript" src="js/placeholder.js"></script>
-    <script type="text/javascript" src="js/coustem.js"></script>
-    <script type="text/javascript" src="./js/imageUpload.js"></script>
+    <script type="text/javascript" src="js/coustem.js"></script> 
 
 </body>
 

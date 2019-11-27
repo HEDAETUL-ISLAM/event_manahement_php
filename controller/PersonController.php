@@ -112,3 +112,28 @@ function getAllVendor()
     return $result;
     mysqli_close($connection);
 }
+
+
+function insertAdmin(Person $person)
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    if (!$connection) {
+        return -1;
+    }
+    $findPerson = "SELECT IF(status=0, True, False) FROM person WHERE status=0";
+    $result = mysqli_query($connection, $findPerson);
+
+    if ($result == 1) {
+        return -1;
+    } else {
+        $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status) 
+        VALUES ('" . $person->getUsername() . "' ,'" . $person->getName() . "' , '" . $person->getEmail() . "', '" . $person->getPhone() . "', '" . $person->getPassword() . "', '" . $person->getAddress() . "',0)";
+        if (mysqli_query($connection, $query)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    mysqli_close($connection);
+}

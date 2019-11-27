@@ -14,6 +14,7 @@ $address = "";
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
     @include_once "../errors/success.php";
+    header('Location: home.php');
 }
 
 // include "../register.php";
