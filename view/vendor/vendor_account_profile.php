@@ -194,7 +194,7 @@ if (isset($_POST['logoutPerson'])) {
                         </div>
                         <div class="personal-information">
                             <div class="info-slide">
-                                <p><span>Name :</span><?php echo $_SESSION['name'] ?></p>
+                                <p><span>Name :</span><?php echo $_SESSION['username'] ?></p>
                             </div>
                             <div class="info-slide">
                                 <p><span>Email ID :</span><?php echo $_SESSION['email'] ?></p>

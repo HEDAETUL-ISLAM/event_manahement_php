@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
@@ -486,13 +486,13 @@ if (isset($_POST["bookingbtn"])) {
                                 echo " first ";
                             }
                             ?>
-                        </div> 
+                        </div>
                     </form>
                     <div class="note">
                         <div class="inner-block">
                             <div class="icon icon-info"></div>
                             <label>Important Information</label>
-                            <p>Please carry any valid photo id proof at the venue</p>
+                            <p>Please carry booking ID proof at the venue</p>
                         </div>
                     </div>
                     <div class="bottom-blcok">
@@ -500,20 +500,17 @@ if (isset($_POST["bookingbtn"])) {
                             <div class="col-sm-4">
                                 <div class="icon icon-assurance"></div>
                                 <span>100% Assurance</span>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummybook</p>
+                                <p>Assurance of ultimate service quality</p>
                             </div>
                             <div class="col-sm-4">
                                 <div class="icon icon-trust"></div>
                                 <span>Trust</span>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummybook</p>
+                                <p>Every business depend on trust.We are happy to be bound within your trust</p>
                             </div>
                             <div class="col-sm-4">
                                 <div class="icon icon-promise"></div>
                                 <span>Our Promise</span>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummybook</p>
+                                <p>Excellent services to each client.</p>
                             </div>
                         </div>
                     </div>

@@ -23,7 +23,7 @@ function getAllBooking()
     if (!$connection) {
         return -1;
     }
-    $query = "SELECT * from booking order by transaction DESC";
+    $query = "SELECT * from booking where fullpaid ='no' ";
     $result = $connection->query($query);
     return $result;
     mysqli_close($connection);
@@ -59,5 +59,30 @@ function cancelBooking(PendingBook $pendingbook)
     }
     $query = "DELETE from booking where transaction = '" . $pendingbook->getTransaction() . "'";
     $result = $connection->query($query);
+    mysqli_close($connection);
+}
+
+
+function getAllOrderHistory()
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    if (!$connection) {
+        return -1;
+    }
+    $query = "SELECT * from booking where fullpaid ='yes' order by transaction DESC ";
+    $result = $connection->query($query);
+    return $result;
+    mysqli_close($connection);
+}
+
+function getIndividualBooking($person)
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    if (!$connection) {
+        return -1;
+    }
+    $query = "SELECT * from booking where username = '$person' ";
+    $result = $connection->query($query);
+    return $result;
     mysqli_close($connection);
 }

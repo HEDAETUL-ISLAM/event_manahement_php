@@ -21,37 +21,6 @@ if (isset($_POST['logoutPerson'])) {
     header('Location: home.php');
 }
 
-// include "../register.php";
-
-//for Halfpaid============================================================
-if (isset($_GET["action"])) {
-    if ($_GET["action"] == "half") {
-        $transaction = $_GET["id"];
-        $halfPaid = "yes";
-        $pendingbook = new PendingBook();
-        $pendingbook->setTransaction($transaction);
-        $pendingbook->setHalfPaid($halfPaid);
-        $result = halfBooking($pendingbook);
-        echo '<script>alert("Half Paid")</script>';
-        echo '<script>window.location="pendingBook.php"</script>';
-    }
-}
-
-
-//for fulpaid============================================================
-if (isset($_GET["action"])) {
-    if ($_GET["action"] == "full") {
-        $transaction = $_GET["id"];
-        $fullPaid = "yes";
-        $pendingbook = new PendingBook();
-        $pendingbook->setTransaction($transaction);
-        $pendingbook->setFullPaid($fullPaid);
-        $result = fullBooking($pendingbook);
-        echo '<script>alert("Full paid")</script>';
-        echo '<script>window.location="pendingBook.php"</script>';
-    }
-}
-
 //for remove============================================================
 if (isset($_GET["action"])) {
     if ($_GET["action"] == "delete") {
@@ -287,10 +256,10 @@ if (isset($_GET["action"])) {
                                                 <td class="Theading">Vendor Name</td>
                                                 <td class="Theading">Package Name</td>
                                                 <td class="Theading">Total Cost</td>
-                                                <td class="Theading last">Action</td>
+                                                <td class="Theading ">Action</td>
                                             </tr>
                                             <?php
-                                            $result = getAllBooking();
+                                            $result = getAllOrderHistory();
                                             if ($result->num_rows > 0) {
                                                 while ($row = $result->fetch_assoc()) {
                                                     echo "<tr>";
@@ -325,27 +294,7 @@ if (isset($_GET["action"])) {
                                                     echo         "<p>" . $row["totalcost"] . "</p>";
                                                     echo '    </td>';
                                                     ?>
-                                                    <td class="Theading last">
-                                                        <?php
-                                                                if ($row["halfpaid"] == "no") {
-                                                                    ?>
-                                                            <a href="pendingBook.php?action=half&id=<?php echo $row["transaction"]; ?>">
-                                                                <span class="text-danger"><img src="../../view/images/half-icon.png" alt="" style="max-width: 80px"> </span>
-                                                            </a>
-                                                        <?php
-                                                                } else {
-                                                                    echo "";
-                                                                }
-                                                                if ($row["fullpaid"] == "no") {
-                                                                    ?>
-                                                            <a href="pendingBook.php?action=full&id=<?php echo $row["transaction"]; ?>">
-                                                                <span class="text-danger"><img src="../../view/images/done-icon.png" alt="" style="max-width: 100px"> </span>
-                                                            </a>
-                                                        <?php
-                                                                } else {
-                                                                    echo "";
-                                                                }
-                                                                ?>
+                                                    <td class="Theading "> 
                                                         <a href="pendingBook.php?action=delete&id=<?php echo $row["transaction"]; ?>">
                                                             <span class="text-danger"><img src="../../view/images/close-icon.png" alt="" style="max-width: 80px"> </span>
                                                         </a>

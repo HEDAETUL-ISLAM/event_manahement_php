@@ -310,18 +310,7 @@ if (isset($_POST['logoutPerson'])) {
                             you want to view and that's it.</div>
                         <div class="stickLine"></div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="text-center">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam elementum nisi eget
-                                    mi mollis laoreet. Morbi non dignissim tellus, vitae blandit urna Lorem ipsum dolor
-                                    sit amet, consectetur adipiscing elit morbi non dignissim. Nullam elementum nisi
-                                    eget mi mollis laoreet. Morbi non dignissim tellus, vitae blandit urna Lorem ipsum
-                                    dolor sit amet, consectetur adipiscing elit morbi non dignissim.Nullam elementum
-                                    nisi eget mi mollis laoreet. Morbi non dignissim tellus, vitae blandit urna Lorem
-                                    ipsum dolor sit amet, consectetur adipiscing elit morbi non dignissim.</p>
-                            </div>
-                        </div>
+                    <div class="row"> 
                         <div class="col-sm-4">
                             <div class="contact-box">
                                 <div class="contactIcon">

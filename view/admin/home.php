@@ -44,7 +44,7 @@ if (isset($_POST['logoutPerson'])) {
                 <div class="register-pageLogin">
                     <div class="login-title">
                         <label>Admin Login</label>
-                        <a href="index.php"><span class="icon icon-multi-user"></span>Go Homepage</a>
+                        <a href="../index.php"><span class="icon icon-multi-user"></span>Go Homepage</a>
                     </div>
                     <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
                         <div class="login-box">

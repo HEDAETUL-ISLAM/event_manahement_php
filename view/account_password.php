@@ -490,8 +490,8 @@ if (isset($_POST['updatePassword'])) {
                                     <div class="icon icon-lead-management"></div>
                                 </div>
                                 <h3>Lead Management</h3>
-                                <p>Increase occupancy, automate the lead management process, grow your customer
-                                    relationships, match sales-ready leads to the appropriate sales people.</p>
+                                <p>Increase occupancy, automate the lead management process, grow relationship with
+                                    customer.</p>
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3">
@@ -500,9 +500,8 @@ if (isset($_POST['updatePassword'])) {
                                     <div class="icon icon-sales"></div>
                                 </div>
                                 <h3>Sales</h3>
-                                <p>Track sales opportunities, manage the sales process and generate proposals. Built-in
-                                    process provides an aggregate view of account activity from the past, present and
-                                    future.</p>
+                                <p>Built-in process provides an aggregate view of account activity from the past,
+                                    present and future.</p>
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3">
@@ -511,9 +510,7 @@ if (isset($_POST['updatePassword'])) {
                                     <div class="icon icon-booking"></div>
                                 </div>
                                 <h3>Booking</h3>
-                                <p>Manage calendars , share availability, easily view events color-coded by status, type
-                                    or location. Book and manage multiple spaces, venues, and sites all from one master
-                                    calendar.</p>
+                                <p>Manage calendars , share availability, easily view events, type or location.</p>
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-3">
@@ -522,8 +519,7 @@ if (isset($_POST['updatePassword'])) {
                                     <div class="icon icon-operations"></div>
                                 </div>
                                 <h3>Operations</h3>
-                                <p>Assign resources and review stock alerts. Create detailed reports, work orders, and
-                                    generate invoices. Receive alerts on changes as they take place.</p>
+                                <p>Create detailed reports, work orders and generate invoices.</p>
                             </div>
                         </div>
                     </div>

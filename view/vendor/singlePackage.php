@@ -4,7 +4,7 @@
 session_start();
 @include_once "../../controller/packageController/packageController.php";
 
-$result = getAllSinglePackage();
+$result = getAllSinglePackage();  
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $rating = $row["rating"] * 20;

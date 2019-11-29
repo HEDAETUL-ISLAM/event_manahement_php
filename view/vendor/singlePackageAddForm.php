@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
@@ -138,7 +138,7 @@ if (isset($_POST['logoutPerson'])) {
             $category = $_POST['category'];
             $packageType = "single";
             $packageName = $_POST['packageName'];
-            $vendorName = $_SESSION['name'];
+            $vendorName = $_SESSION['username'];
             $price = $_POST['price'];
             $transportCost = $_POST['transportCost'];
             $availableStatus = $_POST['availableStatus'];
@@ -161,10 +161,14 @@ if (isset($_POST['logoutPerson'])) {
                         if (move_uploaded_file($_FILES["imageUpload"]["tmp_name"], $targetFilePath)) {
                             $singlePackage = new SinglePackage($category, $packageType, $packageName, $vendorName, $price, $transportCost, $availableStatus, $fileName, $rating);
                             $insert = insertSinglePackage($singlePackage);
-                            if ($insert == 1) {
-                                @include_once "../errors/productAddSuccess.php";
+                            if ($insert == -1) {
+                                @include_once "../errors/alreadyAddedPackage.php";
                             } else {
-                                @include_once "../errors/fileUploadError.php";
+                                if ($insert == 1) {
+                                    @include_once "../errors/productAddSuccess.php";
+                                } else {
+                                    @include_once "../errors/fileUploadError.php";
+                                }
                             }
                         } else {
                             @include_once "../errors/fileUploadError.php";

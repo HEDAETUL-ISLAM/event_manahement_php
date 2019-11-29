@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
@@ -139,7 +139,7 @@ if (isset($_POST['logoutPerson'])) {
         </div>
 
         <div style="  display: table; clear: both; background-color: #efefef ; margin-left:10%;">
-            <section class="content" style="float:left; width:50%; padding: 10px; height:300px">
+            <section class="col-sm-6">
                 <div class="container">
                     <div class="venues-view">
                         <?php
@@ -148,7 +148,7 @@ if (isset($_POST['logoutPerson'])) {
                     </div>
                 </div>
             </section>
-            <section class="content" style="float:left; width:50%; padding: 10px; height:300px">
+            <section class="col-sm-6">
                 <div class="container">
                     <div class="venues-view">
                         <?php
@@ -157,7 +157,7 @@ if (isset($_POST['logoutPerson'])) {
                     </div>
                 </div>
             </section>
-            <section class="content" style="float:left; width:50%; padding: 10px; height:300px">
+            <section class="col-sm-6">
                 <div class="container">
                     <div class="venues-view">
                         <?php

@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
@@ -314,39 +314,33 @@ if (isset($_POST['logoutPerson'])) {
                     <div class="thanks-msg">
                         <div class="icon icon-right-sign"></div>
                         <h3>Thank you for your order</h3>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-                            been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                            galley of type and scrambled it to make a type specimen book.</p>
+                        <p>Thanks for being with us and believe on us.We will put our level best to make your event attractive</p>
                     </div>
 
                     <div class="note">
                         <div class="inner-block">
                             <div class="icon icon-info"></div>
                             <label>Important Information</label>
-                            <p>Please carry any valid photo id proof at the venue</p>
+                            <p>Please carry booking ID proof at the venue</p>
                         </div>
                     </div>
-                    <div class="contact-info">Lorem Ipsum has been the industry's standard dummy text ever since the
-                        1500s, when an unknown printer took a galley of Contact <a href="mailTo:eventorganizer@gmail.com">eventorganizer@gmail.com</a></div>
+                    <div class="contact-info">For any query contact <a href="mailTo:eventorganizer@gmail.com">eventorganizer@gmail.com</a></div>
                     <div class="bottom-blcok">
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="icon icon-assurance"></div>
                                 <span>100% Assurance</span>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummybook</p>
+                                <p>Assurance of ultimate service quality</p>
                             </div>
                             <div class="col-sm-4">
                                 <div class="icon icon-trust"></div>
                                 <span>Trust</span>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummybook</p>
+                                <p>Every business depend on trust.We are happy to be bound within your trust</p>
                             </div>
                             <div class="col-sm-4">
                                 <div class="icon icon-promise"></div>
                                 <span>Our Promise</span>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummybook</p>
+                                <p>Excellent services to each client.</p>
                             </div>
                         </div>
                     </div>
