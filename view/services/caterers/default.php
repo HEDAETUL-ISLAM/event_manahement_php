@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 include_once "../../../controller/serviceController/CaterersController.php";
@@ -43,8 +43,8 @@ if ($result->num_rows > 0) {
         ?>
         <form method="post" action="caterers.php">
             <div class="venues-slide first">
-                <div class="img">
-                    <img src="<?php echo $row["image"]; ?>">
+                <div class="img" style=max-height:260px>
+                    <img src="<?php echo $row["image"]; ?>" style=max-height:260px>
                 </div>
                 <div class="text">
                     <h3><?php echo $row["package_name"]; ?></h3>
@@ -72,19 +72,21 @@ if ($result->num_rows > 0) {
                         </div>
                     </div>
                     <div class="outher-link">
+                        <label>Description : </label>
+                        <span><?php echo  $row["description"] ?><small> (quantity)</small></span> <br>
                         <span> <?php echo $row["vendor_username"]; ?> <small> (vendor)</small></span>
                         <input type="hidden" name="hiddenVendor" value="<?php echo $row["vendor_username"]; ?>" />
                     </div>
                     <?php
-                        if ($row["available_status"] == "yes" || $row["available_status"] == "Yes") {
-                    ?>
-                    <div class="button">
-                        <input type="submit" class="btn" name="bookPackage" value="Book Now" />
-                    </div>
+                            if ($row["available_status"] == "yes" || $row["available_status"] == "Yes") {
+                                ?>
+                        <div class="button">
+                            <input type="submit" class="btn" name="bookPackage" value="Book Now" />
+                        </div>
                     <?php
-                        }
+                            }
 
-                    ?>
+                            ?>
 
 
 

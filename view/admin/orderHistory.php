@@ -41,7 +41,7 @@ if (isset($_GET["action"])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Event Organizer</title>
+    <title>Admin Panel</title>
 
     <link rel="../shortcut icon" href="../images/Favicon.ico">
     <link href="../css/bootstrap.css" rel="stylesheet">

@@ -23,7 +23,7 @@ if (isset($_POST['logoutPerson'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Event Organizer</title>
+    <title>Vendor Panel</title>
 
 
     <link rel="../shortcut icon" href="../images/Favicon.ico">
@@ -74,7 +74,7 @@ if (isset($_POST['logoutPerson'])) {
                 <div class="container">
                     <div class="navbar navbar-inverse">
                         <div class="navbar-header">
-                            <a href="../index.php" class="navbar-brand"><img src="../images/logo.png" alt="" style="max-width: 80px"></a>
+                            <a href="dashboard.php" class="navbar-brand"><img src="../images/logo.png" alt="" style="max-width: 80px"></a>
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                 <span class="icon1-barMenu"></span>
                                 <span class="icon1-barMenu"></span>
@@ -91,7 +91,7 @@ if (isset($_POST['logoutPerson'])) {
                                     <a href="#">Add Packages <span class="icon icon-arrow-down"></span></a>
                                     <ul>
                                         <li> <a href="singlePackageAddForm.php">Single Package </span></a> </li>
-                                        <li> <a href="#">Bundle Package </span></a> </li>
+                                        <li> <a href="bundlePackageAddForm.php">Bundle Package </span></a> </li>
                                     </ul>
                                 </li>
                                 <li class="single-col ">
@@ -127,7 +127,7 @@ if (isset($_POST['logoutPerson'])) {
 
         <div class="dashboard-banner">
             <div class="container">
-                <h2>Add your Package </h2>
+                <h2>Add your Single Package </h2>
             </div>
         </div>
 
@@ -136,18 +136,18 @@ if (isset($_POST['logoutPerson'])) {
         if (isset($_POST["insertSinglePackage"])) {
 
             $category = $_POST['category'];
-            $packageType = "single";
             $packageName = $_POST['packageName'];
             $vendorName = $_SESSION['username'];
             $price = $_POST['price'];
             $transportCost = $_POST['transportCost'];
             $availableStatus = $_POST['availableStatus'];
+            $description = $_POST['description'];
             $rating = "";
 
             if (strlen($vendorName) == 0) {
                 @include_once "../errors/loginError.php";
             } else {
-                if (strlen($category) == 0 || strlen($packageName) == 0  || strlen((string) $price) == 0 || strlen((string) $transportCost) == 0 || strlen($availableStatus) == 0) {
+                if (strlen($category) == 0 || strlen($packageName) == 0  || strlen((string) $price) == 0 || strlen((string) $transportCost) == 0 || strlen($availableStatus) == 0 || strlen($description) == 0) {
                     @include_once "../errors/blankEntry.php";
                 } else {
 
@@ -159,7 +159,7 @@ if (isset($_POST['logoutPerson'])) {
                     $allowTypes = array("jpg", "png", "jpeg", "gif");
                     if (in_array($fileType, $allowTypes)) {
                         if (move_uploaded_file($_FILES["imageUpload"]["tmp_name"], $targetFilePath)) {
-                            $singlePackage = new SinglePackage($category, $packageType, $packageName, $vendorName, $price, $transportCost, $availableStatus, $fileName, $rating);
+                            $singlePackage = new SinglePackage($category, $packageName, $vendorName, $price, $transportCost, $availableStatus, $description, $fileName, $rating);
                             $insert = insertSinglePackage($singlePackage);
                             if ($insert == -1) {
                                 @include_once "../errors/alreadyAddedPackage.php";
@@ -206,7 +206,7 @@ if (isset($_POST['logoutPerson'])) {
                                     <input type="text" placeholder="Package Name" name="packageName">
                                 </div>
                                 <div class="input-slide">
-                                    <input type="number" placeholder="Price" name="price">
+                                    <input type="number" placeholder="Price" name="price" min="0" oninput="this.value = Math.abs(this.value)">
                                 </div>
                                 <div class="input-slide">
                                     <input type="number" placeholder="Transport Cost" name="transportCost">
@@ -217,6 +217,9 @@ if (isset($_POST['logoutPerson'])) {
                                         <option value="yes">Yes</option>
                                         <option value="no">No</option>
                                     </select>
+                                </div>
+                                <div class="input-slide">
+                                    <input type="text" placeholder="How many people ? in one line" name="description">
                                 </div>
                                 <div class="file-upload">
                                     <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>

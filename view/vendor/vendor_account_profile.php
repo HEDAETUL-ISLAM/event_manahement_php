@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
@@ -28,7 +28,7 @@ if (isset($_POST['logoutPerson'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Event Organizer</title>
+    <title>Vendor Panel</title>
 
     <link rel="../shortcut icon" href="../images/Favicon.ico">
     <link href="../css/bootstrap.css" rel="stylesheet">
@@ -76,7 +76,7 @@ if (isset($_POST['logoutPerson'])) {
                 <div class="container">
                     <div class="navbar navbar-inverse">
                         <div class="navbar-header">
-                            <a href="../index.php" class="navbar-brand"><img src="../images/logo.png" alt="" style="max-width: 80px"></a>
+                            <a href="dashboard.php" class="navbar-brand"><img src="../images/logo.png" alt="" style="max-width: 80px"></a>
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                 <span class="icon1-barMenu"></span>
                                 <span class="icon1-barMenu"></span>
@@ -93,7 +93,7 @@ if (isset($_POST['logoutPerson'])) {
                                     <a href="#">Add Packages <span class="icon icon-arrow-down"></span></a>
                                     <ul>
                                         <li> <a href="singlePackageAddForm.php">Single Package </span></a> </li>
-                                        <li> <a href="#">Bundle Package </span></a> </li>
+                                        <li> <a href="bundlePackageAddForm.php">Bundle Package </span></a> </li>
                                     </ul>
                                 </li>
                                 <li class="single-col active">
@@ -194,7 +194,7 @@ if (isset($_POST['logoutPerson'])) {
                         </div>
                         <div class="personal-information">
                             <div class="info-slide">
-                                <p><span>Name :</span><?php echo $_SESSION['username'] ?></p>
+                                <p><span>Name :</span><?php echo $_SESSION['name'] ?></p>
                             </div>
                             <div class="info-slide">
                                 <p><span>Email ID :</span><?php echo $_SESSION['email'] ?></p>

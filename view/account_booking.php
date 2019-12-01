@@ -466,13 +466,13 @@ if (isset($_POST['updatePassword'])) {
                                                     <td><span class="small-heading">Need to Pay</span>$ 0</td>
                                             <?php
                                                 }
-                                                if ($row['halfpaid'] == 'yes') {
+                                                else if ($row['halfpaid'] == 'yes') {
                                             ?>
                                                     <td><span class="small-heading">Paid Amount</span>$ <?php echo $row['totalcost'] / 2 ?></td>
                                                     <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] / 2 ?></td>
                                             <?php
                                                 }
-                                                if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
+                                                else if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
                                             ?>
                                                     <td><span class="small-heading">Paid Amount</span>$ 0</td>
                                                     <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] ?></td>

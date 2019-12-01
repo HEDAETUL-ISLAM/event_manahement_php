@@ -342,7 +342,7 @@ if (isset($_POST['logoutPerson'])) {
                 <div class="heading">
                     <div class="icon"><em class="icon icon-heading-icon"></em></div>
                     <div class="text">
-                        <h2>Our Services</h2>
+                        <h2>Our Single Services</h2>
                     </div>
                     <div class="info-text">It has survived not only five centuries, but also the leap into electronic
                         typesetting, remaining essentially unchanged.</div>
@@ -403,10 +403,51 @@ if (isset($_POST['logoutPerson'])) {
                                 <span class="text">Entertainment</span>
                             </a>
                         </li>
+                    </ul>
+
+                </div>
+            </div>
+        </section>
+        <section class="service-type">
+            <div class="container">
+                <div class="heading">
+                    <div class="icon"><em class="icon icon-heading-icon"></em></div>
+                    <div class="text">
+                        <h2>Our Package Services</h2>
+                    </div>
+                    <div class="info-text">It has survived not only five centuries, but also the leap into electronic
+                        typesetting, remaining essentially unchanged.</div>
+                </div>
+                <div class="service-catagari">
+                    <ul>
+                        <li>
+                            <a href="services/caterers/caterers.php">
+                                <span class="icon icon-beauty"></span>
+                                <span class="text">Weeding</span>
+                            </a>
+                        </li>
                         <li>
                             <a href="services.php">
-                                <span class="icon icon-calander"></span>
-                                <span class="text">Event Planner</span>
+                                <span class="icon icon-cake"></span>
+                                <span class="text">Birthday</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="services.php">
+                                <span class="icon icon-negotiations"></span>
+                                <span class="text">Corporate</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="services.php">
+                                <span class="icon icon-room-service"></span>
+                                <span class="text">Exhibition</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="services.php">
+                                <span class="icon icon-meeting"></span>
+                                <span class="text">Conference</span>
                             </a>
                         </li>
                     </ul>

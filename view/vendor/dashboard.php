@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
@@ -29,7 +29,7 @@ if (isset($_POST['logoutPerson'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Event Organizer</title>
+    <title>Vendor Panel</title>
 
     <link rel="../shortcut icon" href="../images/Favicon.ico">
     <link href="../css/bootstrap.css" rel="stylesheet">
@@ -52,10 +52,7 @@ if (isset($_POST['logoutPerson'])) {
                     <div class="right-link">
                         <ul>
                             <li class="sub-links">
-                                <a href="../index.php"><span class="icon icon-envelope"></span>Go to Homepage</a>
-                            </li>
-                            <li class="sub-links">
-                                <a href="javascript:;"><?php echo $_SESSION['name'] ?><span class="icon icon-arrow-down"></span></a>
+                                <a href="javascript:;">Hi <?php echo $_SESSION['name'] ?><span class="icon icon-arrow-down"></span></a>
                                 <ul class="sub-nav" style="right:-40px">
                                     <?php
                                     if ($_SESSION['name'] != "") {
@@ -79,7 +76,7 @@ if (isset($_POST['logoutPerson'])) {
                 <div class="container">
                     <div class="navbar navbar-inverse">
                         <div class="navbar-header">
-                            <a href="../index.php" class="navbar-brand"><img src="../images/logo.png" alt="" style="max-width: 80px"></a>
+                            <a href="dashboard.php" class="navbar-brand"><img src="../images/logo.png" alt="" style="max-width: 80px"></a>
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                 <span class="icon1-barMenu"></span>
                                 <span class="icon1-barMenu"></span>
@@ -93,10 +90,16 @@ if (isset($_POST['logoutPerson'])) {
                                     <a href="dashboard.php">Home </a>
                                 </li>
                                 <li class="single-col ">
+                                    <a href="singlePackagePage.php">Single Package </a>
+                                </li>
+                                <li class="single-col ">
+                                    <a href="bundlePackagePage.php">Bundle package </a>
+                                </li>
+                                <li class="single-col ">
                                     <a href="#">Add Packages <span class="icon icon-arrow-down"></span></a>
                                     <ul>
                                         <li> <a href="singlePackageAddForm.php">Single Package </span></a> </li>
-                                        <li> <a href="#">Bundle Package </span></a> </li>
+                                        <li> <a href="bundlePackageAddForm.php">Bundle Package </span></a> </li>
                                     </ul>
                                 </li>
                                 <li class="single-col ">
@@ -143,22 +146,6 @@ if (isset($_POST['logoutPerson'])) {
                                     <option value="singlePackage">Single Package</option>
                                     <option value="bundlePackage">Bundle Package</option>
                                 </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="content">
-                <div class="container">
-                    <div class="venues-view">
-                        <div class="row">
-
-                            <div class="col-md-12 col-lg-12 col-sm-12">
-                                <div class="right-side" id="changeOrder">
-                                    <?php
-                                    @include_once "./singlePackage.php";
-                                    ?>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -231,17 +218,6 @@ if (isset($_POST['logoutPerson'])) {
             </div>
         </footer>
     </div>
-
-    <script>
-        function packageOrderChange() {
-            var value = document.getElementById("setUp_select_one").value;
-            if (value == "singlePackage") {
-                $('#changeOrder').load('./singlePackage.php');
-            } else if (value == "bundlePackage") {
-                $('#changeOrder').load('./bundlePackage.php');
-            }
-        }
-    </script>
 
     <!-- Bootstrap core JavaScript
         ================================================== -->

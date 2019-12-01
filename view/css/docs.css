@@ -11811,19 +11811,19 @@ body {
    background-color: #fff;
    width: 100%;
    cursor: pointer;
-   border-radius: 3px;
    z-index: 3;
    position: relative;
    display: block;
-   height: 30px;
+   height: 40px;
    left: 1px;
    line-height: 30px;
    padding-right: 25px;
-   border-radius: 3px 0 0 3px;
+   border-radius: 4px 4px 4px 4px;
    outline: none;
    overflow: hidden;
    text-indent: 10px;
    top: 1px;
+   border: solid 1px #d5d5d5;
 
 }
 
