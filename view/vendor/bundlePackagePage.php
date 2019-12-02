@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE) ?>
+<?php error_reporting(E_ALL ^ E_NoTICE) ?>
 
 <?php
 session_start();
@@ -232,9 +232,7 @@ if (isset($_POST["updateBundlePackage"])) {
         </div>
 
 
-        <div class="searchFilter-main">
-            <section class="searchFormTop">
-            </section>
+        <div class="searchFilter-main" style="padding: 0px 0 0 0;">
             <section class="content">
                 <div class="container">
                     <div class="venues-view">
@@ -331,8 +329,8 @@ if (isset($_POST["updateBundlePackage"])) {
                                                                                     <div class="select-row input-slide">
                                                                                         <select name="caterersAvailableStatus" class="customSelectBox" tabindex="1">
                                                                                             <option value="">Yes / No</option>
-                                                                                            <option value="yes">Yes</option>
-                                                                                            <option value="no">No</option>
+                                                                                            <option value="Yes">Yes</option>
+                                                                                            <option value="No">No</option>
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
@@ -348,8 +346,8 @@ if (isset($_POST["updateBundlePackage"])) {
                                                                                     <div class="select-row input-slide">
                                                                                         <select name="decorFloristsAvailableStatus" class="customSelectBox" tabindex="1">
                                                                                             <option value="">Yes / No</option>
-                                                                                            <option value="yes">Yes</option>
-                                                                                            <option value="no">No</option>
+                                                                                            <option value="Yes">Yes</option>
+                                                                                            <option value="No">No</option>
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
@@ -365,8 +363,8 @@ if (isset($_POST["updateBundlePackage"])) {
                                                                                     <div class="select-row input-slide">
                                                                                         <select name="makeupAndHairAvailableStatus" class="customSelectBox" tabindex="1">
                                                                                             <option value="">Yes / No</option>
-                                                                                            <option value="yes">Yes</option>
-                                                                                            <option value="no">No</option>
+                                                                                            <option value="Yes">Yes</option>
+                                                                                            <option value="No">No</option>
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
@@ -382,8 +380,8 @@ if (isset($_POST["updateBundlePackage"])) {
                                                                                     <div class="select-row input-slide">
                                                                                         <select name="weddingCardsAvailableStatus" class="customSelectBox" tabindex="1">
                                                                                             <option value="">Yes / No</option>
-                                                                                            <option value="yes">Yes</option>
-                                                                                            <option value="no">No</option>
+                                                                                            <option value="Yes">Yes</option>
+                                                                                            <option value="No">No</option>
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
@@ -399,8 +397,8 @@ if (isset($_POST["updateBundlePackage"])) {
                                                                                     <div class="select-row input-slide">
                                                                                         <select name="mehandiAvailableStatus" class="customSelectBox" tabindex="1">
                                                                                             <option value="">Yes / No</option>
-                                                                                            <option value="yes">Yes</option>
-                                                                                            <option value="no">No</option>
+                                                                                            <option value="Yes">Yes</option>
+                                                                                            <option value="No">No</option>
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
@@ -416,8 +414,8 @@ if (isset($_POST["updateBundlePackage"])) {
                                                                                     <div class="select-row input-slide">
                                                                                         <select name="cakesAvailableStatus" class="customSelectBox" tabindex="1">
                                                                                             <option value="">Yes / No</option>
-                                                                                            <option value="yes">Yes</option>
-                                                                                            <option value="no">No</option>
+                                                                                            <option value="Yes">Yes</option>
+                                                                                            <option value="No">No</option>
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
@@ -433,8 +431,8 @@ if (isset($_POST["updateBundlePackage"])) {
                                                                                     <div class="select-row input-slide">
                                                                                         <select name="djAvailableStatus" class="customSelectBox" tabindex="1">
                                                                                             <option value="">Yes / No</option>
-                                                                                            <option value="yes">Yes</option>
-                                                                                            <option value="no">No</option>
+                                                                                            <option value="Yes">Yes</option>
+                                                                                            <option value="No">No</option>
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
@@ -450,8 +448,8 @@ if (isset($_POST["updateBundlePackage"])) {
                                                                                     <div class="select-row input-slide">
                                                                                         <select name="photographersAvailableStatus" class="customSelectBox" tabindex="1">
                                                                                             <option value="">Yes / No</option>
-                                                                                            <option value="yes">Yes</option>
-                                                                                            <option value="no">No</option>
+                                                                                            <option value="Yes">Yes</option>
+                                                                                            <option value="No">No</option>
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
@@ -467,8 +465,8 @@ if (isset($_POST["updateBundlePackage"])) {
                                                                                     <div class="select-row input-slide">
                                                                                         <select name="entertainmentAvailableStatus" class="customSelectBox" tabindex="1">
                                                                                             <option value="">Yes / No</option>
-                                                                                            <option value="yes">Yes</option>
-                                                                                            <option value="no">No</option>
+                                                                                            <option value="Yes">Yes</option>
+                                                                                            <option value="No">No</option>
                                                                                         </select>
                                                                                     </div>
                                                                                 </div>
@@ -482,8 +480,8 @@ if (isset($_POST["updateBundlePackage"])) {
                                                                             <div class="select-row" style="margin-left: 10px;">
                                                                                 <select name="availableStatus" class="customSelectBox">
                                                                                     <option value="">Choose availability</option>
-                                                                                    <option value="yes">Yes</option>
-                                                                                    <option value="no">No</option>
+                                                                                    <option value="Yes">Yes</option>
+                                                                                    <option value="No">No</option>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="input-slide" style="margin-left: 10px;">
@@ -522,13 +520,13 @@ if (isset($_POST["updateBundlePackage"])) {
                     <div class="left-img"><img src="../images/login-leftImg.png" alt=""></div>
                     <div class="right-info">
                         <h1>Delete <?php echo  $row["packageName"]  ?> </h1>
-                        <!-- <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
                             <div class="input-form">
                                 <div class="submit-slide">
                                     <input type="submit" class="btn" value="Yes" name="logoutPerson">
                                 </div>
                             </div>
-                        </form> -->
+                        </form>
                     </div>
                 </div>
             </div>

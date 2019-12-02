@@ -1,34 +1,34 @@
 <?php
 
-function getAllCaterers()
+function getAllWeeding()
 {
     $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }
-    $query = "SELECT * from single_package where category = 'Caterers'";
+    $query = "SELECT * from bundle_package where packageType = 'Weeding'";
     $result = $connection->query($query);
     return $result;
     mysqli_close($connection);
 }
-function getCaterersByLowPrice()
+function getWeedingByLowPrice()
 {
     $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }
-    $query = "SELECT * from single_package ORDER BY Price";
+    $query = "SELECT * from bundle_package where packageType = 'Weeding' ORDER BY Price";
     $result = $connection->query($query);
     return $result;
     mysqli_close($connection);
 }
-function getCaterersByHighPrice()
+function getWeedingByHighPrice()
 {
     $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }
-    $query = "SELECT * from single_package ORDER BY Price DESC";
+    $query = "SELECT * from bundle_package where packageType = 'Weeding' ORDER BY Price DESC";
     $result = $connection->query($query);
     return $result;
     mysqli_close($connection);

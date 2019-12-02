@@ -207,9 +207,7 @@ if (isset($_POST["updateSinglePackage"])) {
             </div>
         </div>
 
-        <div class="searchFilter-main">
-            <section class="searchFormTop">
-            </section>
+        <div class="searchFilter-main" style="padding: 0px 0 0 0;">
             <section class="content">
                 <div class="container">
                     <div class="venues-view">

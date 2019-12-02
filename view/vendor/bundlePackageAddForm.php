@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE) ?>
+<?php error_reporting(E_ALL ^ E_NoTICE) ?>
 
 <?php
 session_start();
@@ -120,6 +120,12 @@ if (isset($_POST['logoutPerson'])) {
                             <ul class="nav navbar-nav">
                                 <li class="single-col ">
                                     <a href="dashboard.php">Home </a>
+                                </li>
+                                <li class="single-col ">
+                                    <a href="singlePackagePage.php">Single Package </a>
+                                </li>
+                                <li class="single-col ">
+                                    <a href="bundlePackagePage.php">Bundle package </a>
                                 </li>
                                 <li class="single-col active">
                                     <a href="#">Add Packages <span class="icon icon-arrow-down"></span></a>
@@ -258,8 +264,8 @@ if (isset($_POST['logoutPerson'])) {
                                         <div class="select-row input-slide">
                                             <select name="caterersAvailableStatus" class="customSelectBox" tabindex="1">
                                                 <option value="">Yes / No</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
                                             </select>
                                         </div>
                                     </div>
@@ -275,8 +281,8 @@ if (isset($_POST['logoutPerson'])) {
                                         <div class="select-row input-slide">
                                             <select name="decorFloristsAvailableStatus" class="customSelectBox" tabindex="1">
                                                 <option value="">Yes / No</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
                                             </select>
                                         </div>
                                     </div>
@@ -292,8 +298,8 @@ if (isset($_POST['logoutPerson'])) {
                                         <div class="select-row input-slide">
                                             <select name="makeupAndHairAvailableStatus" class="customSelectBox" tabindex="1">
                                                 <option value="">Yes / No</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
                                             </select>
                                         </div>
                                     </div>
@@ -309,8 +315,8 @@ if (isset($_POST['logoutPerson'])) {
                                         <div class="select-row input-slide">
                                             <select name="weddingCardsAvailableStatus" class="customSelectBox" tabindex="1">
                                                 <option value="">Yes / No</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
                                             </select>
                                         </div>
                                     </div>
@@ -326,8 +332,8 @@ if (isset($_POST['logoutPerson'])) {
                                         <div class="select-row input-slide">
                                             <select name="mehandiAvailableStatus" class="customSelectBox" tabindex="1">
                                                 <option value="">Yes / No</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
                                             </select>
                                         </div>
                                     </div>
@@ -343,8 +349,8 @@ if (isset($_POST['logoutPerson'])) {
                                         <div class="select-row input-slide">
                                             <select name="cakesAvailableStatus" class="customSelectBox" tabindex="1">
                                                 <option value="">Yes / No</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
                                             </select>
                                         </div>
                                     </div>
@@ -360,8 +366,8 @@ if (isset($_POST['logoutPerson'])) {
                                         <div class="select-row input-slide">
                                             <select name="djAvailableStatus" class="customSelectBox" tabindex="1">
                                                 <option value="">Yes / No</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
                                             </select>
                                         </div>
                                     </div>
@@ -377,8 +383,8 @@ if (isset($_POST['logoutPerson'])) {
                                         <div class="select-row input-slide">
                                             <select name="photographersAvailableStatus" class="customSelectBox" tabindex="1">
                                                 <option value="">Yes / No</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
                                             </select>
                                         </div>
                                     </div>
@@ -394,8 +400,8 @@ if (isset($_POST['logoutPerson'])) {
                                         <div class="select-row input-slide">
                                             <select name="entertainmentAvailableStatus" class="customSelectBox" tabindex="1">
                                                 <option value="">Yes / No</option>
-                                                <option value="yes">Yes</option>
-                                                <option value="no">No</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
                                             </select>
                                         </div>
                                     </div>

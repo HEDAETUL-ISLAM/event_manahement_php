@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
@@ -46,9 +46,6 @@ if (isset($_POST['login'])) {
             if ($result === null) {
                 @include_once "./errors/wrong.php";
             }
-        } else {
-            // header('Location: ' . $_SERVER['REQUEST_URI']);
-            @include_once "./errors/invalidUser.php";
         }
     }
 }
@@ -169,7 +166,11 @@ if (isset($_POST['logoutPerson'])) {
                                         <li>
                                             <a href="#">Bundle Package <span class="icon icon-arrow-right"></span></a>
                                             <ul>
-                                                <li><a href="services/caterers/caterers.php">Caterers</a></li>
+                                                <li><a href="services/weeding/weeding.php">Weeding</a></li>
+                                                <li><a href="services/birthday/birthday.php">Birthday</a></li>
+                                                <li><a href="services/corporate/corporate.php">Corporate</a></li>
+                                                <li><a href="services/exhibition/exhibition.php">Exhibition</a></li>
+                                                <li><a href="services/conference/conference.php">Conference</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -421,31 +422,31 @@ if (isset($_POST['logoutPerson'])) {
                 <div class="service-catagari">
                     <ul>
                         <li>
-                            <a href="services/caterers/caterers.php">
+                            <a href="services/weeding/weeding.php">
                                 <span class="icon icon-beauty"></span>
                                 <span class="text">Weeding</span>
                             </a>
                         </li>
                         <li>
-                            <a href="services.php">
+                            <a href="services/birthday/birthday.php">
                                 <span class="icon icon-cake"></span>
                                 <span class="text">Birthday</span>
                             </a>
                         </li>
                         <li>
-                            <a href="services.php">
+                            <a href="services/corporate/corporate.php">
                                 <span class="icon icon-negotiations"></span>
                                 <span class="text">Corporate</span>
                             </a>
                         </li>
                         <li>
-                            <a href="services.php">
+                            <a href="services/exhibition/exhibition.php">
                                 <span class="icon icon-room-service"></span>
                                 <span class="text">Exhibition</span>
                             </a>
                         </li>
                         <li>
-                            <a href="services.php">
+                            <a href="services/conference/conference.php">
                                 <span class="icon icon-meeting"></span>
                                 <span class="text">Conference</span>
                             </a>
@@ -611,7 +612,7 @@ if (isset($_POST['logoutPerson'])) {
             </div>
         </section>
 
-         
+
         <section class="event-sponsor">
             <div class="container">
                 <div class="heading">

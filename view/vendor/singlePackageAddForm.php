@@ -87,6 +87,12 @@ if (isset($_POST['logoutPerson'])) {
                                 <li class="single-col ">
                                     <a href="dashboard.php">Home </a>
                                 </li>
+                                <li class="single-col ">
+                                    <a href="singlePackagePage.php">Single Package </a>
+                                </li>
+                                <li class="single-col ">
+                                    <a href="bundlePackagePage.php">Bundle package </a>
+                                </li>
                                 <li class="single-col active">
                                     <a href="#">Add Packages <span class="icon icon-arrow-down"></span></a>
                                     <ul>

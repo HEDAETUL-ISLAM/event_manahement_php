@@ -1,11 +1,11 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
 @include_once "../../../controller/PersonController.php";
 @include_once "../../../model/Login.php";
 @include_once "../../../model/Person.php";
-@include "../../../controller/serviceController/CaterersController.php";
+@include "../../../controller/packageServiceController/weedingController.php";
 $username = "";
 $name = "";
 $email = "";
@@ -157,7 +157,7 @@ if (isset($_POST['logoutPerson'])) {
                                         <li>
                                             <a href="#">Bundle Package <span class="icon icon-arrow-right"></span></a>
                                             <ul>
-                                                <li><a href="../../services/weeding/weeding.php">Weeding</a></li>
+                                                <li><a href="../../#">Caterers</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -301,7 +301,7 @@ if (isset($_POST['logoutPerson'])) {
             <section class="searchFormTop">
                 <div class="container">
                     <div class="toolbar" style="width:50%; position:left">
-                        <div class="finde-count">Caterers </div>
+                        <div class="finde-count">Weeding </div>
                     </div>
                     <div class="toolbar" style="width:50%; position:left">
                         <div class="right-tool">
