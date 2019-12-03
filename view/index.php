@@ -1,6 +1,7 @@
 <?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
+
 session_start();
 @require_once "../model/Login.php";
 @require_once "../model/Person.php";
@@ -79,10 +80,8 @@ if (isset($_POST['insertPerson'])) {
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
-    @include_once "./errors/success.php";
     header('Location: ./index.php');
 }
-
 ?>
 
 <html>
@@ -161,6 +160,14 @@ if (isset($_POST['logoutPerson'])) {
                                             <a href="#">Single Package <span class="icon icon-arrow-right"></span></a>
                                             <ul>
                                                 <li><a href="services/caterers/caterers.php">Caterers</a></li>
+                                                <li><a href="services/decoration/decoration.php">Decoration</a></li>
+                                                <li><a href="services/makeup/makeup.php">Make-up</a></li>
+                                                <li><a href="services/cake/cake.php">Cake</a></li>
+                                                <li><a href="services/dj/dj.php">Dj</a></li>
+                                                <li><a href="#">Wedding Card</a></li>
+                                                <li><a href="#">Mehandi</a></li>
+                                                <li><a href="#">Entertainment</a></li>
+                                                <li><a href="#">Photographer</a></li>
                                             </ul>
                                         </li>
                                         <li>
@@ -178,10 +185,7 @@ if (isset($_POST['logoutPerson'])) {
                                 <li class="single-col">
                                     <a href="">Pages <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li><a href="search-result.php">listing Page</a></li>
-                                        <li><a href="search_detail.php">Details Page</a></li>
 
-                                        <li><a href="news-details.php">News Details</a></li>
                                         <li><a href="career.php">Career</a></li>
 
                                         <li><a href="privacy_policy.php">Privacy Policy</a></li>
@@ -357,49 +361,49 @@ if (isset($_POST['logoutPerson'])) {
                             </a>
                         </li>
                         <li>
-                            <a href="services.php">
+                            <a href="services/decoration/decoration.php">
                                 <span class="icon icon-flower-pot"></span>
                                 <span class="text">Decor & Florists</span>
                             </a>
                         </li>
                         <li>
-                            <a href="services.php">
+                            <a href="services/makeup/makeup.php">
                                 <span class="icon icon-beauty"></span>
                                 <span class="text">Make-up and Hair</span>
                             </a>
                         </li>
                         <li>
-                            <a href="services.php">
+                            <a href="#">
                                 <span class="icon icon-wedding-card"></span>
                                 <span class="text">Wedding Cards</span>
                             </a>
                         </li>
                         <li>
-                            <a href="services.php">
+                            <a href="#">
                                 <span class="icon icon-mehandi"></span>
                                 <span class="text">Mehandi</span>
                             </a>
                         </li>
                         <li>
-                            <a href="services.php">
+                            <a href="services/cake/cake.php">
                                 <span class="icon icon-cake"></span>
                                 <span class="text">Cakes</span>
                             </a>
                         </li>
                         <li>
-                            <a href="services.php">
+                            <a href="services/dj/dj.php">
                                 <span class="icon icon-music"></span>
                                 <span class="text">DJ</span>
                             </a>
                         </li>
                         <li>
-                            <a href="services.php">
+                            <a href="#">
                                 <span class="icon icon-camera"></span>
                                 <span class="text">Photographers &amp; Videographers</span>
                             </a>
                         </li>
                         <li>
-                            <a href="services.php">
+                            <a href="#">
                                 <span class="icon icon-glass"></span>
                                 <span class="text">Entertainment</span>
                             </a>
@@ -473,7 +477,7 @@ if (isset($_POST['logoutPerson'])) {
                                 <div class="event-box">
                                     <div class="img">
                                         <a href="index.php#">
-                                            <img src="images/event-img/event-img1.jpg" alt="">
+                                            <img src="images/photos/eventplanner.jpg" alt="">
                                             <span class="capsan">
                                                 <span>Event Planner</span>
                                             </span>
@@ -482,14 +486,13 @@ if (isset($_POST['logoutPerson'])) {
                                     <div class="name">Event Planner</div>
                                     <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ype
                                         specimen book. It has survived not only five centuries,</p>
-                                    <a href="index.php#">Readmore</a>
                                 </div>
                             </div>
                             <div class="item">
                                 <div class="event-box">
                                     <div class="img">
                                         <a href="index.php#">
-                                            <img src="images/event-img/event-img2.jpg" alt="">
+                                            <img src="images/photos/corporate.jpg" alt="">
                                             <span class="capsan">
                                                 <span>Corporate Events</span>
                                             </span>
@@ -498,14 +501,13 @@ if (isset($_POST['logoutPerson'])) {
                                     <div class="name">Corporate Events</div>
                                     <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ype
                                         specimen book. It has survived not only five centuries,</p>
-                                    <a href="index.php#">Readmore</a>
                                 </div>
                             </div>
                             <div class="item">
                                 <div class="event-box">
                                     <div class="img">
                                         <a href="index.php#">
-                                            <img src="images/event-img/event-img3.jpg" alt="">
+                                            <img src="images/photos/birthday.jpg" alt="">
                                             <span class="capsan">
                                                 <span>Birthday Party</span>
                                             </span>
@@ -514,55 +516,21 @@ if (isset($_POST['logoutPerson'])) {
                                     <div class="name">Birthday Party</div>
                                     <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ype
                                         specimen book. It has survived not only five centuries,</p>
-                                    <a href="index.php#">Readmore</a>
                                 </div>
                             </div>
                             <div class="item">
                                 <div class="event-box">
                                     <div class="img">
                                         <a href="index.php#">
-                                            <img src="images/event-img/event-img1.jpg" alt="">
+                                            <img src="images/photos/wedding.jpg" alt="">
                                             <span class="capsan">
-                                                <span>Event Planner</span>
+                                                <span>Wedding</span>
                                             </span>
                                         </a>
                                     </div>
-                                    <div class="name">Event Planner</div>
+                                    <div class="name">Wedding</div>
                                     <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ype
                                         specimen book. It has survived not only five centuries,</p>
-                                    <a href="index.php#">Readmore</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="event-box">
-                                    <div class="img">
-                                        <a href="index.php#">
-                                            <img src="images/event-img/event-img2.jpg" alt="">
-                                            <span class="capsan">
-                                                <span>Corporate Events</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div class="name">Corporate Events</div>
-                                    <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ype
-                                        specimen book. It has survived not only five centuries,</p>
-                                    <a href="index.php#">Readmore</a>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="event-box">
-                                    <div class="img">
-                                        <a href="index.php#">
-                                            <img src="images/event-img/event-img3.jpg" alt="">
-                                            <span class="capsan">
-                                                <span>Birthday Party</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div class="name">Birthday Party</div>
-                                    <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ype
-                                        specimen book. It has survived not only five centuries,</p>
-                                    <a href="index.php#">Readmore</a>
                                 </div>
                             </div>
                         </div>
@@ -581,9 +549,9 @@ if (isset($_POST['logoutPerson'])) {
                     <div class="item">
                         <div class="friends-info">
                             <div class="friend-img">
-                                <div class="img"><img src="images/user-img/friend-img.png" alt=""></div>
+                                <div class="img"><img src="images/user-img/hedaet.jpg" alt=""></div>
                                 <div class="img-fream"><img src="images/img-fream.png" alt=""></div>
-                                <div class="name">John Doe</div>
+                                <div class="name">Hedaetul Islam</div>
                             </div>
                             <div class="text">
                                 <p><img src="images/starting-point.png" alt="" class="start-img">Lorem Ipsum is simply
@@ -596,9 +564,39 @@ if (isset($_POST['logoutPerson'])) {
                     <div class="item">
                         <div class="friends-info">
                             <div class="friend-img">
-                                <div class="img"><img src="images/user-img/friend-img.png" alt=""></div>
+                                <div class="img"><img src="images/user-img/fokrul.jpg" alt=""></div>
                                 <div class="img-fream"><img src="images/img-fream.png" alt=""></div>
-                                <div class="name">John Doe</div>
+                                <div class="name">Fokrul Islam Bhuiyan</div>
+                            </div>
+                            <div class="text">
+                                <p><img src="images/starting-point.png" alt="" class="start-img">Lorem Ipsum is simply
+                                    dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                                    industry's standard dummy text ever since the 1500s, an unknown printer took a
+                                    galley of type and scrambled it type specimen book. <img src="images/ending-point.png" alt="" class="end-img"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="friends-info">
+                            <div class="friend-img">
+                                <div class="img"><img src="images/user-img/faisal.jpg" alt=""></div>
+                                <div class="img-fream"><img src="images/img-fream.png" alt=""></div>
+                                <div class="name">Faisal Abdullah</div>
+                            </div>
+                            <div class="text">
+                                <p><img src="images/starting-point.png" alt="" class="start-img">Lorem Ipsum is simply
+                                    dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                                    industry's standard dummy text ever since the 1500s, an unknown printer took a
+                                    galley of type and scrambled it type specimen book. <img src="images/ending-point.png" alt="" class="end-img"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="friends-info">
+                            <div class="friend-img">
+                                <div class="img"><img src="images/user-img/shovon.jpg" alt=""></div>
+                                <div class="img-fream"><img src="images/img-fream.png" alt=""></div>
+                                <div class="name">Fakhrul Abedin Shovon</div>
                             </div>
                             <div class="text">
                                 <p><img src="images/starting-point.png" alt="" class="start-img">Lorem Ipsum is simply
@@ -612,37 +610,6 @@ if (isset($_POST['logoutPerson'])) {
             </div>
         </section>
 
-
-        <section class="event-sponsor">
-            <div class="container">
-                <div class="heading">
-                    <div class="icon"><em class="icon icon-heading-icon"></em></div>
-                    <div class="text">
-                        <h2>Clients </h2>
-                    </div>
-                    <div class="info-text">It has survived not only five centuries, but also the leap into electronic
-                        typesetting,</div>
-                </div>
-                <div class="sponsor-slider">
-                    <div class="item"><a href="index.php#"><img src="images/sponsor-logo/sponsor-logo1.png" alt=""></a>
-                    </div>
-                    <div class="item"><a href="index.php#"><img src="images/sponsor-logo/sponsor-logo2.png" alt=""></a>
-                    </div>
-                    <div class="item"><a href="index.php#"><img src="images/sponsor-logo/sponsor-logo3.png" alt=""></a>
-                    </div>
-                    <div class="item"><a href="index.php#"><img src="images/sponsor-logo/sponsor-logo4.png" alt=""></a>
-                    </div>
-                    <div class="item"><a href="index.php#"><img src="images/sponsor-logo/sponsor-logo1.png" alt=""></a>
-                    </div>
-                    <div class="item"><a href="index.php#"><img src="images/sponsor-logo/sponsor-logo2.png" alt=""></a>
-                    </div>
-                    <div class="item"><a href="index.php#"><img src="images/sponsor-logo/sponsor-logo3.png" alt=""></a>
-                    </div>
-                    <div class="item"><a href="index.php#"><img src="images/sponsor-logo/sponsor-logo4.png" alt=""></a>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <footer id="footer">
             <div class="footer-top">

@@ -51,8 +51,11 @@ if (isset($_POST['logoutPerson'])) {
                     <div class="mail"><a href="MailTo:eventorganizer@gmail.com"><span class="icon icon-envelope"></span>eventorganizer@gmail.com</a></div>
                     <div class="right-link">
                         <ul>
+                        <li class="sub-links">
+                                <a ><span class="icon icon-envelope"></span>Hi </a>
+                            </li>
                             <li class="sub-links">
-                                <a href="javascript:;">Hi <?php echo $_SESSION['name'] ?><span class="icon icon-arrow-down"></span></a>
+                                <a href="javascript:;"><?php echo $_SESSION['name'] ?><span class="icon icon-arrow-down"></span></a>
                                 <ul class="sub-nav" style="right:-40px">
                                     <?php
                                     if ($_SESSION['name'] != "") {

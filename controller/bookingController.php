@@ -8,7 +8,19 @@ function insertBookingDetails(Booking $booking)
         return -1;
     } else {
         $query = "INSERT INTO booking ( username,transaction, email, phone, address, bookingdate, vendorname, packagename, totalcost, halfpaid, fullpaid)
-        VALUES ('" . $booking->getUsername() . "' ,'" . $booking->getTransaction() . "' ,'" . $booking->getEmail() . "' ,'" . $booking->getPhone() . "' ,'" . $booking->getAddress() . "' ,'" . $booking->getBookingDate() . "' ,'" . $booking->getVendorName() . "' ,'" . $booking->getPackageName() . "' ,'" . $booking->getTotalCost() . "' ,'" . $booking->getHalfPaid() . "' ,'" . $booking->getFullPaid() . "' )";
+        VALUES (
+            '" . $booking->getUsername() . "' ,
+            '" . $booking->getTransaction() . "' ,
+            '" . $booking->getEmail() . "' ,
+            '" . $booking->getPhone() . "' ,
+            '" . $booking->getAddress() . "' ,
+            '" . $booking->getBookingDate() . "' ,
+            '" . $booking->getVendorName() . "' ,
+            '" . $booking->getPackageName() . "' ,
+            '" . $booking->getTotalCost() . "' ,
+            '" . $booking->getHalfPaid() . "' ,
+            '" . $booking->getFullPaid() . "' 
+            )";
         if (mysqli_query($connection, $query)) {
             return 1;
         } else {

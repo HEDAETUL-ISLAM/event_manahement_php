@@ -17,7 +17,7 @@ function getCaterersByLowPrice()
     if (!$connection) {
         return -1;
     }
-    $query = "SELECT * from single_package ORDER BY Price";
+    $query = "SELECT * from single_package ORDER BY Price ASC";
     $result = $connection->query($query);
     return $result;
     mysqli_close($connection);

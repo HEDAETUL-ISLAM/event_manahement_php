@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
@@ -71,7 +71,6 @@ if (isset($_POST['insertPerson'])) {
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
-    @include_once "./errors/success.php";
     header('Location: ./team.php');
 }
 
@@ -149,12 +148,24 @@ if (isset($_POST['logoutPerson'])) {
                                             <a href="#">Single Package <span class="icon icon-arrow-right"></span></a>
                                             <ul>
                                                 <li><a href="services/caterers/caterers.php">Caterers</a></li>
+                                                <li><a href="services/decoration/decoration.php">Decoration</a></li>
+                                                <li><a href="services/makeup/makeup.php">Make-up</a></li>
+                                                <li><a href="services/cake/cake.php">Cake</a></li>
+                                                <li><a href="services/dj/dj.php">Dj</a></li>
+                                                <li><a href="#">Wedding Card</a></li>
+                                                <li><a href="#">Mehandi</a></li>
+                                                <li><a href="#">Entertainment</a></li>
+                                                <li><a href="#">Photographer</a></li>
                                             </ul>
                                         </li>
                                         <li>
                                             <a href="#">Bundle Package <span class="icon icon-arrow-right"></span></a>
                                             <ul>
-                                                <li><a href="services/caterers/caterers.php">Caterers</a></li>
+                                                <li><a href="services/weeding/weeding.php">Weeding</a></li>
+                                                <li><a href="services/birthday/birthday.php">Birthday</a></li>
+                                                <li><a href="services/corporate/corporate.php">Corporate</a></li>
+                                                <li><a href="services/exhibition/exhibition.php">Exhibition</a></li>
+                                                <li><a href="services/conference/conference.php">Conference</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -162,10 +173,6 @@ if (isset($_POST['logoutPerson'])) {
                                 <li class="single-col ">
                                     <a href="">Pages <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li><a href="search-result.php">listing Page</a></li>
-                                        <li><a href="search_detail.php">Details Page</a></li>
-
-                                        <li><a href="news-details.php">News Details</a></li>
                                         <li><a href="career.php">Career</a></li>
 
                                         <li><a href="privacy_policy.php">Privacy Policy</a></li>
@@ -183,7 +190,7 @@ if (isset($_POST['logoutPerson'])) {
                                 <li class="single-col">
                                     <a href="">Booking <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li><a href="booking_step1.php">Booking Step1</a></li> 
+                                        <li><a href="booking_step1.php">Booking Step1</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="aboutUs.php">About Us</a></li>
@@ -305,9 +312,9 @@ if (isset($_POST['logoutPerson'])) {
                     <div class="row">
                         <div class="col-sm-6 col-md-4">
                             <div class="member-box">
-                                <div class="img"><img src="images/team-memberImg/team-memberImg1.png" alt=""></div>
-                                <div class="name">Stefanie Reinhard</div>
-                                <div class="designation">Director of Planning</div>
+                                <div class="img"><img src="images/user-img/hedaet.jpg" alt=""></div>
+                                <div class="name">Hedaetul Islam</div>
+                                <div class="designation">Director of Planning & Developer</div>
                                 <ul class="sosiyal-share">
                                     <li><a href="team.php#"><span class="icon icon-facebook"></span></a></li>
                                     <li><a href="team.php#"><span class="icon icon-twitter"></span></a></li>
@@ -317,9 +324,9 @@ if (isset($_POST['logoutPerson'])) {
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <div class="member-box">
-                                <div class="img"><img src="images/team-memberImg/team-memberImg2.png" alt=""></div>
-                                <div class="name">Mathias Weiß</div>
-                                <div class="designation">Designer/Associate Coordinator</div>
+                                <div class="img"><img src="images/user-img/fokrul.jpg" alt=""></div>
+                                <div class="name">Fokrul Bhuiyan</div>
+                                <div class="designation">Software Developer</div>
                                 <ul class="sosiyal-share">
                                     <li><a href="team.php#"><span class="icon icon-facebook"></span></a></li>
                                     <li><a href="team.php#"><span class="icon icon-twitter"></span></a></li>
@@ -329,9 +336,9 @@ if (isset($_POST['logoutPerson'])) {
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <div class="member-box">
-                                <div class="img"><img src="images/team-memberImg/team-memberImg3.png" alt=""></div>
-                                <div class="name">Nadine Fleischer</div>
-                                <div class="designation">Wedding & Event Manager</div>
+                                <div class="img"><img src="images/user-img/faisal.jpg" alt=""></div>
+                                <div class="name">Faisal Tanim</div>
+                                <div class="designation">Designer & Database Analyst</div>
                                 <ul class="sosiyal-share">
                                     <li><a href="team.php#"><span class="icon icon-facebook"></span></a></li>
                                     <li><a href="team.php#"><span class="icon icon-twitter"></span></a></li>
@@ -341,9 +348,9 @@ if (isset($_POST['logoutPerson'])) {
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <div class="member-box">
-                                <div class="img"><img src="images/team-memberImg/team-memberImg3.png" alt=""></div>
-                                <div class="name">Nadine Fleischer</div>
-                                <div class="designation">Wedding & Event Manager</div>
+                                <div class="img"><img src="images/user-img/shovon.jpg" alt=""></div>
+                                <div class="name">Fakhrul Shovon</div>
+                                <div class="designation">Quality assurance & Tester</div>
                                 <ul class="sosiyal-share">
                                     <li><a href="team.php#"><span class="icon icon-facebook"></span></a></li>
                                     <li><a href="team.php#"><span class="icon icon-twitter"></span></a></li>
@@ -351,66 +358,7 @@ if (isset($_POST['logoutPerson'])) {
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-md-4">
-                            <div class="member-box">
-                                <div class="img"><img src="images/team-memberImg/team-memberImg1.png" alt=""></div>
-                                <div class="name">Stefanie Reinhard</div>
-                                <div class="designation">Director of Planning</div>
-                                <ul class="sosiyal-share">
-                                    <li><a href="team.php#"><span class="icon icon-facebook"></span></a></li>
-                                    <li><a href="team.php#"><span class="icon icon-twitter"></span></a></li>
-                                    <li><a href="team.php#"><span class="icon icon-linkedin"></span></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4">
-                            <div class="member-box">
-                                <div class="img"><img src="images/team-memberImg/team-memberImg2.png" alt=""></div>
-                                <div class="name">Mathias Weiß</div>
-                                <div class="designation">Designer/Associate Coordinator</div>
-                                <ul class="sosiyal-share">
-                                    <li><a href="team.php#"><span class="icon icon-facebook"></span></a></li>
-                                    <li><a href="team.php#"><span class="icon icon-twitter"></span></a></li>
-                                    <li><a href="team.php#"><span class="icon icon-linkedin"></span></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4">
-                            <div class="member-box">
-                                <div class="img"><img src="images/team-memberImg/team-memberImg2.png" alt=""></div>
-                                <div class="name">Mathias Weiß</div>
-                                <div class="designation">Designer/Associate Coordinator</div>
-                                <ul class="sosiyal-share">
-                                    <li><a href="team.php#"><span class="icon icon-facebook"></span></a></li>
-                                    <li><a href="team.php#"><span class="icon icon-twitter"></span></a></li>
-                                    <li><a href="team.php#"><span class="icon icon-linkedin"></span></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4">
-                            <div class="member-box">
-                                <div class="img"><img src="images/team-memberImg/team-memberImg3.png" alt=""></div>
-                                <div class="name">Nadine Fleischer</div>
-                                <div class="designation">Wedding & Event Manager</div>
-                                <ul class="sosiyal-share">
-                                    <li><a href="team.php#"><span class="icon icon-facebook"></span></a></li>
-                                    <li><a href="team.php#"><span class="icon icon-twitter"></span></a></li>
-                                    <li><a href="team.php#"><span class="icon icon-linkedin"></span></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-4">
-                            <div class="member-box">
-                                <div class="img"><img src="images/team-memberImg/team-memberImg1.png" alt=""></div>
-                                <div class="name">Stefanie Reinhard</div>
-                                <div class="designation">Director of Planning</div>
-                                <ul class="sosiyal-share">
-                                    <li><a href="team.php#"><span class="icon icon-facebook"></span></a></li>
-                                    <li><a href="team.php#"><span class="icon icon-twitter"></span></a></li>
-                                    <li><a href="team.php#"><span class="icon icon-linkedin"></span></a></li>
-                                </ul>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>

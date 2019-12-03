@@ -17,7 +17,15 @@ function insertPerson(Person $person)
         return -1;
     } else {
         $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status) 
-        VALUES ('" . $person->getUsername() . "' ,'" . $person->getName() . "' , '" . $person->getEmail() . "', '" . $person->getPhone() . "', '" . $person->getPassword() . "', '" . $person->getAddress() . "',1)";
+        VALUES (
+            '" . $person->getUsername() . "' ,
+        '" . $person->getName() . "' , 
+        '" . $person->getEmail() . "', 
+        '" . $person->getPhone() . "', 
+        '" . $person->getPassword() . "', 
+        '" . $person->getAddress() . "',
+        1
+        )";
         if (mysqli_query($connection, $query)) {
             return 1;
         } else {

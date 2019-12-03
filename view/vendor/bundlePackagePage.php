@@ -70,6 +70,22 @@ if (isset($_POST["updateBundlePackage"])) {
         }
     }
 }
+
+// for Delete=========================================================
+if (!isset($_SESSION["product_name"])) {
+    $_SESSION["product_name"] = "";
+}
+
+
+if (isset($_POST["deletePackage"])) {
+
+    $productName = $_SESSION["product_name"];
+    deleteBundlePackage($productName, $_SESSION['username']);
+}
+if (isset($_POST["deleteCancel"])) {
+    unset($_SESSION["product_name"]);
+    echo '<script>window.location="bundlePackagePage.php"</script>';
+}
 ?>
 
 
@@ -137,6 +153,7 @@ if (isset($_POST["updateBundlePackage"])) {
             display: inline-block;
             vertical-align: middle;
             border-radius: 4px;
+            color: whitesmoke;
         }
     </style>
 </head>
@@ -150,7 +167,10 @@ if (isset($_POST["updateBundlePackage"])) {
                     <div class="right-link">
                         <ul>
                             <li class="sub-links">
-                                <a href="javascript:;">Hi <?php echo $_SESSION['name'] ?><span class="icon icon-arrow-down"></span></a>
+                                <a><span class="icon icon-envelope"></span>Hi </a>
+                            </li>
+                            <li class="sub-links">
+                                <a href="javascript:;"> <?php echo $_SESSION['name'] ?><span class="icon icon-arrow-down"></span></a>
                                 <ul class="sub-nav" style="right:-40px">
                                     <?php
                                     if ($_SESSION['name'] != "") {
@@ -248,8 +268,8 @@ if (isset($_POST["updateBundlePackage"])) {
                                             ?>
                                             <div class="venues-slide first" style="margin-bottom: 10px;">
                                                 <div class=" text" style="padding-left: 50px">
-                                                    <h3 style="color: #848484; float: left; width: 50%; padding-bottom: 15px; height: auto;">Package type : <?php echo  $row["packageType"] ?></h3>
-                                                    <h3 style="color: #848484; float: left; width: 50%; padding-bottom: 15px; height: auto;">Package Name : <?php echo  $row["packageName"] ?></h3>
+                                                    <h3 style="color: #848484; float: left; width: 50%; padding-bottom: 15px; height: auto;">Package type : <?php echo  $row["packageType"] ?> Package name : </h3>
+                                                    <h3 class="product_name" style="color: #848484; float: left; width: 50%; padding-bottom: 15px; height: auto;"><?php echo  $row["packageName"] ?></h3>
                                                     <div class=reviews><?php echo  $row["rating"] . " " ?>
                                                         <div class=star>
                                                             <div class=fill style="width:<?php echo $rating ?>%"></div>
@@ -304,7 +324,8 @@ if (isset($_POST["updateBundlePackage"])) {
                                                     </div>
                                                     <div class="button">
                                                         <a href="javascript:;" class="btn gray">Update <span class="icon icon-arrow-down"></span></a>
-                                                        <a href="javascript:;" data-toggle="modal" data-target="#delete" class="deleteButton">Delete</a>
+                                                        <button type="button" data-toggle="modal" data-target="#delete" class="prodectbtn deleteButton gray btn_delete product_id" id="<?php echo $row["id"]; ?>" name="deletePackage">Delete
+                                                        </button>
                                                     </div>
                                                 </div>
 
@@ -512,6 +533,27 @@ if (isset($_POST["updateBundlePackage"])) {
             </section>
         </div>
 
+        <script>
+            var addToCartButtons = document.getElementsByClassName('btn_delete');
+
+            for (var i = 0; i < addToCartButtons.length; i++) {
+                var buttonAdd = addToCartButtons[i];
+                buttonAdd.addEventListener('click', addToCartClicked);
+            }
+
+            function addToCartClicked(event) {
+                var button = event.target;
+                var product = button.parentElement.parentElement.parentElement;
+                var name = product.getElementsByClassName('product_name')[0].innerText;
+                console.log(name);
+                document.getElementById("productName").innerHTML = name;
+                $('#' + button.id).load('deleteSession.php', {
+                    productName: name
+                });
+
+            }
+        </script>
+
         <!-- delete -->
         <div class="modal modal-vcenter fade" id="delete" role="dialog">
             <div class="modal-dialog login-popup" role="document">
@@ -519,11 +561,13 @@ if (isset($_POST["updateBundlePackage"])) {
                     <div class="close-icon" aria-label="Close" data-dismiss="modal"><img src="../images/close-icon.png" alt=""></div>
                     <div class="left-img"><img src="../images/login-leftImg.png" alt=""></div>
                     <div class="right-info">
-                        <h1>Delete <?php echo  $row["packageName"]  ?> </h1>
-                        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+                        <h1>Delete </h1>
+                        <h3 id="productName"></h3>
+                        <form method="POST" action="">
                             <div class="input-form">
                                 <div class="submit-slide">
-                                    <input type="submit" class="btn" value="Yes" name="logoutPerson">
+                                    <input type="submit" class="btn" value="Yes" name="deletePackage">
+                                    <input type="submit" class="btn" value="no" name="deleteCancel">
                                 </div>
                             </div>
                         </form>
@@ -531,7 +575,6 @@ if (isset($_POST["updateBundlePackage"])) {
                 </div>
             </div>
         </div>
-        <!--  -->
 
 
         <footer id="footer">

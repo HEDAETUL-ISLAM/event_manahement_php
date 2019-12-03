@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
@@ -122,7 +122,7 @@ if (isset($_GET["action"])) {
                     <div class="right-link">
                         <ul>
                             <li class="sub-links">
-                                <a href="../index.php"><span class="icon icon-envelope"></span>Go to Homepage</a>
+                                <a><span class="icon icon-envelope"></span>Hi </a>
                             </li>
                             <li class="sub-links">
                                 <a href="javascript:;"><?php echo $_SESSION['name'] ?><span class="icon icon-arrow-down"></span></a>
@@ -160,7 +160,7 @@ if (isset($_GET["action"])) {
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
                                 <li class="single-col ">
-                                    <a href="dashboard.php">Home </a>
+                                    <a href="dashboard.php">Dashboard </a>
                                 </li>
                                 <li class="single-col ">
                                     <a href="vendor.php">Vendor </a>
@@ -168,14 +168,11 @@ if (isset($_GET["action"])) {
                                 <li class="single-col ">
                                     <a href="customer.php">Customer </a>
                                 </li>
-                                <li class="single-col active">
+                                <li class="single-col ">
                                     <a href="pendingBook.php">Pending Book </a>
                                 </li>
-                                <li class="single-col ">
-                                    <a href="">History <span class="icon icon-arrow-down"></span></a>
-                                    <ul>
-                                        <li><a href="orderHistory.php">Order History</a></li> 
-                                    </ul>
+                                <li class="single-col active">
+                                    <a href="orderHistory.php">Order History </a>
                                 </li>
                                 <li class="single-col ">
                                     <a href="adminAccount.php">My Account </span></a>
@@ -294,7 +291,7 @@ if (isset($_GET["action"])) {
                                                     echo         "<p>" . $row["totalcost"] . "</p>";
                                                     echo '    </td>';
                                                     ?>
-                                                    <td class="Theading "> 
+                                                    <td class="Theading ">
                                                         <a href="pendingBook.php?action=delete&id=<?php echo $row["transaction"]; ?>">
                                                             <span class="text-danger"><img src="../../view/images/close-icon.png" alt="" style="max-width: 80px"> </span>
                                                         </a>

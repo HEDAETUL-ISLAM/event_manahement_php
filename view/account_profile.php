@@ -5,6 +5,7 @@ session_start();
 @require_once "../model/Login.php";
 @require_once "../model/Person.php";
 @require_once "../controller/PersonController.php";
+@include_once "../controller/bookingController.php";
 $username = "";
 $name = "";
 $email = "";
@@ -73,8 +74,6 @@ if (isset($_POST['insertPerson'])) {
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
-    @include_once "./errors/success.php";
-    
     header('Location: ./account_profile.php');
 }
 
@@ -210,12 +209,24 @@ if (isset($_POST['updatePassword'])) {
                                             <a href="#">Single Package <span class="icon icon-arrow-right"></span></a>
                                             <ul>
                                                 <li><a href="services/caterers/caterers.php">Caterers</a></li>
+                                                <li><a href="services/decoration/decoration.php">Decoration</a></li>
+                                                <li><a href="services/makeup/makeup.php">Make-up</a></li>
+                                                <li><a href="services/cake/cake.php">Cake</a></li>
+                                                <li><a href="services/dj/dj.php">Dj</a></li>
+                                                <li><a href="#">Wedding Card</a></li>
+                                                <li><a href="#">Mehandi</a></li>
+                                                <li><a href="#">Entertainment</a></li>
+                                                <li><a href="#">Photographer</a></li>
                                             </ul>
                                         </li>
                                         <li>
                                             <a href="#">Bundle Package <span class="icon icon-arrow-right"></span></a>
                                             <ul>
-                                                <li><a href="services/caterers/caterers.php">Caterers</a></li>
+                                                <li><a href="services/weeding/weeding.php">Weeding</a></li>
+                                                <li><a href="services/birthday/birthday.php">Birthday</a></li>
+                                                <li><a href="services/corporate/corporate.php">Corporate</a></li>
+                                                <li><a href="services/exhibition/exhibition.php">Exhibition</a></li>
+                                                <li><a href="services/conference/conference.php">Conference</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -223,10 +234,6 @@ if (isset($_POST['updatePassword'])) {
                                 <li class="single-col active">
                                     <a href="">Pages <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li><a href="search-result.php">listing Page</a></li>
-                                        <li><a href="search_detail.php">Details Page</a></li>
-
-                                        <li><a href="news-details.php">News Details</a></li>
                                         <li><a href="career.php">Career</a></li>
 
                                         <li><a href="privacy_policy.php">Privacy Policy</a></li>
@@ -432,38 +439,93 @@ if (isset($_POST['updatePassword'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="tab-content order-con">
-                        <table class="booking-viewTable">
-                            <tr>
-                                <th>Booking ID</th>
-                                <th class="detail">Booking Details</th>
-                                <th>Booking Date</th>
-                                <th>Event Date</th>
-                                <th>Paid Amount</th>
-                                <th>Meals</th>
-                                <th>No. of Guests</th>
-                            </tr>
-                            <tr>
-                                <td><span class="small-heading">Booking ID</span>258452112500</td>
-                                <td class="detail">
-                                    <span class="small-heading">Booking Details</span>
-                                    <div class="detailTd">
-                                        <label>Mave Team</label>
-                                        <p>Khilkhet, Nikunjo-2, Dhaka, Bangladesh</p>
-                                        <a href="account_profile.php#">Phone : 01948510951</a>
+                    <div>
+                        <?php
+                        $result = getIndividualBooking($_SESSION['username']);
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                ?>
+                                <div class="tab-content order-con ">
+                                    <table class="booking-viewTable">
+                                        <tr>
+                                            <th>Transaction ID</th>
+                                            <th class="detail">Booking Details</th>
+                                            <th>Booking Date</th>
+                                            <th>Event Date</th>
+                                            <th>Paid Amount</th>
+                                            <th>Need to Pay</th>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="small-heading">Transaction ID</span> <?php echo $row['transaction'] ?></td>
+                                            <td class="detail">
+                                                <span class="small-heading">Booking Details</span>
+                                                <div class="detailTd">
+                                                    <label><?php echo $row['packagename'] ?></label>
+                                                    <p>Addess: <?php echo $row['address'] ?></p>
+                                                    <a href="account_profile.php#">Phone : <?php echo $row['phone'] ?></a>
+                                                </div>
+                                            </td>
+                                            <td><span class="small-heading">Booking Date</span><?php echo $row['pendingdate'] ?></td>
+                                            <td><span class="small-heading">Event Date</span><?php echo $row['bookingdate'] ?></td>
+                                            <?php
+                                                if ($row['fullpaid'] == 'yes') {
+                                            ?>
+                                                    <td><span class="small-heading">Paid Amount</span>$ <?php echo $row['totalcost'] ?></td>
+                                                    <td><span class="small-heading">Need to Pay</span>$ 0</td>
+                                            <?php
+                                                }
+                                                else if ($row['halfpaid'] == 'yes') {
+                                            ?>
+                                                    <td><span class="small-heading">Paid Amount</span>$ <?php echo $row['totalcost'] / 2 ?></td>
+                                                    <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] / 2 ?></td>
+                                            <?php
+                                                }
+                                                else if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
+                                            ?>
+                                                    <td><span class="small-heading">Paid Amount</span>$ 0</td>
+                                                    <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] ?></td>
+                                            <?php
+                                                }
+
+                                            ?>
+                                        </tr>
+                                    </table>
+                                    <div class="booking-status">
+                                        <?php
+                                            if ($row['fullpaid'] == 'yes') {
+                                                if(date("d:m:Y") < $row['bookingdate']){
+                                        ?>
+                                                <a href="contact.php" class="cancel">Cancel your Booking</a>
+                                                <div class="status">Status :<span> Booked</span></div>
+                                        <?php
+                                                }
+                                            } 
+                                        ?>
+                                        <?php
+                                            if ($row['half'] == 'yes') {
+                                                if(date("d:m:Y") < $row['bookingdate']){
+                                        ?>
+                                                <a href="contact.php" class="cancel">Cancel your Booking</a>
+                                                <div class="status">Status :<span> Booked</span></div>
+                                        <?php
+                                                }
+                                            } 
+                                        ?>
+                                        <?php
+                                            if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
+                                        ?>
+                                                <a href="contact.php" class="cancel">Cancel your Booking</a>
+                                                <div class="status">Status :<span> Booked</span></div>
+                                        <?php
+                                            } 
+                                        ?>
                                     </div>
-                                </td>
-                                <td><span class="small-heading">Booking Date</span>25<sup>th</sup> Aug 2015</td>
-                                <td><span class="small-heading">Event Date</span>15<sup>th</sup> Dec 2015</td>
-                                <td><span class="small-heading">Paid Amount</span>$ 42,710</td>
-                                <td><span class="small-heading">Meals</span>Evening</td>
-                                <td><span class="small-heading">No. of Guests</span>1000</td>
-                            </tr>
-                        </table>
-                        <div class="booking-status">
-                            <a href="account_profile.php#" class="cancel">Cancel your Booking</a>
-                            <div class="status">Status :<span> Booked</span></div>
-                        </div>
+                                </div>
+                        <?php
+                            }
+                        }
+                        ?>
+
                     </div>
                     <!-- change password -->
                     <div class="tab-content changePassword-con">

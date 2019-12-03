@@ -71,7 +71,6 @@ if (isset($_POST['insertPerson'])) {
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
-    @include_once "./errors/success.php";
     header('Location: ./contact.php');
 }
 
@@ -148,12 +147,24 @@ if (isset($_POST['logoutPerson'])) {
                                             <a href="#">Single Package <span class="icon icon-arrow-right"></span></a>
                                             <ul>
                                                 <li><a href="services/caterers/caterers.php">Caterers</a></li>
+                                                <li><a href="services/decoration/decoration.php">Decoration</a></li>
+                                                <li><a href="services/makeup/makeup.php">Make-up</a></li>
+                                                <li><a href="services/cake/cake.php">Cake</a></li>
+                                                <li><a href="services/dj/dj.php">Dj</a></li>
+                                                <li><a href="#">Wedding Card</a></li>
+                                                <li><a href="#">Mehandi</a></li>
+                                                <li><a href="#">Entertainment</a></li>
+                                                <li><a href="#">Photographer</a></li>
                                             </ul>
                                         </li>
                                         <li>
                                             <a href="#">Bundle Package <span class="icon icon-arrow-right"></span></a>
                                             <ul>
-                                                <li><a href="services/caterers/caterers.php">Caterers</a></li>
+                                                <li><a href="services/weeding/weeding.php">Weeding</a></li>
+                                                <li><a href="services/birthday/birthday.php">Birthday</a></li>
+                                                <li><a href="services/corporate/corporate.php">Corporate</a></li>
+                                                <li><a href="services/exhibition/exhibition.php">Exhibition</a></li>
+                                                <li><a href="services/conference/conference.php">Conference</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -161,10 +172,6 @@ if (isset($_POST['logoutPerson'])) {
                                 <li class="single-col">
                                     <a href="">Pages <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li><a href="search-result.php">listing Page</a></li>
-                                        <li><a href="search_detail.php">Details Page</a></li>
-
-                                        <li><a href="news-details.php">News Details</a></li>
                                         <li><a href="career.php">Career</a></li>
 
                                         <li><a href="privacy_policy.php">Privacy Policy</a></li>

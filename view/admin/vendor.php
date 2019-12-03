@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
@@ -110,7 +110,7 @@ if (isset($_POST['logoutPerson'])) {
                     <div class="right-link">
                         <ul>
                             <li class="sub-links">
-                                <a href="../index.php"><span class="icon icon-envelope"></span>Go to Homepage</a>
+                                <a><span class="icon icon-envelope"></span>Hi </a>
                             </li>
                             <li class="sub-links">
                                 <a href="javascript:;"><?php echo $_SESSION['name'] ?><span class="icon icon-arrow-down"></span></a>
@@ -148,7 +148,7 @@ if (isset($_POST['logoutPerson'])) {
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
                                 <li class="single-col ">
-                                    <a href="dashboard.php">Home </a>
+                                    <a href="dashboard.php">Dashboard </a>
                                 </li>
                                 <li class="single-col active">
                                     <a href="vendor.php">Vendor </a>
@@ -160,11 +160,7 @@ if (isset($_POST['logoutPerson'])) {
                                     <a href="pendingBook.php">Pending Book </a>
                                 </li>
                                 <li class="single-col ">
-                                    <a href="">Booking <span class="icon icon-arrow-down"></span></a>
-                                    <ul>
-                                        <li><a href="halfBookingPage.php">Half Paid</a></li>
-                                        <li><a href="fullBookingPage.php">Full Paid</a></li>
-                                    </ul>
+                                    <a href="orderHistory.php">Order History </a>
                                 </li>
                                 <li class="single-col ">
                                     <a href="adminAccount.php">My Account </span></a>

@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
@@ -23,7 +23,7 @@ if (isset($_POST['logoutPerson'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Vendor Panel</title>
 
-    <link rel="shortcut icon" href="images/Favicon.ico"> 
+    <link rel="shortcut icon" href="images/Favicon.ico">
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/owl.carousel.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet" />
@@ -89,6 +89,7 @@ if (isset($_POST['logoutPerson'])) {
                         $_SESSION['phone'] = $result->phone;
                         $_SESSION['password'] = $result->password;
                         $_SESSION['address'] = $result->address;
+                        $_SESSION['status'] = $result->status;
                         header('Location: ./vendor/dashboard.php');
                     }
                     if ($result === null) {
@@ -410,7 +411,7 @@ if (isset($_POST['logoutPerson'])) {
     <script type="text/javascript" src="js/jquery.selectbox-0.2.js"></script>
     <script type="text/javascript" src="js/jquery.form-validator.min.js"></script>
     <script type="text/javascript" src="js/placeholder.js"></script>
-    <script type="text/javascript" src="js/coustem.js"></script> 
+    <script type="text/javascript" src="js/coustem.js"></script>
 
 </body>
 

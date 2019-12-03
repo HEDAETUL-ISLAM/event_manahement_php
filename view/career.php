@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
@@ -71,7 +71,6 @@ if (isset($_POST['insertPerson'])) {
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
-    @include_once "./errors/success.php";
     header('Location: ./carrer.php');
 }
 
@@ -148,12 +147,24 @@ if (isset($_POST['logoutPerson'])) {
                                             <a href="#">Single Package <span class="icon icon-arrow-right"></span></a>
                                             <ul>
                                                 <li><a href="services/caterers/caterers.php">Caterers</a></li>
+                                                <li><a href="services/decoration/decoration.php">Decoration</a></li>
+                                                <li><a href="services/makeup/makeup.php">Make-up</a></li>
+                                                <li><a href="services/cake/cake.php">Cake</a></li>
+                                                <li><a href="services/dj/dj.php">Dj</a></li>
+                                                <li><a href="#">Wedding Card</a></li>
+                                                <li><a href="#">Mehandi</a></li>
+                                                <li><a href="#">Entertainment</a></li>
+                                                <li><a href="#">Photographer</a></li>
                                             </ul>
                                         </li>
                                         <li>
                                             <a href="#">Bundle Package <span class="icon icon-arrow-right"></span></a>
                                             <ul>
-                                                <li><a href="services/caterers/caterers.php">Caterers</a></li>
+                                                <li><a href="services/weeding/weeding.php">Weeding</a></li>
+                                                <li><a href="services/birthday/birthday.php">Birthday</a></li>
+                                                <li><a href="services/corporate/corporate.php">Corporate</a></li>
+                                                <li><a href="services/exhibition/exhibition.php">Exhibition</a></li>
+                                                <li><a href="services/conference/conference.php">Conference</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -161,10 +172,6 @@ if (isset($_POST['logoutPerson'])) {
                                 <li class="single-col active">
                                     <a href="">Pages <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li><a href="search-result.php">listing Page</a></li>
-                                        <li><a href="search_detail.php">Details Page</a></li>
-
-                                        <li><a href="news-details.php">News Details</a></li>
                                         <li><a href="career.php">Career</a></li>
 
                                         <li><a href="privacy_policy.php">Privacy Policy</a></li>
@@ -182,7 +189,7 @@ if (isset($_POST['logoutPerson'])) {
                                 <li class="single-col">
                                     <a href="">Booking <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li><a href="booking_step1.php">Booking Step1</a></li> 
+                                        <li><a href="booking_step1.php">Booking Step1</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="aboutUs.php">About Us</a></li>
@@ -293,7 +300,7 @@ if (isset($_POST['logoutPerson'])) {
             </div>
         </div>
         <div class="carrer-banner">
-            <img src="images/banner-img/careerBanner.jpg" alt="">
+            <img src="images/photos/stair.jpg" alt="">
             <div class="text">
                 <h1>Make Your Passion Your <span>PayCheck </span></h1>
             </div>
@@ -309,16 +316,6 @@ if (isset($_POST['logoutPerson'])) {
                         want to view and that's it.</div>
                     <div class="stickLine"></div>
                 </div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat.</p>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
-                    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-                    dicta sunt explicabo. </p>
-                <p>Nullam elementum nisi eget mi mollis laoreet. Morbi non dignissim tellus, vitae blandit urna Lorem
-                    ipsum dolor sit amet, consectetur adipiscing elit morbi non dignissim.Nullam elementum nisi eget mi
-                    mollis laoreet. Morbi non dignissim tellus, vitae blandit urna Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit morbi non dignissim.</p>
             </div>
         </section>
         <section class="carrer-view">
@@ -328,7 +325,7 @@ if (isset($_POST['logoutPerson'])) {
                         <div class="col-sm-6">
                             <div class="carrer-box">
                                 <a data-target="#why_work" data-toggle="modal" href="javascript:;">
-                                    <img src="images/career-img/career-img1.jpg" alt="">
+                                <img src="images/career-img/one.png" alt="xxxxxxxxxxxxx">
                                     <div class="caption">Why Work With Us</div>
                                 </a>
                             </div>
@@ -341,13 +338,6 @@ if (isset($_POST['logoutPerson'])) {
                                     <p>Every mind of beauty envisions a future crafted by dream. Unfortunately, most
                                         dreams are forgotten while employees work towards fulfilling their employer’s
                                         goals. But not at eventplanning.com. </p>
-                                    <p>Here we give opportunities to all our team members to step out of their comfort
-                                        zone and focus all energies to master their skills and achieve goals while
-                                        following their own dreams. </p>
-                                    <p>Members are encouraged to discover their true potential while building a bond of
-                                        trust. It is a known fact, that without employees there are no companies. And
-                                        eventplanning.com will eventplanning your membership while stating that you come
-                                        first. </p>
                                     <p><strong>Once a team member always a team member:</strong><br>Complete your tenure
                                         of two years as a team member, and feel free to discover new horizons, while
                                         taking on new ventures, and following your own dreams. Once complete, you gain
@@ -359,7 +349,7 @@ if (isset($_POST['logoutPerson'])) {
                         <div class="col-sm-6">
                             <div class="carrer-box">
                                 <a data-target="#meet_team" data-toggle="modal" href="javascript:;">
-                                    <img src="images/career-img/career-img2.jpg" alt="">
+                                <img src="images/career-img/two.jpg" alt="xxxxxxxxxxxxx">
                                     <div class="caption">Meet The Team</div>
                                 </a>
                             </div>
@@ -375,31 +365,13 @@ if (isset($_POST['logoutPerson'])) {
                                         book. It has survived not only five centuries, but also the leap into electronic
                                         typesetting, remaining essentially unchanged. It was popularised in the 1960s
                                         with the release of Letraset sheets containing Lorem Ipsum passages, </p>
-                                    <p>lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                        unknown printer took a galley of type and scrambled it to make a type specimen
-                                        book. It has survived not only five centuries, but also the leap into electronic
-                                        typesetting, remaining essentially unchanged. It was popularised in the 1960s
-                                        with the release of Letraset sheets containing Lorem Ipsum passages, </p>
-                                    <p>lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                        unknown printer took a galley of type and scrambled it to make a type specimen
-                                        book. It has survived not only five centuries, but also the leap into electronic
-                                        typesetting, remaining essentially unchanged. It was popularised in the 1960s
-                                        with the release of Letraset sheets containing Lorem Ipsum passages, </p>
-                                    <p>lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                        unknown printer took a galley of type and scrambled it to make a type specimen
-                                        book. It has survived not only five centuries, but also the leap into electronic
-                                        typesetting, remaining essentially unchanged. It was popularised in the 1960s
-                                        with the release of Letraset sheets containing Lorem Ipsum passages, </p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="carrer-box">
                                 <a data-target="#life_event" data-toggle="modal" href="javascript:;">
-                                    <img src="images/career-img/career-img3.jpg" alt="">
+                                    <img src="images/career-img/three.jpg" alt="xxxxxxxxxxxxx">
                                     <div class="caption">Life at Event Planning</div>
                                 </a>
                             </div>
@@ -416,20 +388,13 @@ if (isset($_POST['logoutPerson'])) {
                                     <p>Why work hard when you can work smart. More that quantity, eventplanning.com
                                         believes in quality that can only be achieved when you enjoy what you do. You
                                         can enjoy what you do by simply making work fun.</p>
-                                    <p>In this informal setting, team members can dress how they want. The only person
-                                        you need to impress is yourself. Your clothes do not matter. </p>
-                                    <p>Although punctuality is a must for any kind of organization to flourish, we at
-                                        eventplanning.com offer flexible and the option from working from home. </p>
-                                    <p>Besides freedom of time and attire, team members are encouraged to think and
-                                        express their opinions no matter how trivial they may be. There are no silly
-                                        questions and no such thing as a bad idea. </p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="carrer-box">
                                 <a data-target="#employee_testimonials" data-toggle="modal" href="javascript:;">
-                                    <img src="images/career-img/career-img4.jpg" alt="">
+                                    <img src="images/career-img/four.jpg" alt="xxxxxxxxxxxxx">
                                     <div class="caption">Employee Testimonials</div>
                                 </a>
                             </div>
@@ -439,24 +404,6 @@ if (isset($_POST['logoutPerson'])) {
                                 <div class="modal-content text-left">
                                     <div data-dismiss="modal" aria-label="Close" class="close-icon"><img alt="" src="images/close-icon.png"></div>
                                     <h1>Employee Testimonials</h1>
-                                    <p>lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                        unknown printer took a galley of type and scrambled it to make a type specimen
-                                        book. It has survived not only five centuries, but also the leap into electronic
-                                        typesetting, remaining essentially unchanged. It was popularised in the 1960s
-                                        with the release of Letraset sheets containing Lorem Ipsum passages, </p>
-                                    <p>lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                        unknown printer took a galley of type and scrambled it to make a type specimen
-                                        book. It has survived not only five centuries, but also the leap into electronic
-                                        typesetting, remaining essentially unchanged. It was popularised in the 1960s
-                                        with the release of Letraset sheets containing Lorem Ipsum passages, </p>
-                                    <p>lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-                                        unknown printer took a galley of type and scrambled it to make a type specimen
-                                        book. It has survived not only five centuries, but also the leap into electronic
-                                        typesetting, remaining essentially unchanged. It was popularised in the 1960s
-                                        with the release of Letraset sheets containing Lorem Ipsum passages, </p>
                                     <p>lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
                                         Ipsum has been the industry's standard dummy text ever since the 1500s, when an
                                         unknown printer took a galley of type and scrambled it to make a type specimen
@@ -482,23 +429,8 @@ if (isset($_POST['logoutPerson'])) {
                 </div>
                 <div class="openings-info">
                     <div class="row">
-                        <div class="col-sm-3">
-                            <div class="openings-menu">
-                                <ul>
-                                    <li class="active"><a href="career.php#">All Openings</a></li>
-                                    <li><a href="career.php#">Call Center (2)</a></li>
-                                    <li><a href="career.php#">Content & Research (1)</a></li>
-                                    <li><a href="career.php#">Corporate (3)</a></li>
-                                    <li><a href="career.php#">Finance & Accounts (1)</a></li>
-                                    <li><a href="career.php#">HR (1)</a></li>
-                                    <li><a href="career.php#">Marketing (1)</a></li>
-                                    <li><a href="career.php#">Sales (80)</a></li>
-                                    <li><a href="career.php#">Technology (20)</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-sm-9">
-                            <div class="openings-title">All Openings</div>
+                        <div class="col-sm-12">
+                            <div class="openings-title">Openings</div>
                             <div class="job-view">
                                 <div class="job-viewBox">
                                     <div class="openings-slide">

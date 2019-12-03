@@ -41,7 +41,16 @@ function insertSinglePackage(SinglePackage $singlePackage)
     } else {
 
         $query = "INSERT into single_package (category, package_name,vendor_username,price, transport_cost, available_status,description, image, rating ) 
-    VALUES ('" . $singlePackage->getCategory() . "' , '" . $singlePackage->getPackageName() . "','" . $singlePackage->getVendorName() . "','" . $singlePackage->getPrice() . "','" . $singlePackage->getTransportCost() . "','" . $singlePackage->getAvailableStatus() . "','" . $singlePackage->getDescription() . "','" . "../../packageImage/singlePackagePicture/" . $singlePackage->getImage() . "',0) ";
+        VALUES ('" . $singlePackage->getCategory() . "' , 
+        '" . $singlePackage->getPackageName() . "',
+        '" . $singlePackage->getVendorName() . "',
+        '" . $singlePackage->getPrice() . "',
+        '" . $singlePackage->getTransportCost() . "',
+        '" . $singlePackage->getAvailableStatus() . "',
+        '" . $singlePackage->getDescription() . "',
+        '" . "../../packageImage/singlePackagePicture/" . $singlePackage->getImage() . "',
+        0
+        ) ";
         if (mysqli_query($connection, $query)) {
             return 1;
         } else {
@@ -148,5 +157,26 @@ function updateBundlePackage(
     mysqli_close($connection);
 }
 
-
+function deletePackage($productName, $vendorName)
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    if (!$connection) {
+        return -1;
+    }
+    $query = "DELETE FROM single_package where package_name = '$productName' AND vendor_username = '$vendorName'";
+    $result = $connection->query($query);
+    return $result;
+    mysqli_close($connection);
+}
+function deleteBundlePackage($productName, $vendorName)
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    if (!$connection) {
+        return -1;
+    }
+    $query = "DELETE FROM bundle_package where packageName = '$productName' AND vendorName = '$vendorName'";
+    $result = $connection->query($query);
+    return $result;
+    mysqli_close($connection);
+}
 
