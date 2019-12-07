@@ -41,24 +41,32 @@ create table booking (
 
 create table bundle_package(
     id int(255)  PRIMARY KEY AUTO_INCREMENT, 
-    packageType varchar(256),
-    packageName varchar(256),
-    caterersAvailableStatus varchar(256),
-    decorFloristsAvailableStatus varchar(256),
-    makeupAndHairAvailableStatus varchar(256),
-    weddingCardsAvailableStatus varchar(256),
-    mehandiAvailableStatus varchar(256),
-    cakesAvailableStatus varchar(256),
-    djAvailableStatus varchar(256),
-    photographersAvailableStatus varchar(256),
-    entertainmentAvailableStatus varchar(256),
+    package_type varchar(256),
+    package_name varchar(256),
+    caterers_available_status varchar(256),
+    decor_florists_available_status varchar(256),
+    makeup_andHair_available_status varchar(256),
+    wedding_cards_available_status varchar(256),
+    mehandi_available_status varchar(256),
+    cakes_available_status varchar(256),
+    dj_available_status varchar(256),
+    photographers_available_status varchar(256),
+    entertainment_available_status varchar(256),
     price int(255),
-    transportCost int(255),
+    transport_cost int(255),
     description varchar(256),
-    availableStatus varchar(256),
-    vendorName varchar(256),
+    available_status varchar(256),
+    vendor_username varchar(256),
     rating varchar(256)
-)
+);
+
+create table rating(
+    id int(255)  PRIMARY KEY AUTO_INCREMENT, 
+    package_name varchar(256),
+    vendor_name varchar(256),
+    customer_name varchar(256),
+    rating int(255)
+);
 
 
 //trigger for person table

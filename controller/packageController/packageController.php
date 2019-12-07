@@ -19,7 +19,7 @@ function getBundlePackage()
     if (!$connection) {
         return -1;
     }
-    $query = "SELECT * from bundle_package where vendorName = '" . $_SESSION['username'] . "'";
+    $query = "SELECT * from bundle_package where vendor_username = '" . $_SESSION['username'] . "'";
     $result = $connection->query($query);
     return $result;
     mysqli_close($connection);
@@ -77,18 +77,18 @@ function insertBundlePackage(BundlePackage $bundlePackage)
     if (!$connection) {
         return -1;
     }
-    $findSamePackage = "SELECT packageName, vendorName from bundle_package where packageName = '" . $bundlePackage->getPackageName() . "' AND vendorName = '" . $bundlePackage->getVendorName() . "'";
+    $findSamePackage = "SELECT package_name, vendor_username from bundle_package where package_name = '" . $bundlePackage->getPackageName() . "' AND vendor_username = '" . $bundlePackage->getVendorName() . "'";
     $result = mysqli_query($connection, $findSamePackage);
     while ($row = mysqli_fetch_assoc($result)) {
-        $vendorName = $row['vendorName'];
-        $packageName = $row['packageName'];
+        $vendorName = $row['vendor_username'];
+        $packageName = $row['package_name'];
     }
     if ($vendorName == $bundlePackage->getVendorName() && $packageName == $bundlePackage->getPackageName()) {
         return -1;
     } else {
-        $query = "INSERT into bundle_package (packageType, packageName, caterersAvailableStatus,decorFloristsAvailableStatus,makeupAndHairAvailableStatus, 
-        weddingCardsAvailableStatus, mehandiAvailableStatus,cakesAvailableStatus, djAvailableStatus, photographersAvailableStatus,entertainmentAvailableStatus, 
-        price, transportCost, description, availableStatus, vendorName, rating) 
+        $query = "INSERT into bundle_package (package_type, package_name, caterers_available_status,decor_florists_available_status,makeup_andHair_available_status, 
+        wedding_cards_available_status, mehandi_available_status,cakes_available_status, dj_available_status, photographers_available_status,entertainment_available_status, 
+        price, transport_cost, description, available_status, vendor_username, rating) 
         VALUES ('" . $bundlePackage->getPackageType() . "' ,
         '" . $bundlePackage->getPackageName() . "',
         '" . $bundlePackage->getCaterersAvailableStatus() . "',
@@ -136,20 +136,20 @@ function updateBundlePackage(
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $query = "UPDATE bundle_package set 
-            caterersAvailableStatus= '" . $caterersAvailableStatus . "',
-            decorFloristsAvailableStatus= '" . $decorFloristsAvailableStatus . "',
-            makeupAndHairAvailableStatus= '" . $makeupAndHairAvailableStatus . "', 
-            weddingCardsAvailableStatus= '" . $weddingCardsAvailableStatus . "', 
-            mehandiAvailableStatus= '" . $mehandiAvailableStatus . "',
-            cakesAvailableStatus= '" . $cakesAvailableStatus . "', 
-            djAvailableStatus= '" . $djAvailableStatus . "', 
-            photographersAvailableStatus= '" . $photographersAvailableStatus . "',
-            entertainmentAvailableStatus= '" . $entertainmentAvailableStatus . "',
+            caterers_available_status= '" . $caterersAvailableStatus . "',
+            decor_florists_available_status= '" . $decorFloristsAvailableStatus . "',
+            makeup_andHair_available_status= '" . $makeupAndHairAvailableStatus . "', 
+            wedding_cards_available_status= '" . $weddingCardsAvailableStatus . "', 
+            mehandi_available_status= '" . $mehandiAvailableStatus . "',
+            cakes_available_status= '" . $cakesAvailableStatus . "', 
+            dj_available_status= '" . $djAvailableStatus . "', 
+            photographers_available_status= '" . $photographersAvailableStatus . "',
+            entertainment_available_status= '" . $entertainmentAvailableStatus . "',
             price = '" . $price . "',
-            transportCost = '" . $transportCost . "',
-            availableStatus = '" . $availableStatus . "',
+            transport_cost = '" . $transportCost . "',
+            available_status = '" . $availableStatus . "',
             description = '" . $description . "'  
-            where  packageName = '" . $packageName . "' AND vendorName = '" . $vendorName . "'";
+            where  package_name = '" . $packageName . "' AND vendor_username = '" . $vendorName . "'";
 
     $statement = $connection->prepare($query);
     $result = $statement->execute();
@@ -174,7 +174,7 @@ function deleteBundlePackage($productName, $vendorName)
     if (!$connection) {
         return -1;
     }
-    $query = "DELETE FROM bundle_package where packageName = '$productName' AND vendorName = '$vendorName'";
+    $query = "DELETE FROM bundle_package where package_name = '$productName' AND vendor_username = '$vendorName'";
     $result = $connection->query($query);
     return $result;
     mysqli_close($connection);

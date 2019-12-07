@@ -5,6 +5,8 @@ session_start();
 @require_once "../model/Login.php";
 @require_once "../model/Person.php";
 @require_once "../controller/PersonController.php";
+@include_once "../model/Rating.php";
+@include_once "../controller/ratingController.php";
 $username = "";
 $name = "";
 $email = "";
@@ -73,6 +75,23 @@ if (isset($_POST['logoutPerson'])) {
     header('Location: ./index.php');
 }
 
+//for rating=============================================================>
+if (isset($_POST['insertRating'])) {
+    $productRating = $_POST['productRating'];
+    ($_SESSION["shoppingCart"]);
+    foreach ($_SESSION["shoppingCart"] as $keys => $values) {
+        $username = $_SESSION['username'];
+        $vendorName = $values["itemVendor"];
+        $packageName = $values["itemName"];
+        if (strlen($username) == 0 || strlen($vendorName) == 0 || strlen($packageName) == 0) {
+            @include_once "./errors/blankEntry.php";
+        } else {
+            $rating = new Rating($packageName, $vendorName, $username, $productRating);
+            $result = insertRating($rating);
+            // unset($_SESSION["shoppingCart"]);
+        }
+    }
+}
 
 
 ?>
@@ -92,8 +111,14 @@ if (isset($_POST['logoutPerson'])) {
     <link href="css/datepicker.css" rel="stylesheet" />
     <link href="css/loader.css" rel="stylesheet">
     <link href="css/docs.css" rel="stylesheet">
+    <link href="css/ratingModal.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Domine:400,700%7COpen+Sans:300,300i,400,400i,600,600i,700,700i%7CRoboto:400,500" rel="stylesheet">
-
+    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#ratingModal").modal('show');
+        });
+    </script>
 </head>
 
 <body class="inner-page">
@@ -201,7 +226,7 @@ if (isset($_POST['logoutPerson'])) {
                                 <div class="search-icon"><span class="icon icon-search"></span></div>
                                 <div class="search-view">
                                     <div class="input-box">
-                                        <form>
+                                        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
                                             <input type="text" placeholder="Search here">
                                             <input type="submit" value="">
                                         </form>
@@ -213,6 +238,34 @@ if (isset($_POST['logoutPerson'])) {
                 </div>
             </nav>
         </header>
+        <!-- rating modal -->
+        <div id="ratingModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Rating our Package</h4>
+                    </div>
+                    <div class="modal-body position">
+                        <p>Leave your rating.</p>
+                        <form action="" method="POST">
+                            <div class="rating ">
+                                <input name="productRating" value="5" id="e5" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "5")) ?>><label for="e5">★</label>
+                                <input name="productRating" value="4" id="e4" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "4")) ?>><label for="e4">★</label>
+                                <input name="productRating" value="3" id="e3" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "3")) ?>><label for="e3">★</label>
+                                <input name="productRating" value="2" id="e2" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "2")) ?>><label for="e2">★</label>
+                                <input name="productRating" value="1" id="e1" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "1")) ?>><label for="e1">★</label>
+                            </div>
+                            <div>
+                                <input type="submit" class="btn" name="insertRating" style="width: 100px;">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end -->
+
         <div class="modal modal-vcenter fade" id="loginModal" role="dialog">
             <div class="modal-dialog login-popup" role="document">
                 <div class="modal-content">
@@ -301,6 +354,8 @@ if (isset($_POST['logoutPerson'])) {
                 </div>
             </div>
         </div>
+
+
         <div class="step-nav">
             <div class="container">
                 <div class="inner-nav">
@@ -420,7 +475,7 @@ if (isset($_POST['logoutPerson'])) {
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
-    <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/owl.carousel.js"></script>
     <script type="text/javascript" src="js/jquery.selectbox-0.2.js"></script>

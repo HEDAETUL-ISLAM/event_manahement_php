@@ -29,6 +29,20 @@ function insertBookingDetails(Booking $booking)
     }
     mysqli_close($connection);
 }
+
+function updateBooking($vendorName, $packageName)
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $query = "UPDATE single_package, bundle_package
+    SET available_status = 'No'
+    where vendor_username = '$vendorName' and package_name = '$packageName'
+    ";
+    if (mysqli_close($connection, $query)) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
 function getAllBooking()
 {
     $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");

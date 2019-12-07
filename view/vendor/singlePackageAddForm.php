@@ -222,8 +222,8 @@ if (isset($_POST['logoutPerson'])) {
                                 <div class="select-row">
                                     <select name="availableStatus" id="month_select" tabindex="1">
                                         <option value="">Choose availability</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
                                     </select>
                                 </div>
                                 <div class="input-slide">

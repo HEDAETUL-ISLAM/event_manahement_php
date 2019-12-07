@@ -6,7 +6,7 @@ function getAllWeeding()
     if (!$connection) {
         return -1;
     }
-    $query = "SELECT * from bundle_package where packageType = 'Weeding'";
+    $query = "SELECT * from bundle_package where package_type = 'Weeding'";
     $result = $connection->query($query);
     return $result;
     mysqli_close($connection);
@@ -17,7 +17,7 @@ function getWeedingByLowPrice()
     if (!$connection) {
         return -1;
     }
-    $query = "SELECT * from bundle_package where packageType = 'Weeding' ORDER BY Price";
+    $query = "SELECT * from bundle_package where package_type = 'Weeding' ORDER BY Price";
     $result = $connection->query($query);
     return $result;
     mysqli_close($connection);
@@ -28,7 +28,7 @@ function getWeedingByHighPrice()
     if (!$connection) {
         return -1;
     }
-    $query = "SELECT * from bundle_package where packageType = 'Weeding' ORDER BY Price DESC";
+    $query = "SELECT * from bundle_package where package_type = 'Weeding' ORDER BY Price DESC";
     $result = $connection->query($query);
     return $result;
     mysqli_close($connection);

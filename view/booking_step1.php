@@ -6,7 +6,7 @@ session_start();
 @require_once "../model/Person.php";
 @require_once "../model/Booking.php";
 @require_once "../controller/PersonController.php";
-@require_once "../controller/bookingController.php";
+@include_once "../controller/bookingController.php";
 $username = "";
 $name = "";
 $email = "";
@@ -22,7 +22,6 @@ if (isset($_POST['login'])) {
     } else {
         $login = new Login($username,  $password);
         $result = loginPerson($login);
-
         if ($result->status == 1) {
             if ($result !== null) {
                 $_SESSION['username'] = $result->user_name;
@@ -42,7 +41,6 @@ if (isset($_POST['login'])) {
         }
     }
 }
-
 // for register==========================================================>
 if (isset($_POST['insertPerson'])) {
     $username = $_POST['username'];
@@ -56,7 +54,6 @@ if (isset($_POST['insertPerson'])) {
     } else {
         $person = new Person($username, $name, $email, $phone, $password, $address);
         $result = insertVendor($person);
-
         if ($result == 1) {
             @include_once "./errors/success.php";
         }
@@ -68,13 +65,11 @@ if (isset($_POST['insertPerson'])) {
         }
     }
 }
-
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
     @include_once "./errors/success.php";
 }
-
 // for Table row==========================================================
 $count = 0;
 if (isset($_POST["bookPackage"])) {
@@ -88,7 +83,6 @@ if (isset($_POST["bookPackage"])) {
         $_SESSION["shoppingCart"][$count];
     }
 }
-
 //  for remove
 if (isset($_GET["action"])) {
     if ($_GET["action"] == "delete") {
@@ -100,15 +94,11 @@ if (isset($_GET["action"])) {
         }
     }
 }
-
-
 // for booking============================================
 if (isset($_POST["bookingbtn"])) {
     $transaction = strtoupper(uniqid());
-
     $_SESSION["transaction"] =  $transaction;
     $_SESSION["bookingDate"] = $_POST['bookingDate'];
-
     foreach ($_SESSION["shoppingCart"] as $keys => $values) {
         $username = $_SESSION['username'];
         $email = $_SESSION['email'];
@@ -120,18 +110,17 @@ if (isset($_POST["bookingbtn"])) {
         $totalCost = $values["itemPrice"] + $values["itemTransportCost"];
         $halfPaid = "no";
         $fullPaid = "no";
-
         if (strlen($bookingDate) == 0) {
             @include_once "./errors/blankEntry.php";
         } else {
-            echo $totalCost;
             $booking = new Booking($username, $transaction, $email, $phone, $address, $bookingDate, $vendorName, $packageName, $totalCost, $halfPaid, $fullPaid);
-            print_r($booking);
-
             $result = insertBookingDetails($booking);
 
             if ($result == 1) {
-                header("Location: ./booking_step2.php");
+                if (updateBooking($vendorName, $packageName) == 1) {
+                    @include_once "./errors/wrong.php";
+                    header("Location: ./booking_step2.php");
+                }
             }
             if ($result == -1) {
                 @include_once "./errors/exist.php";
@@ -139,12 +128,9 @@ if (isset($_POST["bookingbtn"])) {
             if ($result == 0) {
                 @include_once "./errors/wrong.php";
             }
-
-            unset($_SESSION["shoppingCart"]);
         }
     }
 }
-
 ?>
 
 
@@ -435,7 +421,6 @@ if (isset($_POST["bookingbtn"])) {
 
                                     </tr>
                                 <?php
-
                                         $total = $total + $values["itemPrice"] + $values["itemTransportCost"];
                                     }
                                     ?>
@@ -488,7 +473,6 @@ if (isset($_POST["bookingbtn"])) {
                                 <input type="submit" name="bookingbtn" class="btn" value="Book Now">
                             <?php
                             } else if (empty($_SESSION["name"])) {
-
                                 echo '    <a href="javascript:;" data-toggle="modal" data-target="#registrationModal" style="font-weight: bold;">Registration</a>';
                                 echo " or ";
                                 echo '    <a href="javascript:;" data-toggle="modal" data-target="#loginModal" style="font-weight: bold;">Login</a>';
