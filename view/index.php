@@ -26,6 +26,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['phone'] = $result->phone;
                 $_SESSION['password'] = $result->password;
                 $_SESSION['address'] = $result->address;
+                $_SESSION['status'] = $result->status;
                 @include_once "./errors/success.php";
             }
 
@@ -41,7 +42,24 @@ if (isset($_POST['login'])) {
                 $_SESSION['phone'] = $result->phone;
                 $_SESSION['password'] = $result->password;
                 $_SESSION['address'] = $result->address;
+                $_SESSION['status'] = $result->status;
                 header('Location: ./admin/dashboard.php');
+            }
+
+            if ($result === null) {
+                @include_once "./errors/wrong.php";
+            }
+        }
+        if ($result->status == 2) {
+            if ($result !== null) {
+                $_SESSION['username'] = $result->user_name;
+                $_SESSION['name'] = $result->name;
+                $_SESSION['email'] = $result->email;
+                $_SESSION['phone'] = $result->phone;
+                $_SESSION['password'] = $result->password;
+                $_SESSION['address'] = $result->address;
+                $_SESSION['status'] = $result->status;
+                header('Location: ./vendor/dashboard.php');
             }
 
             if ($result === null) {
@@ -81,6 +99,12 @@ if (isset($_POST['insertPerson'])) {
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
     header('Location: ./index.php');
+}
+//for check person=========================================================
+if(!empty($_SESSION['username'])){
+    if($_SESSION['status']!=1){
+        session_destroy();
+    }
 }
 ?>
 

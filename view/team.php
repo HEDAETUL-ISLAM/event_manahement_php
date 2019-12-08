@@ -74,6 +74,13 @@ if (isset($_POST['logoutPerson'])) {
     header('Location: ./team.php');
 }
 
+//for check person=========================================================
+if(!empty($_SESSION['username'])){
+    if($_SESSION['status']!=1){
+        session_destroy();
+    }
+}
+
 ?>
 
 <!DOCTYPE html>

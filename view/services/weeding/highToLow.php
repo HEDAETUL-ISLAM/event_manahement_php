@@ -1,9 +1,10 @@
 <?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
-include_once "../../../controller/packageServiceController/weedingController.php";
+@include_once "../../../controller/productServiceController/weedingController.php";
 
 $result = getWeedingByHighPrice();
+
 ?>
 
 
@@ -13,11 +14,10 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $rating = $row["rating"] * 20;
         ?>
-        <form method="post" action="weeding.php">
             <div class="venues-slide first" style="margin-bottom: 10px;">
             <div class=" text" style="padding-left: 50px">
                     <h3 style="color: #848484; float: left; width: 50%; padding-bottom: 15px; height: auto;">Package type : <?php echo  $row["package_type"] ?></h3>
-                    <h3 class="package_name" style="color: #848484; float: left; width: 50%; padding-bottom: 15px; height: auto;"><?php echo  $row["package_name"] ?></h3>
+                    <h3 class="product_name" style="color: #848484; float: left; width: 50%; padding-bottom: 15px; height: auto;"><?php echo  $row["package_name"] ?></h3>
                     <div class=reviews><?php echo  $row["rating"] . " " ?>
                         <div class=star>
                             <div class=fill style="width:<?php echo $rating ?>%"></div>
@@ -55,11 +55,11 @@ if ($result->num_rows > 0) {
                     <div class=" outher-info">
                         <div class="info-slide first">
                             <label>Price</label>
-                            <span class="package_price"><?php echo $row["price"] ?></span>
+                            <span class="product_price"><?php echo $row["price"] ?></span>
                         </div>
                         <div class="info-slide">
                             <label>Transport cost</label>
-                            <span class="package_transportCost"><?php echo  $row["transport_cost"] ?></span><small> (Your)</small>
+                            <span class="product_transportCost"><?php echo  $row["transport_cost"] ?></span><small> (Your)</small>
                         </div>
                         <div class="info-slide">
                             <label>Available</label>
@@ -69,20 +69,18 @@ if ($result->num_rows > 0) {
                     <div class="outher-link">
                         <label>Description</label><br>
                         <span><?php echo  $row["description"] ?><small> (quantity)</small></span>
-                        <span class="package_vendor"> <?php echo $row["vendor_username"]; ?> </span><small> (vendor)</small>
+                        <span class="product_vendor"> <?php echo $row["vendor_username"]; ?> </span><small> (vendor)</small>
                     </div>
                     <?php
                             if ($row["available_status"] == "yes" || $row["available_status"] == "Yes") {
                                 ?>
                         <div class="button">
-                            <button type="button" class="btn btn_book package_id" id="<?php echo $row["id"]; ?>" name="bookPackage" value="<?php echo $row["id"]; ?>">
+                            <button type="button" class="btn btn_book product_id" id="<?php echo $row["id"]; ?>" name="bookproduct" value="<?php echo $row["id"]; ?>">
                                 Book Now
                             </button>
                         </div>
                 </div>
             </div>
-
-        </form>
     <?php
             }
 
@@ -104,17 +102,17 @@ if ($result->num_rows > 0) {
 
     function addToCartClicked(event) {
         var button = event.target;
-        var package = button.parentElement.parentElement;
-        var packageName = package.getElementsByClassName('package_name')[0].innerText;
-        var packagePrice = package.getElementsByClassName('package_price')[0].innerText;
-        var packageId = package.getElementsByClassName('package_id')[0].value;
-        var transportCost = package.getElementsByClassName('package_transportCost')[0].innerText;
-        var vendor = package.getElementsByClassName('package_vendor')[0].innerText;
+        var product = button.parentElement.parentElement;
+        var productName = product.getElementsByClassName('product_name')[0].innerText;
+        var productPrice = product.getElementsByClassName('product_price')[0].innerText;
+        var productId = product.getElementsByClassName('product_id')[0].value;
+        var transportCost = product.getElementsByClassName('product_transportCost')[0].innerText;
+        var vendor = product.getElementsByClassName('product_vendor')[0].innerText;
 
-        $('#' + button.id).load('../packageCartSession.php', {
-            packageName: packageName,
-            packagePrice: packagePrice,
-            packageId: packageId,
+        $('#' + button.id).load('../productCartSession.php', {
+            productName: productName,
+            productPrice: productPrice,
+            productId: productId,
             transportCost: transportCost,
             vendor: vendor
         });

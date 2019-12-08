@@ -112,3 +112,24 @@ function getIndividualBooking($person)
     return $result;
     mysqli_close($connection);
 }
+
+function updateBookingForSingle($vendorName, $packageName)
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $query = "UPDATE single_package
+    SET available_status = 'No'
+    where vendor_username = '$vendorName' and package_name = '$packageName'
+    ";
+    mysqli_query($connection, $query);
+    mysqli_close($connection);
+}
+function updateBookingForBundle($vendorName, $packageName)
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $query = "UPDATE bundle_package
+    SET available_status = 'No'
+    where vendor_username = '$vendorName' and package_name = '$packageName'
+    ";
+    mysqli_query($connection, $query);
+    mysqli_close($connection);
+}

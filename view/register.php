@@ -13,6 +13,8 @@ if (isset($_POST['logoutPerson'])) {
     header('Location: ./register.php');
 }
 
+
+
 ?>
 
 <!DOCTYPE html>

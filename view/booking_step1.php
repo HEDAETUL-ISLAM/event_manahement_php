@@ -30,6 +30,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['phone'] = $result->phone;
                 $_SESSION['password'] = $result->password;
                 $_SESSION['address'] = $result->address;
+                $_SESSION['status'] = $result->status;
                 @include_once "./errors/success.php";
             }
             if ($result === null) {
@@ -94,6 +95,14 @@ if (isset($_GET["action"])) {
         }
     }
 }
+
+//for check person=========================================================
+if(!empty($_SESSION['username'])){
+    if($_SESSION['status']!=1){
+        session_destroy();
+    }
+}
+
 // for booking============================================
 if (isset($_POST["bookingbtn"])) {
     $transaction = strtoupper(uniqid());
@@ -117,10 +126,9 @@ if (isset($_POST["bookingbtn"])) {
             $result = insertBookingDetails($booking);
 
             if ($result == 1) {
-                if (updateBooking($vendorName, $packageName) == 1) {
-                    @include_once "./errors/wrong.php";
-                    header("Location: ./booking_step2.php");
-                }
+                updateBookingForSingle($vendorName, $packageName);
+                updateBookingForBundle($vendorName, $packageName);
+                header("Location: ./booking_step2.php");
             }
             if ($result == -1) {
                 @include_once "./errors/exist.php";
@@ -131,7 +139,9 @@ if (isset($_POST["bookingbtn"])) {
         }
     }
 }
+
 ?>
+
 
 
 <!DOCTYPE html>
@@ -383,7 +393,6 @@ if (isset($_POST["bookingbtn"])) {
                                 <td class="Theading ">Action</td>
                             </tr>
                             <?php
-                            $count = 0;
                             if (!empty($_SESSION["shoppingCart"])) {
                                 $total = 0;
                                 foreach ($_SESSION["shoppingCart"] as $keys => $values) {

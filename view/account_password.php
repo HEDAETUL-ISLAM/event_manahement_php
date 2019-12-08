@@ -129,6 +129,13 @@ if (isset($_POST['updatePassword'])) {
     }
 }
 
+// //for check person=========================================================
+// if(!empty($_SESSION['username'])){
+//     if($_SESSION['status']!=1){
+//         session_destroy();
+//     }
+// }
+
 ?>
 
 <!DOCTYPE html>

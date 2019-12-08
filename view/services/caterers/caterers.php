@@ -75,7 +75,6 @@ if (isset($_POST['logoutPerson'])) {
     @include_once "../../errors/success.php";
     header('Location: ../caterers/caterers.php');
 }
-
 ?>
 
 <!DOCTYPE html>

@@ -86,6 +86,14 @@ if (isset($_POST["deleteCancel"])) {
     unset($_SESSION["product_name"]);
     echo '<script>window.location="bundlePackagePage.php"</script>';
 }
+
+//for check person=========================================================
+if(!empty($_SESSION['username'])){
+    if($_SESSION['status']!=2){
+        session_destroy();
+        header("Location: ../register.php");
+    }
+}
 ?>
 
 

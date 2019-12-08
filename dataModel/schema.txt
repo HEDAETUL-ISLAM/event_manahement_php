@@ -21,7 +21,7 @@ create table single_package (
     description varchar(256),
     image varchar(256),
     rating varchar(256)
-);
+)ENGINE=InnoDB AUTO_INCREMENT=1000 ;
 
 create table booking (
     id int(255)  PRIMARY KEY AUTO_INCREMENT,  
@@ -58,7 +58,7 @@ create table bundle_package(
     available_status varchar(256),
     vendor_username varchar(256),
     rating varchar(256)
-);
+)ENGINE=InnoDB AUTO_INCREMENT=2000 ;
 
 create table rating(
     id int(255)  PRIMARY KEY AUTO_INCREMENT, 

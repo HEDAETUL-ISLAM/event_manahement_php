@@ -32,6 +32,14 @@ if (isset($_GET["action"])) {
         echo '<script>window.location="pendingBook.php"</script>';
     }
 }
+
+//for check person=========================================================
+if(!empty($_SESSION['username'])){
+    if($_SESSION['status']!=0){
+        session_destroy();
+        header("Location: ./home.php");
+    }
+}
 ?>
 
 

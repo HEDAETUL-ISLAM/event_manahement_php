@@ -6,6 +6,8 @@ session_start();
 @require_once "../model/Person.php";
 @require_once "../controller/PersonController.php";
 @include_once "../controller/bookingController.php";
+@include_once "../model/Rating.php";
+@include_once "../controller/ratingController.php";
 
 $username = "";
 $name = "";
@@ -131,6 +133,30 @@ if (isset($_POST['updatePassword'])) {
     }
 }
 
+//for rating=============================================================>
+if (isset($_POST['insertRating'])) {
+    $productRating = $_POST['productRating'];
+    ($_SESSION["shoppingCart"]);
+    foreach ($_SESSION["shoppingCart"] as $keys => $values) {
+        $username = $_SESSION['username'];
+        $vendorName = $values["itemVendor"];
+        $packageName = $values["itemName"];
+        if (strlen($username) == 0 || strlen($vendorName) == 0 || strlen($packageName) == 0) {
+            @include_once "./errors/blankEntry.php";
+        } else {
+            $rating = new Rating($packageName, $vendorName, $username, $productRating);
+            $result = insertRating($rating);
+        }
+    }
+}
+
+// //for check person=========================================================
+// if(!empty($_SESSION['username'])){
+//     if($_SESSION['status']!=1){
+//         session_destroy();
+//     }
+// }
+
 ?>
 
 <!DOCTYPE html>
@@ -150,6 +176,7 @@ if (isset($_POST['updatePassword'])) {
     <link href="css/docs.css" rel="stylesheet">
     <link href="css/jquery.selectbox.css" rel="stylesheet" /><!-- select Box css -->
     <link href="https://fonts.googleapis.com/css?family=Domine:400,700%7COpen+Sans:300,300i,400,400i,600,600i,700,700i%7CRoboto:400,500" rel="stylesheet">
+    <link href="css/ratingModal.css" rel="stylesheet">
 
 </head>
 
@@ -319,6 +346,34 @@ if (isset($_POST['updatePassword'])) {
                 </div>
             </div>
         </div>
+
+        <!-- rating modal -->
+        <div id="ratingModal" class="modal fade" tabindex="-1" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Rating our Package</h4>
+                    </div>
+                    <div class="modal-body position">
+                        <p>Leave your rating.</p>
+                        <form action="" method="POST">
+                            <div class="rating ">
+                                <input name="productRating" value="5" id="e5" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "5")) ?>><label for="e5">★</label>
+                                <input name="productRating" value="4" id="e4" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "4")) ?>><label for="e4">★</label>
+                                <input name="productRating" value="3" id="e3" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "3")) ?>><label for="e3">★</label>
+                                <input name="productRating" value="2" id="e2" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "2")) ?>><label for="e2">★</label>
+                                <input name="productRating" value="1" id="e1" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "1")) ?>><label for="e1">★</label>
+                            </div>
+                            <div>
+                                <input type="submit" class="btn" name="insertRating" style="width: 100px;">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end -->
         <!-- registration -->
         <div class="modal modal-vcenter fade" id="registrationModal" tabindex="-1" role="dialog">
             <div class="modal-dialog registration-popup" role="document">
@@ -468,57 +523,55 @@ if (isset($_POST['updatePassword'])) {
                                             <td><span class="small-heading">Booking Date</span><?php echo $row['pendingdate'] ?></td>
                                             <td><span class="small-heading">Event Date</span><?php echo $row['bookingdate'] ?></td>
                                             <?php
-                                                if ($row['fullpaid'] == 'yes') {
-                                            ?>
-                                                    <td><span class="small-heading">Paid Amount</span>$ <?php echo $row['totalcost'] ?></td>
-                                                    <td><span class="small-heading">Need to Pay</span>$ 0</td>
+                                                    if ($row['fullpaid'] == 'yes') {
+                                                        ?>
+                                                <td><span class="small-heading">Paid Amount</span>$ <?php echo $row['totalcost'] ?></td>
+                                                <td><span class="small-heading">Need to Pay</span>$ 0</td>
                                             <?php
-                                                }
-                                                else if ($row['halfpaid'] == 'yes') {
-                                            ?>
-                                                    <td><span class="small-heading">Paid Amount</span>$ <?php echo $row['totalcost'] / 2 ?></td>
-                                                    <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] / 2 ?></td>
+                                                    } else if ($row['halfpaid'] == 'yes') {
+                                                        ?>
+                                                <td><span class="small-heading">Paid Amount</span>$ <?php echo $row['totalcost'] / 2 ?></td>
+                                                <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] / 2 ?></td>
                                             <?php
-                                                }
-                                                else if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
-                                            ?>
-                                                    <td><span class="small-heading">Paid Amount</span>$ 0</td>
-                                                    <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] ?></td>
+                                                    } else if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
+                                                        ?>
+                                                <td><span class="small-heading">Paid Amount</span>$ 0</td>
+                                                <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] ?></td>
                                             <?php
-                                                }
+                                                    }
 
-                                            ?>
+                                                    ?>
                                         </tr>
                                     </table>
                                     <div class="booking-status">
                                         <?php
-                                            if ($row['fullpaid'] == 'yes') {
-                                                if(date("d:m:Y") < $row['bookingdate']){
-                                        ?>
+                                                if ($row['fullpaid'] == 'yes') {
+                                                    if (date("d:m:Y") < $row['bookingdate']) {
+                                                        ?>
+                                                <a href="javascript:;" data-toggle="modal" data-target="#ratingModal" class="cancel">Rate this Package</a>
+                                                <div class="status">Status :<span> Booked</span></div>
+                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                        <?php
+                                                if ($row['halfpaid'] == 'yes' && $row['fullpaid'] == 'no') {
+                                                    if (date("d:m:Y") < $row['bookingdate']) {
+                                                        ?>
                                                 <a href="contact.php" class="cancel">Cancel your Booking</a>
                                                 <div class="status">Status :<span> Booked</span></div>
+                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                        <?php
+                                                if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
+                                                    ?>
+                                            <a href="contact.php" class="cancel">Cancel your Booking</a>
+                                            <div class="status">Status :<span> Booked</span></div>
                                         <?php
                                                 }
-                                            } 
-                                        ?>
-                                        <?php
-                                            if ($row['half'] == 'yes') {
-                                                if(date("d:m:Y") < $row['bookingdate']){
-                                        ?>
-                                                <a href="contact.php" class="cancel">Cancel your Booking</a>
-                                                <div class="status">Status :<span> Booked</span></div>
-                                        <?php
-                                                }
-                                            } 
-                                        ?>
-                                        <?php
-                                            if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
-                                        ?>
-                                                <a href="contact.php" class="cancel">Cancel your Booking</a>
-                                                <div class="status">Status :<span> Booked</span></div>
-                                        <?php
-                                            } 
-                                        ?>
+                                                ?>
                                     </div>
                                 </div>
                         <?php

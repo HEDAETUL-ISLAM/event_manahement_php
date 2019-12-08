@@ -18,6 +18,13 @@ if (isset($_POST['logoutPerson'])) {
     @include_once "../errors/success.php";
     header('Location: home.php');
 }
+//for check person=========================================================
+if(!empty($_SESSION['username'])){
+    if($_SESSION['status']!=0){
+        session_destroy();
+        header("Location: ./home.php");
+    }
+}
 
 ?>
 

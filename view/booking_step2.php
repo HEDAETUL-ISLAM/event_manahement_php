@@ -93,6 +93,13 @@ if (isset($_POST['insertRating'])) {
     }
 }
 
+//for check person=========================================================
+if(!empty($_SESSION['username'])){
+    if($_SESSION['status']!=1){
+        session_destroy();
+    }
+}
+
 
 ?>
 
@@ -114,11 +121,11 @@ if (isset($_POST['insertRating'])) {
     <link href="css/ratingModal.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Domine:400,700%7COpen+Sans:300,300i,400,400i,600,600i,700,700i%7CRoboto:400,500" rel="stylesheet">
     <script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-    <script>
+    <!-- <script>
         $(document).ready(function() {
             $("#ratingModal").modal('show');
         });
-    </script>
+    </script> -->
 </head>
 
 <body class="inner-page">
@@ -239,7 +246,7 @@ if (isset($_POST['insertRating'])) {
             </nav>
         </header>
         <!-- rating modal -->
-        <div id="ratingModal" class="modal fade" tabindex="-1">
+        <!-- <div id="ratingModal" class="modal fade" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -263,7 +270,7 @@ if (isset($_POST['insertRating'])) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- end -->
 
         <div class="modal modal-vcenter fade" id="loginModal" role="dialog">

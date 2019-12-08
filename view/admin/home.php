@@ -12,6 +12,13 @@ if (isset($_POST['logoutPerson'])) {
     @include_once "../errors";
     header('Location: home.php');
 }
+//for check person=========================================================
+if(!empty($_SESSION['username'])){
+    if($_SESSION['status']!=0){
+        session_destroy();
+        header("Location: ./home.php");
+    }
+}
 
 ?>
 
@@ -169,176 +176,7 @@ if (isset($_POST['logoutPerson'])) {
                 </div>
             </div>
         </div>
-        <div class="register-content">
-            <div class="benefits">
-                <div class="container">
-                    <div class="heading">
-                        <div class="icon"><em class="icon icon-heading-icon"></em></div>
-                        <div class="text">
-                            <h2>Benefits</h2>
-                        </div>
-                    </div>
-                    <div class="benefits-view">
-                        <div class="row">
-                            <div class="col-sm-6 col-md-3">
-                                <div class="box-view">
-                                    <div class="iconBox icon1">
-                                        <div class="icon icon-conversion-rates"></div>
-                                    </div>
-                                    <div class="text">Increase your conversion rates</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3">
-                                <div class="box-view">
-                                    <div class="iconBox icon2">
-                                        <div class="icon icon-customer-base"></div>
-                                    </div>
-                                    <div class="text">Increase customer base</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3">
-                                <div class="box-view">
-                                    <div class="iconBox icon3">
-                                        <div class="icon icon-negotiations"></div>
-                                    </div>
-                                    <div class="text">Low multiple negotiations</div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3">
-                                <div class="box-view">
-                                    <div class="iconBox icon4">
-                                        <div class="icon icon-wider-customer"></div>
-                                    </div>
-                                    <div class="text">Wider customer reach</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="choose-us">
-                <div class="container">
-                    <div class="heading">
-                        <div class="icon"><em class="icon icon-heading-icon"></em></div>
-                        <div class="text">
-                            <h2>Why Choose Us?</h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 col-md-3">
-                            <div class="functionality-box">
-                                <div class="iconBox">
-                                    <div class="icon icon-lead-management"></div>
-                                </div>
-                                <h3>Lead Management</h3>
-                                <p>Increase occupancy, automate the lead management process, grow your customer relationships, match sales-ready leads to the appropriate sales people.</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3">
-                            <div class="functionality-box">
-                                <div class="iconBox">
-                                    <div class="icon icon-sales"></div>
-                                </div>
-                                <h3>Sales</h3>
-                                <p>Track sales opportunities, manage the sales process and generate proposals. Built-in process provides an aggregate view of account activity from the past, present and future.</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3">
-                            <div class="functionality-box">
-                                <div class="iconBox">
-                                    <div class="icon icon-booking"></div>
-                                </div>
-                                <h3>Booking</h3>
-                                <p>Manage calendars , share availability, easily view events color-coded by status, type or location. Book and manage multiple spaces, venues, and sites all from one master calendar.</p>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3">
-                            <div class="functionality-box">
-                                <div class="iconBox">
-                                    <div class="icon icon-operations"></div>
-                                </div>
-                                <h3>Operations</h3>
-                                <p>Assign resources and review stock alerts. Create detailed reports, work orders, and generate invoices. Receive alerts on changes as they take place.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="work-info">
-                <div class="container">
-                    <div class="heading">
-                        <div class="icon"><em class="icon icon-heading-icon"></em></div>
-                        <div class="text">
-                            <h2>How it works</h2>
-                        </div>
-                        <div class="info-text">Once you have registered, listing on Event Planning is just a four step process</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
-                            <div class="box">
-                                <div class="iconBox">
-                                    <div class="inner-box">
-                                        <div class="icon icon-step-1"></div>
-                                    </div>
-                                </div>
-                                <div class="text"><span>1.</span> List your venues on Event Planning</div>
-                            </div>
-                            <div class="box">
-                                <div class="iconBox">
-                                    <div class="inner-box">
-                                        <div class="icon icon-step-2"></div>
-                                    </div>
-                                </div>
-                                <div class="text"><span>2.</span> Connect to customers</div>
-                            </div>
-                            <div class="box">
-                                <div class="iconBox">
-                                    <div class="inner-box">
-                                        <div class="icon icon-step-4"></div>
-                                    </div>
-                                </div>
-                                <div class="text"><span>3.</span> Increase your business</div>
-                            </div>
-                            <div class="box last">
-                                <div class="iconBox">
-                                    <div class="inner-box">
-                                        <div class="icon icon-step-3"></div>
-                                    </div>
-                                </div>
-                                <div class="text"><span>4.</span> You receive payment from Event Planning</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="price-info">
-                <div class="container">
-                    <div class="heading">
-                        <div class="icon"><em class="icon icon-heading-icon"></em></div>
-                        <div class="text">
-                            <h2>Pricing</h2>
-                        </div>
-                        <div class="info-text">Enjoy promotional rates for listing on Event Planning for a limited period only</div>
-                    </div>
-                    <div class="listing-view">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="list">No monthly subscription fee</div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="list">Listing of venues absolutely free</div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="list">Zero installation charges</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="register-btn">
-                        <a href="register.php#" class="btn">Register Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <footer id="footer">
             <div class="footer-top">
                 <div class="container">
