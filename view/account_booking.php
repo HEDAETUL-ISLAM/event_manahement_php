@@ -516,9 +516,10 @@ if(!empty($_SESSION['username'])){
                                             <td class="detail">
                                                 <span class="small-heading">Booking Details</span>
                                                 <div class="detailTd">
-                                                    <label><?php echo $row['packagename'] ?></label>
+                                                    <label class="packageName"><?php echo $row['packagename'] ?></label>
                                                     <p>Addess: <?php echo $row['address'] ?></p>
-                                                    <a href="account_profile.php#">Phone : <?php echo $row['phone'] ?></a>
+                                                    <a href="account_profile.php#">Phone : <?php echo $row['phone'] ?></a><br>
+                                                    <span>Vendor Name : <label class="vendorName"></label><?php echo $row['vendorname'] ?></span>
                                                 </div>
                                             </td>
                                             <td><span class="small-heading">Booking Date</span><?php echo $row['pendingdate'] ?></td>
