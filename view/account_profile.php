@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
@@ -33,6 +33,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['phone'] = $result->phone;
                 $_SESSION['password'] = $result->password;
                 $_SESSION['address'] = $result->address;
+                $_SESSION['status'] = $result->status;
                 @include_once "./errors/success.php";
             }
             if ($result === null) {
@@ -131,12 +132,12 @@ if (isset($_POST['updatePassword'])) {
     }
 }
 
-// //for check person=========================================================
-// if(!empty($_SESSION['username'])){
-//     if($_SESSION['status']!=1){
-//         session_destroy();
-//     }
-// }
+//for check person=========================================================
+if (!empty($_SESSION['username'])) {
+    if ($_SESSION['status'] != 1) {
+        session_destroy();
+    }
+}
 ?>
 
 
@@ -258,7 +259,7 @@ if (isset($_POST['updatePassword'])) {
                                 <li class="single-col">
                                     <a href="">Booking <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li><a href="booking_step1.php">Booking Step1</a></li> 
+                                        <li><a href="booking_step1.php">Booking Step1</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="aboutUs.php">About Us</a></li>
@@ -475,57 +476,55 @@ if (isset($_POST['updatePassword'])) {
                                             <td><span class="small-heading">Booking Date</span><?php echo $row['pendingdate'] ?></td>
                                             <td><span class="small-heading">Event Date</span><?php echo $row['bookingdate'] ?></td>
                                             <?php
-                                                if ($row['fullpaid'] == 'yes') {
-                                            ?>
-                                                    <td><span class="small-heading">Paid Amount</span>$ <?php echo $row['totalcost'] ?></td>
-                                                    <td><span class="small-heading">Need to Pay</span>$ 0</td>
+                                                    if ($row['fullpaid'] == 'yes') {
+                                                        ?>
+                                                <td><span class="small-heading">Paid Amount</span>$ <?php echo $row['totalcost'] ?></td>
+                                                <td><span class="small-heading">Need to Pay</span>$ 0</td>
                                             <?php
-                                                }
-                                                else if ($row['halfpaid'] == 'yes') {
-                                            ?>
-                                                    <td><span class="small-heading">Paid Amount</span>$ <?php echo $row['totalcost'] / 2 ?></td>
-                                                    <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] / 2 ?></td>
+                                                    } else if ($row['halfpaid'] == 'yes') {
+                                                        ?>
+                                                <td><span class="small-heading">Paid Amount</span>$ <?php echo $row['totalcost'] / 2 ?></td>
+                                                <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] / 2 ?></td>
                                             <?php
-                                                }
-                                                else if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
-                                            ?>
-                                                    <td><span class="small-heading">Paid Amount</span>$ 0</td>
-                                                    <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] ?></td>
+                                                    } else if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
+                                                        ?>
+                                                <td><span class="small-heading">Paid Amount</span>$ 0</td>
+                                                <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] ?></td>
                                             <?php
-                                                }
+                                                    }
 
-                                            ?>
+                                                    ?>
                                         </tr>
                                     </table>
                                     <div class="booking-status">
                                         <?php
-                                            if ($row['fullpaid'] == 'yes') {
-                                                if(date("d:m:Y") < $row['bookingdate']){
-                                        ?>
+                                                if ($row['fullpaid'] == 'yes') {
+                                                    if (date("d:m:Y") < $row['bookingdate']) {
+                                                        ?>
                                                 <a href="contact.php" class="cancel">Cancel your Booking</a>
                                                 <div class="status">Status :<span> Booked</span></div>
+                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                        <?php
+                                                if ($row['half'] == 'yes') {
+                                                    if (date("d:m:Y") < $row['bookingdate']) {
+                                                        ?>
+                                                <a href="contact.php" class="cancel">Cancel your Booking</a>
+                                                <div class="status">Status :<span> Booked</span></div>
+                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                        <?php
+                                                if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
+                                                    ?>
+                                            <a href="contact.php" class="cancel">Cancel your Booking</a>
+                                            <div class="status">Status :<span> Booked</span></div>
                                         <?php
                                                 }
-                                            } 
-                                        ?>
-                                        <?php
-                                            if ($row['half'] == 'yes') {
-                                                if(date("d:m:Y") < $row['bookingdate']){
-                                        ?>
-                                                <a href="contact.php" class="cancel">Cancel your Booking</a>
-                                                <div class="status">Status :<span> Booked</span></div>
-                                        <?php
-                                                }
-                                            } 
-                                        ?>
-                                        <?php
-                                            if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
-                                        ?>
-                                                <a href="contact.php" class="cancel">Cancel your Booking</a>
-                                                <div class="status">Status :<span> Booked</span></div>
-                                        <?php
-                                            } 
-                                        ?>
+                                                ?>
                                     </div>
                                 </div>
                         <?php

@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NoTICE) ?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
@@ -276,8 +276,8 @@ if(!empty($_SESSION['username'])){
                                             ?>
                                             <div class="venues-slide first" style="margin-bottom: 10px;">
                                                 <div class=" text" style="padding-left: 50px">
-                                                    <h3 style="color: #848484; float: left; width: 50%; padding-bottom: 15px; height: auto;">Package type : <?php echo  $row["packageType"] ?> Package name : </h3>
-                                                    <h3 class="product_name" style="color: #848484; float: left; width: 50%; padding-bottom: 15px; height: auto;"><?php echo  $row["packageName"] ?></h3>
+                                                    <h3 style="color: #848484; float: left; width: 50%; padding-bottom: 15px; height: auto;">Package type : <?php echo  $row["package_type"] ?> Package name : </h3>
+                                                    <h3 class="product_name" style="color: #848484; float: left; width: 50%; padding-bottom: 15px; height: auto;"><?php echo  $row["package_name"] ?></h3>
                                                     <div class=reviews><?php echo  $row["rating"] . " " ?>
                                                         <div class=star>
                                                             <div class=fill style="width:<?php echo $rating ?>%"></div>
