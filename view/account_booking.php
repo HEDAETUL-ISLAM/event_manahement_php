@@ -555,7 +555,16 @@ if (!empty($_SESSION['username'])) {
                                                 if ($row['fullpaid'] == 'yes') {
                                                     if (date("d:m:Y") < $row['bookingdate']) {
                                                         ?>
-                                                <button type="button" data-toggle="modal" data-target="#ratingModal" class="cancel btn_rating packageName" id="<?php echo $row['id']; ?>" name="deletePackage">Rate this Package
+                                                <button 
+                                                type="button" 
+                                                data-toggle="modal" 
+                                                data-target="#ratingModal" 
+                                                class="cancel btn_rating packageName" 
+                                                id="<?php echo $row['id']; ?>" 
+                                                name="deletePackage"
+                                                style="border: #f5f5f503; background: #f5f5f503;"
+                                                >
+                                                Rate this Package
                                                 </button>
                                                 <div class="status">Status :<span> Booked</span></div>
                                         <?php
