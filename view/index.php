@@ -100,12 +100,25 @@ if (isset($_POST['logoutPerson'])) {
     session_destroy();
     header('Location: ./index.php');
 }
-//for check person=========================================================
-if(!empty($_SESSION['username'])){
-    if($_SESSION['status']!=1){
+//for check person========================================================>
+if (!empty($_SESSION['username'])) {
+    if ($_SESSION['status'] != 1) {
         session_destroy();
     }
 }
+
+
+//event search===========================================================>
+if (isset($_POST['eventSearchButton'])) {
+    $eventName = $_POST['eventName'];
+    if (strcasecmp($eventName, "caterers") == 0) {
+        header('Location: ./services/caterers/caterers.php');
+    } else {
+        @include_once "./errors/wrong.php";
+    }
+}
+
+
 ?>
 
 <html>
@@ -237,9 +250,9 @@ if(!empty($_SESSION['username'])){
                                 <div class="search-icon"><span class="icon icon-search"></span></div>
                                 <div class="search-view">
                                     <div class="input-box">
-                                        <form>
-                                            <input type="text" placeholder="Search here">
-                                            <input type="submit" value="">
+                                    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+                                            <input type="text" placeholder="Search here" name="eventName">
+                                            <input type="submit" value="" name="eventSearchButton">
                                         </form>
                                     </div>
                                 </div>
@@ -354,13 +367,15 @@ if(!empty($_SESSION['username'])){
                         <h1> Make Your <span>Dream</span></h1>
                     </div>
                     <div class="banner-search">
-                        <div class="input-box">
-                            <div class="icon icon-grid-view"></div>
-                            <input type="text" placeholder="Event Type">
-                        </div>
-                        <div class="submit-slide">
-                            <input type="submit" value="Search Now" class="btn">
-                        </div>
+                        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+                            <div class="input-box">
+                                <div class="icon icon-grid-view"></div>
+                                <input type="text" placeholder="Event Type" name="eventName">
+                            </div>
+                            <div class="submit-slide">
+                                <input type="submit" value="Search Now" class="btn" name="eventSearchButton">
+                            </div>
+                        </form>
                         <p>Create the Perfect Event</p>
                     </div>
                 </div>
