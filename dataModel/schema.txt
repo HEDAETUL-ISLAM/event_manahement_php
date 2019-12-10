@@ -65,7 +65,7 @@ create table rating(
     package_name varchar(256),
     vendor_name varchar(256),
     customer_name varchar(256),
-    rating int(255)
+    rating_value int(255)
 );
 
 

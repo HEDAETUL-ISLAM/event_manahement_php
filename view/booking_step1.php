@@ -54,7 +54,7 @@ if (isset($_POST['insertPerson'])) {
         @include_once "./errors/blankEntry.php";
     } else {
         $person = new Person($username, $name, $email, $phone, $password, $address);
-        $result = insertVendor($person);
+        $result = insertPerson($person);
         if ($result == 1) {
             @include_once "./errors/success.php";
         }
@@ -97,8 +97,8 @@ if (isset($_GET["action"])) {
 }
 
 //for check person=========================================================
-if(!empty($_SESSION['username'])){
-    if($_SESSION['status']!=1){
+if (!empty($_SESSION['username'])) {
+    if ($_SESSION['status'] != 1) {
         session_destroy();
     }
 }

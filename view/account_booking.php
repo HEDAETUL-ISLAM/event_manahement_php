@@ -135,25 +135,30 @@ if (isset($_POST['updatePassword'])) {
 }
 
 //for rating=============================================================>
-if (isset($_POST['insertRating'])) {
-    $productRating = $_POST['productRating'];
-    ($_SESSION["shoppingCart"]);
-    foreach ($_SESSION["shoppingCart"] as $keys => $values) {
+
+//for rating=============================================================>
+
+if (!isset($_SESSION["package_name"])) {
+    $_SESSION["package_name"] = "";
+    $_SESSION['vendor_name'] = "";
+}
+
+if(isset($_POST["insertRating"])){
         $username = $_SESSION['username'];
-        $vendorName = $values["itemVendor"];
-        $packageName = $values["itemName"];
-        if (strlen($username) == 0 || strlen($vendorName) == 0 || strlen($packageName) == 0) {
-            @include_once "./errors/blankEntry.php";
-        } else {
+        $vendorName = $_SESSION['vendor_name'];
+        $packageName = $_SESSION["package_name"];
+        $productRating = $_POST['productRating'];
+       
             $rating = new Rating($packageName, $vendorName, $username, $productRating);
             $result = insertRating($rating);
-        }
-    }
+            unset($_SESSION['vendor_name']);
+             unset($_SESSION["package_name"]);
+
 }
 
 //for check person=========================================================
-if(!empty($_SESSION['username'])){
-    if($_SESSION['status']!=1){
+if (!empty($_SESSION['username'])) {
+    if ($_SESSION['status'] != 1) {
         session_destroy();
     }
 }
@@ -349,7 +354,7 @@ if(!empty($_SESSION['username'])){
         </div>
 
         <!-- rating modal -->
-        <div id="ratingModal" class="modal fade" tabindex="-1" >
+        <div id="ratingModal" class="modal fade" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -519,7 +524,7 @@ if(!empty($_SESSION['username'])){
                                                     <label class="packageName"><?php echo $row['packagename'] ?></label>
                                                     <p>Addess: <?php echo $row['address'] ?></p>
                                                     <a href="account_profile.php#">Phone : <?php echo $row['phone'] ?></a><br>
-                                                    <span>Vendor Name : <label class="vendorName"></label><?php echo $row['vendorname'] ?></span>
+                                                    <span>Vendor Name : <label class="vendorName"><?php echo $row['vendorname'] ?></label></span>
                                                 </div>
                                             </td>
                                             <td><span class="small-heading">Booking Date</span><?php echo $row['pendingdate'] ?></td>
@@ -550,7 +555,8 @@ if(!empty($_SESSION['username'])){
                                                 if ($row['fullpaid'] == 'yes') {
                                                     if (date("d:m:Y") < $row['bookingdate']) {
                                                         ?>
-                                                <a href="javascript:;" data-toggle="modal" data-target="#ratingModal" class="cancel">Rate this Package</a>
+                                                <button type="button" data-toggle="modal" data-target="#ratingModal" class="cancel btn_rating packageName" id="<?php echo $row['id']; ?>" name="deletePackage">Rate this Package
+                                                </button>
                                                 <div class="status">Status :<span> Booked</span></div>
                                         <?php
                                                     }
@@ -602,6 +608,27 @@ if(!empty($_SESSION['username'])){
                         </form>
                     </div>
                 </div>
+
+                <script>
+                    var addToCartButtons = document.getElementsByClassName('btn_rating');
+
+                    for (var i = 0; i < addToCartButtons.length; i++) {
+                        var buttonAdd = addToCartButtons[i];
+                        buttonAdd.addEventListener('click', addToCartClicked);
+                    }
+
+                    function addToCartClicked(event) {
+                        var button = event.target;
+                        var product = button.parentElement.parentElement;
+                        var name = product.getElementsByClassName('packageName')[0].innerText;
+                        var vendor = product.getElementsByClassName('vendorName')[0].innerText;
+                        $('#' + button.id).load('ratingSession.php', {
+                            productName: name,
+                            vendorName: vendor
+                        });
+
+                    }
+                </script>
                 <div class="functionality-view">
                     <div class="row">
                         <div class="col-sm-6 col-md-3">

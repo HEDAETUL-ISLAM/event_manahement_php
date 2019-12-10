@@ -31,6 +31,7 @@ if (isset($_POST['login'])) {
                 $_SESSION['phone'] = $result->phone;
                 $_SESSION['password'] = $result->password;
                 $_SESSION['address'] = $result->address;
+                $_SESSION['status'] = $result->status;
                 @include_once "../../errors/success.php";
             }
             if ($result === null) {
