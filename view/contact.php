@@ -356,9 +356,6 @@ if(!empty($_SESSION['username'])){
             </div>
         </section>
         <section class="map" id="map"></section>
-        <section>
-            <div style="margin: 50px;"></div>
-        </section>
 
         <footer id="footer">
             <div class="footer-top">

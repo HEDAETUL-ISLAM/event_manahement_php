@@ -388,8 +388,7 @@ if (isset($_POST['eventSearchButton'])) {
                     <div class="text">
                         <h2>Our Single Services</h2>
                     </div>
-                    <div class="info-text">It has survived not only five centuries, but also the leap into electronic
-                        typesetting, remaining essentially unchanged.</div>
+                    <div class="info-text">Choose single package services.</div>
                 </div>
                 <div class="service-catagari">
                     <ul>
@@ -459,8 +458,7 @@ if (isset($_POST['eventSearchButton'])) {
                     <div class="text">
                         <h2>Our Package Services</h2>
                     </div>
-                    <div class="info-text">It has survived not only five centuries, but also the leap into electronic
-                        typesetting, remaining essentially unchanged.</div>
+                    <div class="info-text">Choose bundle package services.</div>
                 </div>
                 <div class="service-catagari">
                     <ul>
@@ -507,8 +505,7 @@ if (isset($_POST['eventSearchButton'])) {
                         <div class="text">
                             <h2>Events Overview</h2>
                         </div>
-                        <div class="info-text">It has survived not only five centuries, but also the leap into
-                            electronic typesetting, remaining essentially unchanged.</div>
+                        <div class="info-text">Some of our event sample</div>
                     </div>
                     <div class="row">
                         <div class="event-slider">
@@ -523,8 +520,7 @@ if (isset($_POST['eventSearchButton'])) {
                                         </a>
                                     </div>
                                     <div class="name">Event Planner</div>
-                                    <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ype
-                                        specimen book. It has survived not only five centuries,</p>
+                                    <p>Some text about the event.</p>
                                 </div>
                             </div>
                             <div class="item">
@@ -538,8 +534,7 @@ if (isset($_POST['eventSearchButton'])) {
                                         </a>
                                     </div>
                                     <div class="name">Corporate Events</div>
-                                    <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ype
-                                        specimen book. It has survived not only five centuries,</p>
+                                    <p>Some text about the event.</p>
                                 </div>
                             </div>
                             <div class="item">
@@ -553,8 +548,7 @@ if (isset($_POST['eventSearchButton'])) {
                                         </a>
                                     </div>
                                     <div class="name">Birthday Party</div>
-                                    <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ype
-                                        specimen book. It has survived not only five centuries,</p>
+                                    <p>Some text about the event.</p>
                                 </div>
                             </div>
                             <div class="item">
@@ -568,8 +562,7 @@ if (isset($_POST['eventSearchButton'])) {
                                         </a>
                                     </div>
                                     <div class="name">Wedding</div>
-                                    <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ype
-                                        specimen book. It has survived not only five centuries,</p>
+                                    <p>Some text about the event.</p>
                                 </div>
                             </div>
                         </div>
