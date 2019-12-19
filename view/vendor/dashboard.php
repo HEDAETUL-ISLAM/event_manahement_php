@@ -142,26 +142,37 @@ if(!empty($_SESSION['username'])){
             </div>
         </div>
 
-        <div class="searchFilter-main">
-            <section class="searchFormTop">
+        
+        <div style="  display: table; clear: both; background-color: #efefef ; margin-left:10%;">
+            <section class="col-sm-6">
                 <div class="container">
-                    <div class="toolbar" style="width:50%; position:left">
-                        <div class="finde-count">My Packages </div>
+                    <div class="venues-view">
+                        <?php
+                        @include_once  "./customerGraph.php";
+                        ?>
                     </div>
-                    <div class="toolbar" style="width:50%; position:left">
-                        <div class="right-tool">
-                            <div class="select-box">
-                                <select name="sortBy" id="setUp_select_one" onchange="packageOrderChange()" class="customSelectBox">
-                                    <option value="singlePackage">Single Package</option>
-                                    <option value="bundlePackage">Bundle Package</option>
-                                </select>
-                            </div>
-                        </div>
+                </div>
+            </section>
+            <section class="col-sm-6">
+                <div class="container">
+                    <div class="venues-view">
+                        <?php
+                        @include_once  "./vendorGraph.php";
+                        ?>
+                    </div>
+                </div>
+            </section>
+            <section class="col-sm-6">
+                <div class="container">
+                    <div class="venues-view">
+                        <?php
+                        @include_once  "./bookingGraph.php";
+                        // echo "hi baby"
+                        ?>
                     </div>
                 </div>
             </section>
         </div>
-
 
 
 

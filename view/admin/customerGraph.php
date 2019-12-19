@@ -2,7 +2,6 @@
 <html>
 
 <head>
-    <title>Creating Dynamic Data Graph using PHP and Chart.js</title>
     <style type="text/css">
         BODY {
             width: 100%;

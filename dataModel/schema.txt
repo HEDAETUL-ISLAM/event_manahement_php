@@ -102,3 +102,40 @@ signal sqlstate '20000' set message_text = 'Not Possible';
 end if;
 end;$$
 DELIMITER ;
+
+
+
+//trigger for rating table
+
+DELIMITER $$
+create trigger rating_work_single_package
+after INSERT on rating
+for each row
+begin
+update single_package,rating_work_view
+SET 
+single_package.rating=(select new_rating from rating_work_view where single_package.vendor_username=rating_work_view.vendor_name and single_package.package_name=rating_work_view.package_name)
+where single_package.vendor_username=rating_work_view.vendor_name and single_package.package_name=rating_work_view.package_name;
+end;$$
+DELIMITER ;
+
+
+DELIMITER $$
+create trigger rating_work_bundle_package
+after INSERT on rating
+for each row
+begin
+update bundle_package,rating_work_view
+SET 
+bundle_package.rating=(select new_rating from rating_work_view where bundle_package.vendor_username=rating_work_view.vendor_name and bundle_package.package_name=rating_work_view.package_name)
+where bundle_package.vendor_username=rating_work_view.vendor_name and bundle_package.package_name=rating_work_view.package_name;
+end;$$
+DELIMITER ;
+
+
+//view for rating table
+
+DELIMITER $$
+create view rating_work_view as
+select vendor_name,package_name,avg(rating_value) as new_rating from rating 
+group by vendor_name,package_name;
