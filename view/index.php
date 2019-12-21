@@ -8,66 +8,108 @@ session_start();
 @require_once "../controller/PersonController.php";
 
 
+
 // for login=============================================================>
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     if (strlen($username) == 0 || strlen($password) == 0) {
         @include_once "./errors/blankEntry.php";
-    } else {
-        $login = new Login($username,  $password);
+    } else  {
+        $login = new Login($username,$password);
         $result = loginPerson($login);
-
-        if ($result->status == 1) {
-            if ($result !== null) {
-                $_SESSION['username'] = $result->user_name;
-                $_SESSION['name'] = $result->name;
-                $_SESSION['email'] = $result->email;
-                $_SESSION['phone'] = $result->phone;
-                $_SESSION['password'] = $result->password;
-                $_SESSION['address'] = $result->address;
-                $_SESSION['status'] = $result->status;
-                @include_once "./errors/success.php";
+        if ($result->status == 1 ) {
+            if ($result != null) {
+                if(password_verify($password, $result->password)){
+                    $_SESSION['username'] = $result->user_name;
+                    $_SESSION['name'] = $result->name;
+                    $_SESSION['email'] = $result->email;
+                    $_SESSION['phone'] = $result->phone;
+                    $_SESSION['password'] = $result->password;
+                    $_SESSION['address'] = $result->address;
+                    $_SESSION['status'] = $result->status;
+                    @include_once "./errors/success.php";
+                }
             }
 
             if ($result === null) {
                 @include_once "./errors/wrong.php";
             }
         }
-        if ($result->status == 0) {
-            if ($result !== null) {
-                $_SESSION['username'] = $result->user_name;
-                $_SESSION['name'] = $result->name;
-                $_SESSION['email'] = $result->email;
-                $_SESSION['phone'] = $result->phone;
-                $_SESSION['password'] = $result->password;
-                $_SESSION['address'] = $result->address;
-                $_SESSION['status'] = $result->status;
-                header('Location: ./admin/dashboard.php');
-            }
-
-            if ($result === null) {
-                @include_once "./errors/wrong.php";
-            }
+        else{
+            @include_once "./errors/invalidUser.php";
         }
-        if ($result->status == 2) {
-            if ($result !== null) {
-                $_SESSION['username'] = $result->user_name;
-                $_SESSION['name'] = $result->name;
-                $_SESSION['email'] = $result->email;
-                $_SESSION['phone'] = $result->phone;
-                $_SESSION['password'] = $result->password;
-                $_SESSION['address'] = $result->address;
-                $_SESSION['status'] = $result->status;
-                header('Location: ./vendor/dashboard.php');
-            }
-
-            if ($result === null) {
-                @include_once "./errors/wrong.php";
-            }
-        }
+        
     }
 }
+
+
+// // for login=============================================================>
+// if (isset($_POST['login'])) {
+//     $username = $_POST['username'];
+//     $password = $_POST['password'];
+//     if (strlen($username) == 0 || strlen($password) == 0) {
+//         @include_once "./errors/blankEntry.php";
+//     } else  {
+//         $login = new Login($username,$password);
+//         $result = loginPerson($login);
+//         if ($result->status == 1 ) {
+//             if ($result != null) {
+//                 if(password_verify($password, $result->password)){
+//                     $_SESSION['username'] = $result->user_name;
+//                     $_SESSION['name'] = $result->name;
+//                     $_SESSION['email'] = $result->email;
+//                     $_SESSION['phone'] = $result->phone;
+//                     $_SESSION['password'] = $result->password;
+//                     $_SESSION['address'] = $result->address;
+//                     $_SESSION['status'] = $result->status;
+//                     @include_once "./errors/success.php";
+//                 }
+//             }
+
+//             if ($result === null) {
+//                 @include_once "./errors/wrong.php";
+//             }
+//         }
+//         if ($result->status == 0) {
+//             if ($result !== null) {
+//                 if(password_verify($password, $result->password)){
+//                     $_SESSION['username'] = $result->user_name;
+//                     $_SESSION['name'] = $result->name;
+//                     $_SESSION['email'] = $result->email;
+//                     $_SESSION['phone'] = $result->phone;
+//                     $_SESSION['password'] = $result->password;
+//                     $_SESSION['address'] = $result->address;
+//                     $_SESSION['status'] = $result->status;
+//                     header('Location: ./admin/dashboard.php');
+//                 }
+//             }
+
+//             if ($result === null) {
+//                 @include_once "./errors/wrong.php";
+//             }
+//         }
+//         if ($result->status == 2) {
+//             if ($result !== null) {
+//                 if(password_verify($password, $result->password)){
+//                     $_SESSION['username'] = $result->user_name;
+//                     $_SESSION['name'] = $result->name;
+//                     $_SESSION['email'] = $result->email;
+//                     $_SESSION['phone'] = $result->phone;
+//                     $_SESSION['password'] = $result->password;
+//                     $_SESSION['address'] = $result->address;
+//                     $_SESSION['status'] = $result->status;
+//                     header('Location: ./vendor/dashboard.php');
+//                 }
+//             }
+
+//             if ($result === null) {
+//                 @include_once "./errors/wrong.php";
+//             }
+//         }
+//     }
+// }
+
 
 // for register==========================================================>
 if (isset($_POST['insertPerson'])) {
@@ -277,7 +319,7 @@ if (isset($_POST['eventSearchButton'])) {
                                 </div>
                                 <div class="input-box">
                                     <div class="icon icon-lock" style="margin-top:10px;"></div>
-                                    <input type="text" placeholder="Password" name="password" required>
+                                    <input type="password" placeholder="Password" name="password" required>
                                 </div>
                                 <div class="submit-slide">
                                     <input type="submit" class="btn" name="login">
@@ -336,7 +378,7 @@ if (isset($_POST['eventSearchButton'])) {
                                     <input type="text" placeholder="Phone" name="phone" required>
                                 </div>
                                 <div class="input-box">
-                                    <input type="text" placeholder="Password" name="password" required>
+                                    <input type="password" placeholder="Password" name="password" required>
                                 </div>
                                 <div class="input-box">
                                     <input type="text" placeholder="Address" name="address">

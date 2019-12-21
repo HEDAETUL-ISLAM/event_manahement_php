@@ -2,7 +2,7 @@
 @include_once "../model/Rating.php";
 function insertRating(Rating $rating)
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     }

@@ -3,7 +3,7 @@
 @include_once "../model/PendingBook.php";
 function insertBookingDetails(Booking $booking)
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     } else {
@@ -32,7 +32,7 @@ function insertBookingDetails(Booking $booking)
 
 function updateBooking($vendorName, $packageName)
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     $query = "UPDATE single_package, bundle_package
     SET available_status = 'No'
     where vendor_username = '$vendorName' and package_name = '$packageName'
@@ -45,7 +45,7 @@ function updateBooking($vendorName, $packageName)
 }
 function getAllBooking()
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -57,7 +57,7 @@ function getAllBooking()
 
 function halfBooking(PendingBook $pendingbook)
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -68,7 +68,7 @@ function halfBooking(PendingBook $pendingbook)
 
 function fullBooking(PendingBook $pendingbook)
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -79,7 +79,7 @@ function fullBooking(PendingBook $pendingbook)
 
 function cancelBooking(PendingBook $pendingbook)
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -91,7 +91,7 @@ function cancelBooking(PendingBook $pendingbook)
 
 function getAllOrderHistory()
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -103,7 +103,7 @@ function getAllOrderHistory()
 
 function getIndividualBooking($person)
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -115,7 +115,7 @@ function getIndividualBooking($person)
 
 function updateBookingForSingle($vendorName, $packageName)
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     $query = "UPDATE single_package
     SET available_status = 'No'
     where vendor_username = '$vendorName' and package_name = '$packageName'
@@ -125,7 +125,7 @@ function updateBookingForSingle($vendorName, $packageName)
 }
 function updateBookingForBundle($vendorName, $packageName)
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     $query = "UPDATE bundle_package
     SET available_status = 'No'
     where vendor_username = '$vendorName' and package_name = '$packageName'

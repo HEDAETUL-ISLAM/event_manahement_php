@@ -71,6 +71,9 @@ if (!empty($_SESSION['username'])) {
         header("Location: ../register.php");
     }
 }
+if($_SESSION['name']==""){
+    header("Location: ../register.php");
+}
 ?>
 
 

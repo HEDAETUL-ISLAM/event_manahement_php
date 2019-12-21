@@ -59,7 +59,7 @@ if(!empty($_SESSION['username'])){
                                 <div class="icon icon-user"></div>
                             </div>
                             <div class="input-box">
-                                <input type="text" placeholder="Password" name="password">
+                                <input type="password" placeholder="Password" name="password">
                                 <div class="icon icon-lock"></div>
                             </div>
                             <div class="submit-box">
@@ -90,14 +90,16 @@ if(!empty($_SESSION['username'])){
 
                 if ($result->status == 0) {
                     if ($result !== null) {
-                        $_SESSION['username'] = $result->user_name;
-                        $_SESSION['name'] = $result->name;
-                        $_SESSION['email'] = $result->email;
-                        $_SESSION['phone'] = $result->phone;
-                        $_SESSION['password'] = $result->password;
-                        $_SESSION['address'] = $result->address;
-                        $_SESSION['status'] = $result->status;
-                        header('Location: ./dashboard.php');
+                        if(password_verify($password, $result->password)){
+                            $_SESSION['username'] = $result->user_name;
+                            $_SESSION['name'] = $result->name;
+                            $_SESSION['email'] = $result->email;
+                            $_SESSION['phone'] = $result->phone;
+                            $_SESSION['password'] = $result->password;
+                            $_SESSION['address'] = $result->address;
+                            $_SESSION['status'] = $result->status;
+                            header('Location: ./dashboard.php');
+                        }
                     }
                     if ($result === null) {
                         @include_once "../errors/wrong.php";
@@ -165,7 +167,7 @@ if(!empty($_SESSION['username'])){
                                     <input type="text" placeholder="Phone Number" name="phone" min="11" max="13" required>
                                 </div>
                                 <div class="input-slide">
-                                    <input type="text" placeholder="Password" name="password" min="6" max="255" required>
+                                    <input type="password" placeholder="Password" name="password" min="6" max="255" required>
                                 </div>
                                 <div class="submit-slide">
                                     <input type="submit" value="Submit" class="btn" name="insertAdmin">

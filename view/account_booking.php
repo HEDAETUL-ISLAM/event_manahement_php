@@ -22,30 +22,34 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
     if (strlen($username) == 0 || strlen($password) == 0) {
         @include_once "./errors/blankEntry.php";
-    } else {
-        $login = new Login($username,  $password);
+    } else  {
+        $login = new Login($username,$password);
         $result = loginPerson($login);
-
-        if ($result->status == 1) {
-            if ($result !== null) {
-                $_SESSION['username'] = $result->user_name;
-                $_SESSION['name'] = $result->name;
-                $_SESSION['email'] = $result->email;
-                $_SESSION['phone'] = $result->phone;
-                $_SESSION['password'] = $result->password;
-                $_SESSION['address'] = $result->address;
-                $_SESSION['status'] = $result->status;
-                @include_once "./errors/success.php";
+        if ($result->status == 1 ) {
+            if ($result != null) {
+                if(password_verify($password, $result->password)){
+                    $_SESSION['username'] = $result->user_name;
+                    $_SESSION['name'] = $result->name;
+                    $_SESSION['email'] = $result->email;
+                    $_SESSION['phone'] = $result->phone;
+                    $_SESSION['password'] = $result->password;
+                    $_SESSION['address'] = $result->address;
+                    $_SESSION['status'] = $result->status;
+                    @include_once "./errors/success.php";
+                }
             }
+
             if ($result === null) {
                 @include_once "./errors/wrong.php";
             }
-        } else {
-            // header('Location: ' . $_SERVER['REQUEST_URI']);
+        }
+        else{
             @include_once "./errors/invalidUser.php";
         }
+        
     }
 }
+
 
 // for register==========================================================>
 if (isset($_POST['insertPerson'])) {
@@ -117,12 +121,9 @@ if (isset($_POST['updatePassword'])) {
     if (strlen($currentPassword) == 0 || strlen($newPassword) == 0 || strlen($confNewPassword) == 0) {
         @include_once "./errors/blankEntry.php";
     } else {
-        if ($_SESSION['password'] != $currentPassword) {
-            @include_once "./errors/password.php";
-        }
         if ($newPassword != $confNewPassword) {
             @include_once "./errors/password.php";
-        } else {
+        } else if(password_verify($currentPassword,$_SESSION['password'])) {
             $result = updatePassword($username, $newPassword);
             if ($result == 1) {
                 @include_once "./errors/success.php";
@@ -133,8 +134,6 @@ if (isset($_POST['updatePassword'])) {
         }
     }
 }
-
-//for rating=============================================================>
 
 //for rating=============================================================>
 
@@ -322,7 +321,7 @@ if (!empty($_SESSION['username'])) {
                                 </div>
                                 <div class="input-box">
                                     <div class="icon icon-lock"></div>
-                                    <input type="text" placeholder="Password" name="password" required>
+                                    <input type="password" placeholder="Password" name="password" required>
                                 </div>
                                 <div class="submit-slide">
                                     <input type="submit" class="btn" name="login">
@@ -411,7 +410,7 @@ if (!empty($_SESSION['username'])) {
                                     <input type="text" placeholder="Phone" name="phone" required>
                                 </div>
                                 <div class="input-box">
-                                    <input type="text" placeholder="Password" name="password" required>
+                                    <input type="password" placeholder="Password" name="password" required>
                                 </div>
                                 <div class="input-box">
                                     <input type="text" placeholder="Address" name="address">

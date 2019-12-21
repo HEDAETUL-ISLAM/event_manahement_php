@@ -12,6 +12,34 @@ $phone = "";
 $password = "";
 $address = "";
 
+
+
+// for update password====================================================>
+$currentPassword = "";
+$newPassword = "";
+$confNewPassword = "";
+if (isset($_POST['updatePassword'])) {
+    $username = $_SESSION['username'];
+    $currentPassword = $_POST['currentPassword'];
+    $newPassword = $_POST['newPassword'];
+    $confNewPassword = $_POST['confNewPassword'];
+    if (strlen($currentPassword) == 0 || strlen($newPassword) == 0 || strlen($confNewPassword) == 0) {
+        @include_once "./errors/blankEntry.php";
+    } else {
+        if ($newPassword != $confNewPassword) {
+            @include_once "./errors/password.php";
+        } else if(password_verify($currentPassword,$_SESSION['password'])) {
+            $result = updatePassword($username, $newPassword);
+            if ($result == 1) {
+                @include_once "../errors/success.php";
+            }
+            if ($result == 0) {
+                @include_once "../errors/wrong.php";
+            }
+        }
+    }
+}
+
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
     session_destroy();
@@ -24,6 +52,9 @@ if(!empty($_SESSION['username'])){
         session_destroy();
         header("Location: ./home.php");
     }
+}
+if($_SESSION['name']==""){
+    header("Location: ./home.php");
 }
 
 ?>

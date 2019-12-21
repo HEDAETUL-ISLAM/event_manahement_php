@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-$conn = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+$conn = mysqli_connect("localhost", "root", "", "event_organizer");
 
 $sqlQuery = "SELECT year(registration_date) as r_year, count(id) as id_no from person 
             where  status=2 AND (registration_date>DATE_SUB(NOW(),INTERVAL 1 YEAR) 

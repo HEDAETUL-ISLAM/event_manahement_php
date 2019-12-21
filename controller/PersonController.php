@@ -4,7 +4,7 @@
 
 function insertPerson(Person $person)
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -22,7 +22,7 @@ function insertPerson(Person $person)
         '" . $person->getName() . "' , 
         '" . $person->getEmail() . "', 
         '" . $person->getPhone() . "', 
-        '" . $person->getPassword() . "', 
+        '" . password_hash($person->getPassword(), PASSWORD_DEFAULT) . "', 
         '" . $person->getAddress() . "',
         1
         )";
@@ -38,7 +38,7 @@ function insertPerson(Person $person)
 
 function insertVendor(Person $person)
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -51,7 +51,7 @@ function insertVendor(Person $person)
         return -1;
     } else {
         $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status) 
-        VALUES ('" . $person->getUsername() . "' ,'" . $person->getName() . "' , '" . $person->getEmail() . "', '" . $person->getPhone() . "', '" . $person->getPassword() . "', '" . $person->getAddress() . "',2)";
+        VALUES ('" . $person->getUsername() . "' ,'" . $person->getName() . "' , '" . $person->getEmail() . "', '" . $person->getPhone() . "', '" . password_hash($person->getPassword(), PASSWORD_DEFAULT) . "', '" . $person->getAddress() . "',2)";
         if (mysqli_query($connection, $query)) {
             return 1;
         } else {
@@ -62,11 +62,13 @@ function insertVendor(Person $person)
     mysqli_close($connection);
 }
 
+
+
 function loginPerson(Login $login)
 {
-    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "bulbul");
+    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "");
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $query = "SELECT * from person where user_name = '" . $login->getUsername() . "' and password = '" . $login->getPassword() . "'";
+    $query = "SELECT * from person where user_name = '" . $login->getUsername() . "'";
     $statement = $connection->prepare($query);
     $statement->execute();
     if ($statement->rowCount() > 0) {
@@ -80,7 +82,7 @@ function loginPerson(Login $login)
 
 function updatePerson(Person $person)
 {
-    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "bulbul");
+    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "");
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $query = "update person set name = '" . $person->getName() . "' , email = '" . $person->getEmail() . "', phone = '" . $person->getPhone() . "',address = '" . $person->getAddress() . "' where user_name = '" . $person->getUsername() . "'";
     $statement = $connection->prepare($query);
@@ -90,9 +92,9 @@ function updatePerson(Person $person)
 }
 function updatePassword($username, $newPassword)
 {
-    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "bulbul");
+    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "");
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $query = "update person set password = '" . $newPassword . "'  where user_name = '" . $username . "'";
+    $query = "update person set password = '" . password_hash($newPassword, PASSWORD_DEFAULT) . "'  where user_name = '" . $username . "'";
     $statement = $connection->prepare($query);
     $result = $statement->execute();
     return $result;
@@ -100,7 +102,7 @@ function updatePassword($username, $newPassword)
 }
 function getAllCustomer()
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -111,7 +113,7 @@ function getAllCustomer()
 }
 function getAllVendor()
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -124,13 +126,13 @@ function getAllVendor()
 
 function insertAdmin(Person $person)
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     }
 
     $query = "INSERT INTO person ( user_name, name, email, phone, password, address, status) 
-        VALUES ('" . $person->getUsername() . "' ,'" . $person->getName() . "' , '" . $person->getEmail() . "', '" . $person->getPhone() . "', '" . $person->getPassword() . "', '" . $person->getAddress() . "',0)";
+        VALUES ('" . $person->getUsername() . "' ,'" . $person->getName() . "' , '" . $person->getEmail() . "', '" . $person->getPhone() . "', '" . password_hash($person->getPassword(), PASSWORD_DEFAULT) . "', '" . $person->getAddress() . "',0)";
     if (mysqli_query($connection, $query)) {
         return 1;
     } else {

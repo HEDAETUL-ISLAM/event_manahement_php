@@ -2,7 +2,7 @@
 
 function getAllWeeding()
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -13,7 +13,7 @@ function getAllWeeding()
 }
 function getWeedingByLowPrice()
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -24,7 +24,7 @@ function getWeedingByLowPrice()
 }
 function getWeedingByHighPrice()
 {
-    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
     if (!$connection) {
         return -1;
     }

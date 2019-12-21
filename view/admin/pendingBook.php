@@ -71,6 +71,9 @@ if(!empty($_SESSION['username'])){
         header("Location: ./home.php");
     }
 }
+if($_SESSION['name']==""){
+    header("Location: ./home.php");
+}
 ?>
 
 
