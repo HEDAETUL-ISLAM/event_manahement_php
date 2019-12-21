@@ -160,7 +160,7 @@ if($_SESSION['name']==""){
                 <div class="container">
                     <div class="navbar navbar-inverse">
                         <div class="navbar-header">
-                            <a href="../index.php" class="navbar-brand"><img src="../images/logo.png" alt="" style="max-width: 80px"></a>
+                            <a href="dashboard.php" class="navbar-brand"><img src="../images/logo.png" alt="" style="max-width: 80px"></a>
                             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                 <span class="icon1-barMenu"></span>
                                 <span class="icon1-barMenu"></span>

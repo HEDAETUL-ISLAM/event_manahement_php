@@ -15,12 +15,12 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
     if (strlen($username) == 0 || strlen($password) == 0) {
         @include_once "./errors/blankEntry.php";
-    } else  {
-        $login = new Login($username,$password);
+    } else {
+        $login = new Login($username, $password);
         $result = loginPerson($login);
-        if ($result->status == 1 ) {
+        if ($result->status == 1) {
             if ($result != null) {
-                if(password_verify($password, $result->password)){
+                if (password_verify($password, $result->password)) {
                     $_SESSION['username'] = $result->user_name;
                     $_SESSION['name'] = $result->name;
                     $_SESSION['email'] = $result->email;
@@ -29,8 +29,7 @@ if (isset($_POST['login'])) {
                     $_SESSION['address'] = $result->address;
                     $_SESSION['status'] = $result->status;
                     @include_once "./errors/success.php";
-                }
-                else {
+                } else {
                     @include_once "../errors/invalidUser.php";
                 }
             }
@@ -38,11 +37,9 @@ if (isset($_POST['login'])) {
             if ($result === null) {
                 @include_once "./errors/wrong.php";
             }
-        }
-        else{
+        } else {
             @include_once "./errors/invalidUser.php";
         }
-        
     }
 }
 
@@ -295,7 +292,7 @@ if (isset($_POST['eventSearchButton'])) {
                                 <div class="search-icon"><span class="icon icon-search"></span></div>
                                 <div class="search-view">
                                     <div class="input-box">
-                                    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+                                        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                                             <input type="text" placeholder="Search here" name="eventName">
                                             <input type="submit" value="" name="eventSearchButton">
                                         </form>
@@ -415,7 +412,7 @@ if (isset($_POST['eventSearchButton'])) {
                         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                             <div class="input-box">
                                 <div class="icon icon-grid-view"></div>
-                                <input type="text" placeholder="Event Type" name="eventName">
+                                <input type="text" placeholder="Event Type" name="eventName" title="Type an event Type">
                             </div>
                             <div class="submit-slide">
                                 <input type="submit" value="Search Now" class="btn" name="eventSearchButton">
