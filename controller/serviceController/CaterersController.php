@@ -2,7 +2,7 @@
 
 function getAllCaterers()
 {
-    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -13,7 +13,7 @@ function getAllCaterers()
 }
 function getCaterersByLowPrice()
 {
-    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -24,7 +24,7 @@ function getCaterersByLowPrice()
 }
 function getCaterersByHighPrice()
 {
-    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }

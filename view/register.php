@@ -95,6 +95,9 @@ if (isset($_POST['logoutPerson'])) {
                             $_SESSION['status'] = $result->status;
                             header('Location: ./vendor/dashboard.php');
                         }
+                        else {
+                            @include_once "../errors/invalidUser.php";
+                        }
                     }
                     if ($result === null) {
                         @include_once "./errors/wrong.php";

@@ -6,9 +6,19 @@
 </head>
 
 <body>
-    <div class="alertWrong">
-        <span class="closeButton" onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong>Sorry</strong> not valid user.
+    <div style="padding: 20px;
+        background-color: #f44336;
+        color: white;">
+        <span class="closeButton" style="margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;">
+            <span class="closeButton" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Sorry</strong> not valid user.
     </div>
 </body>
 

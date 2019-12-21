@@ -4,7 +4,7 @@
 
 function insertPerson(Person $person)
 {
-    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -38,7 +38,7 @@ function insertPerson(Person $person)
 
 function insertVendor(Person $person)
 {
-    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -66,7 +66,7 @@ function insertVendor(Person $person)
 
 function loginPerson(Login $login)
 {
-    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "");
+    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "bulbul");
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $query = "SELECT * from person where user_name = '" . $login->getUsername() . "'";
     $statement = $connection->prepare($query);
@@ -82,7 +82,7 @@ function loginPerson(Login $login)
 
 function updatePerson(Person $person)
 {
-    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "");
+    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "bulbul");
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $query = "update person set name = '" . $person->getName() . "' , email = '" . $person->getEmail() . "', phone = '" . $person->getPhone() . "',address = '" . $person->getAddress() . "' where user_name = '" . $person->getUsername() . "'";
     $statement = $connection->prepare($query);
@@ -92,7 +92,7 @@ function updatePerson(Person $person)
 }
 function updatePassword($username, $newPassword)
 {
-    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "");
+    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "bulbul");
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $query = "update person set password = '" . password_hash($newPassword, PASSWORD_DEFAULT) . "'  where user_name = '" . $username . "'";
     $statement = $connection->prepare($query);
@@ -102,7 +102,7 @@ function updatePassword($username, $newPassword)
 }
 function getAllCustomer()
 {
-    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -113,7 +113,7 @@ function getAllCustomer()
 }
 function getAllVendor()
 {
-    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -126,7 +126,7 @@ function getAllVendor()
 
 function insertAdmin(Person $person)
 {
-    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }

@@ -100,6 +100,9 @@ if(!empty($_SESSION['username'])){
                             $_SESSION['status'] = $result->status;
                             header('Location: ./dashboard.php');
                         }
+                        else {
+                            @include_once "../errors/invalidUser.php";
+                        }
                     }
                     if ($result === null) {
                         @include_once "../errors/wrong.php";

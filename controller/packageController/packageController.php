@@ -4,7 +4,7 @@
 
 function getSinglePackage()
 {
-    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -15,7 +15,7 @@ function getSinglePackage()
 }
 function getBundlePackage()
 {
-    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -26,7 +26,7 @@ function getBundlePackage()
 }
 function insertSinglePackage(SinglePackage $singlePackage)
 {
-    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -62,7 +62,7 @@ function insertSinglePackage(SinglePackage $singlePackage)
 
 function updateSinglePackage($packageName, $vendorName, $price, $transportCost, $availableStatus, $description)
 {
-    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "");
+    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "bulbul");
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $query = "UPDATE single_package set price = '" . $price . "',transport_cost = '" . $transportCost . "',available_status = '" . $availableStatus . "',description = '" . $description . "'  where  package_name = '" . $packageName . "' AND vendor_username = '" . $vendorName . "'";
     $statement = $connection->prepare($query);
@@ -73,7 +73,7 @@ function updateSinglePackage($packageName, $vendorName, $price, $transportCost, 
 
 function insertBundlePackage(BundlePackage $bundlePackage)
 {
-    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -132,7 +132,7 @@ function updateBundlePackage(
     $availableStatus,
     $description
 ) {
-    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "");
+    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "bulbul");
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $query = "UPDATE bundle_package set 
@@ -159,7 +159,7 @@ function updateBundlePackage(
 
 function deletePackage($productName, $vendorName)
 {
-    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }
@@ -170,12 +170,78 @@ function deletePackage($productName, $vendorName)
 }
 function deleteBundlePackage($productName, $vendorName)
 {
-    $connection = mysqli_connect("localhost", "root", "", "event_organizer");
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
     if (!$connection) {
         return -1;
     }
     $query = "DELETE FROM bundle_package where package_name = '$productName' AND vendor_username = '$vendorName'";
     $result = $connection->query($query);
+    return $result;
+    mysqli_close($connection);
+}
+
+function getAllSinglePackage()
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    if (!$connection) {
+        return -1;
+    }
+    $query = "SELECT id, package_name, vendor_username, available_status from single_package";
+    $result = $connection->query($query);
+    return $result;
+    mysqli_close($connection);
+}
+
+function updateSinglePackageStatusYes($id)
+{
+    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "bulbul");
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $query = "UPDATE single_package set available_status = 'No' where  id = '" . $id . "'";
+    $statement = $connection->prepare($query);
+    $result = $statement->execute();
+    return $result;
+    mysqli_close($connection);
+}
+function updateSinglePackageStatusNo($id)
+{
+    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "bulbul");
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $query = "UPDATE single_package set available_status = 'Yes' where  id = '" . $id . "'";
+    $statement = $connection->prepare($query);
+    $result = $statement->execute();
+    return $result;
+    mysqli_close($connection);
+}
+
+function getAllBundlePackage()
+{
+    $connection = mysqli_connect("localhost", "root", "bulbul", "event_organizer");
+    if (!$connection) {
+        return -1;
+    }
+    $query = "SELECT id, package_name, vendor_username, available_status from bundle_package";
+    $result = $connection->query($query);
+    return $result;
+    mysqli_close($connection);
+}
+
+function updateBundlePackageStatusYes($id)
+{
+    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "bulbul");
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $query = "UPDATE bundle_package set available_status = 'No' where  id = '" . $id . "'";
+    $statement = $connection->prepare($query);
+    $result = $statement->execute();
+    return $result;
+    mysqli_close($connection);
+}
+function updateBundlePackageStatusNo($id)
+{
+    $connection = new PDO("mysql:host=localhost; dbname=event_organizer", "root", "bulbul");
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $query = "UPDATE bundle_package set available_status = 'Yes' where  id = '" . $id . "'";
+    $statement = $connection->prepare($query);
+    $result = $statement->execute();
     return $result;
     mysqli_close($connection);
 }

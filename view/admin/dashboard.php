@@ -19,13 +19,13 @@ if (isset($_POST['logoutPerson'])) {
     header('Location: home.php');
 }
 //for check person=========================================================
-if(!empty($_SESSION['username'])){
-    if($_SESSION['status']!=0){
+if (!empty($_SESSION['username'])) {
+    if ($_SESSION['status'] != 0) {
         session_destroy();
         header("Location: ./home.php");
     }
 }
-if($_SESSION['name']==""){
+if ($_SESSION['name'] == "") {
     header("Location: ./home.php");
 }
 ?>
@@ -60,7 +60,7 @@ if($_SESSION['name']==""){
                     <div class="right-link">
                         <ul>
                             <li class="sub-links">
-                                <a ><span class="icon icon-envelope"></span>Hi </a>
+                                <a><span class="icon icon-envelope"></span>Hi </a>
                             </li>
                             <li class="sub-links">
                                 <a href="javascript:;"><?php echo $_SESSION['name'] ?><span class="icon icon-arrow-down"></span></a>
@@ -106,15 +106,25 @@ if($_SESSION['name']==""){
                                 <li class="single-col ">
                                     <a href="customer.php">Customer </a>
                                 </li>
-                                <li class="single-col ">
-                                    <a href="pendingBook.php">Pending Book </a>
-                                </li>
-                                <li class="single-col ">
-                                    <a href="orderHistory.php">Order History </a>
+                                <li class="single-col">
+                                    <a href="">Action <span class="icon icon-arrow-down"></span></a>
+                                    <ul>
+                                        <li>
+                                            <a href="pendingBook.php">Pending Book </a>
+                                        </li>
+                                        <li>
+                                            <a href="orderHistory.php">Order History </a>
+                                        </li>
+                                        <li>
+                                            <a href="singlePackageStatus.php">Single Package Status </a>
+                                        </li>
+                                        <li>
+                                            <a href="bundlePackageStatus.php">Bundle Package Status </a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li class="single-col ">
                                     <a href="adminAccount.php">My Account </span></a>
-
                                 </li>
                             </ul>
                         </div>

@@ -4,7 +4,10 @@
 session_start();
 @require_once "../../model/Login.php";
 @require_once "../../model/Person.php";
+@require_once "../../model/PendingBook.php";
 @include_once "../../controller/PersonController.php";
+@include_once "../../controller/bookingController.php";
+@include_once "../../controller/packageController/packageController.php";
 $username = "";
 $name = "";
 $email = "";
@@ -19,14 +22,33 @@ if (isset($_POST['logoutPerson'])) {
     header('Location: home.php');
 }
 
+//for status============================================================
+if (isset($_GET["actionYes"])) {
+    if ($_GET["actionYes"] == "status") {
+        $id = $_GET["id"];
+        $result = updateSinglePackageStatusYes($id);
+        echo '<script>alert("Change Status")</script>';
+        echo '<script>window.location="singlePackageStatus.php"</script>';
+    }
+}
+//for status============================================================
+if (isset($_GET["actionNo"])) {
+    if ($_GET["actionNo"] == "status") {
+        $id = $_GET["id"];
+        $result = updateSinglePackageStatusNo($id);
+        echo '<script>alert("Change Status")</script>';
+        echo '<script>window.location="singlePackageStatus.php"</script>';
+    }
+}
+
 //for check person=========================================================
-if(!empty($_SESSION['username'])){
-    if($_SESSION['status']!=0){
+if (!empty($_SESSION['username'])) {
+    if ($_SESSION['status'] != 0) {
         session_destroy();
         header("Location: ./home.php");
     }
 }
-if($_SESSION['name']==""){
+if ($_SESSION['name'] == "") {
     header("Location: ./home.php");
 }
 ?>
@@ -58,6 +80,25 @@ if($_SESSION['name']==""){
             table = document.getElementById("myTable");
             tr = table.getElementsByTagName("tr");
             for (i = 1; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function searchByPackageName() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("packageNameInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 1; i < tr.length; i++) {
                 td = tr[i].getElementsByTagName("td")[0];
                 if (td) {
                     txtValue = td.textContent || td.innerText;
@@ -70,33 +111,14 @@ if($_SESSION['name']==""){
             }
         }
 
-        function searchByLocation() {
+        function searchByStatus() {
             var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("locationInput");
+            input = document.getElementById("statusInput");
             filter = input.value.toUpperCase();
             table = document.getElementById("myTable");
             tr = table.getElementsByTagName("tr");
             for (i = 1; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[3];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-
-        function searchByDate() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("dateInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 1; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[4];
+                td = tr[i].getElementsByTagName("td")[2];
                 if (td) {
                     txtValue = td.textContent || td.innerText;
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -162,10 +184,10 @@ if($_SESSION['name']==""){
                                 <li class="single-col ">
                                     <a href="vendor.php">Vendor </a>
                                 </li>
-                                <li class="single-col active">
+                                <li class="single-col ">
                                     <a href="customer.php">Customer </a>
                                 </li>
-                                <li class="single-col">
+                                <li class="single-col active">
                                     <a href="">Action <span class="icon icon-arrow-down"></span></a>
                                     <ul>
                                         <li>
@@ -224,15 +246,15 @@ if($_SESSION['name']==""){
                         <div class="searchFilter" style="width: 100%;">
                             <div class="input-box" style="width: 33.3%;">
                                 <div class="icon icon-grid-view"></div>
-                                <input type="text" id="nameInput" onkeyup="searchByName()" placeholder="Search for name" title="Type a name">
+                                <input type="text" id="nameInput" onkeyup="searchByName()" placeholder="Search for vendor name" title="Type a name">
                             </div>
                             <div class="input-box searchlocation" style="width: 33.3%;">
-                                <div class="icon icon-location-1"></div>
-                                <input type="text" id="locationInput" onkeyup="searchByLocation()" placeholder="Search for Location" title="Type a location">
+                                <div class="icon icon-grid-view"></div>
+                                <input type="text" id="packageNameInput" onkeyup="searchByPackageName()" placeholder="Search for package Name" title="Type a package">
                             </div>
                             <div class="input-box date" style="width: 33.3%;">
                                 <div class="icon icon-calander-month"></div>
-                                <input type="text" id="dateInput" onkeyup="searchByDate()" placeholder="Search for Date" title="Type a date">
+                                <input type="text" id="statusInput" onkeyup="searchByStatus()" placeholder="Search for status" title="Type a status">
                             </div>
                         </div>
                     </div>
@@ -251,37 +273,44 @@ if($_SESSION['name']==""){
                                     <div class="bookin-info">
                                         <table class="bookin-table" id="myTable">
                                             <tr>
-                                                <td class="first Theading">Name</td>
-                                                <td class="Theading">Email</td>
-                                                <td class="Theading">Phone</td>
-                                                <td class="Theading">Address</td>
-                                                <td class="Theading last">Registration Date</td>
+                                                <td class=" Theading">Package Name</td>
+                                                <td class=" Theading">vendor Name</td>
+                                                <td class="Theading">Available Status</td>
+                                                <td class="Theading ">Action</td>
                                             </tr>
                                             <?php
-                                            $result = getAllCustomer();
+                                            $result = getAllSinglePackage();
                                             if ($result->num_rows > 0) {
                                                 while ($row = $result->fetch_assoc()) {
                                                     echo "<tr>";
-                                                    echo '    <td class="first">';
-                                                    echo '        <label>Name</label>';
-                                                    echo         "<p>" .  $row["name"] . "</p>";
+                                                    echo '    <td >';
+                                                    echo         "<p>" .  $row["package_name"] . "</p>";
+                                                    echo '    </td>';
+                                                    echo '    <td >';
+                                                    echo         "<p>" .  $row["vendor_username"] . "</p>";
                                                     echo '    </td>';
                                                     echo '    <td>';
-                                                    echo '        <label>Email</label>';
-                                                    echo         "<p>" . $row["email"] . "</p>";
+                                                    echo         "<p>" . $row["available_status"] . "</p>";
                                                     echo '    </td>';
-                                                    echo '    <td>';
-                                                    echo '        <label>Phone</label>';
-                                                    echo         "<p>" . $row["phone"] . "</p>";
-                                                    echo '    </td>';
-                                                    echo '    <td>';
-                                                    echo '        <label>Address</label>';
-                                                    echo         "<p>" . $row["address"] . "</p>";
-                                                    echo '    </td>';
-                                                    echo '    <td class="last">';
-                                                    echo '        <label>Registration date</label>';
-                                                    echo         "<p>" . $row["registration_date"] . "</p>";
-                                                    echo '    </td>';
+                                            ?>
+                                                    <td class="Theading ">
+                                                        <?php
+                                                        if ($row["available_status"] == "Yes") {
+                                                        ?>
+                                                            <a href="singlePackageStatus.php?actionYes=status&id=<?php echo $row["id"]; ?>">
+                                                                <span class="text-danger"><img src="../../view/images/close-icon.png" alt="" style="max-width: 80px" title="Make it Unavailable"> </span>
+                                                            </a>
+                                                        <?php
+                                                        }
+                                                        if ($row["available_status"] == "No") {
+                                                        ?><a href="singlePackageStatus.php?actionNo=status&id=<?php echo $row["id"]; ?>">
+                                                                <span class="text-danger"><img src="../../view/images/tick.png" alt="" style="max-width: 80px" title="Make it Available"> </span>
+                                                            </a>
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </td>
+                                            <?php
                                                     echo '</tr> ';
                                                 }
                                             }

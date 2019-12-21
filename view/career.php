@@ -34,6 +34,9 @@ if (isset($_POST['login'])) {
                     $_SESSION['status'] = $result->status;
                     @include_once "./errors/success.php";
                 }
+                else {
+                    @include_once "../errors/invalidUser.php";
+                }
             }
 
             if ($result === null) {

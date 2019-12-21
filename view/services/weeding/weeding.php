@@ -24,15 +24,19 @@ if (isset($_POST['login'])) {
         $result = loginPerson($login);
 
         if ($result->status == 1) {
-            if ($result !== null) {
-                $_SESSION['username'] = $result->user_name;
-                $_SESSION['name'] = $result->name;
-                $_SESSION['email'] = $result->email;
-                $_SESSION['phone'] = $result->phone;
-                $_SESSION['password'] = $result->password;
-                $_SESSION['address'] = $result->address;
-                $_SESSION['status'] = $result->status;
-                @include_once "../../errors/success.php";
+            if ($result != null) {
+                if (password_verify($password, $result->password)) {
+                    $_SESSION['username'] = $result->user_name;
+                    $_SESSION['name'] = $result->name;
+                    $_SESSION['email'] = $result->email;
+                    $_SESSION['phone'] = $result->phone;
+                    $_SESSION['password'] = $result->password;
+                    $_SESSION['address'] = $result->address;
+                    $_SESSION['status'] = $result->status;
+                    @include_once "./errors/success.php";
+                } else {
+                    @include_once "../../errors/invalidUser.php";
+                }
             }
             if ($result === null) {
                 @include_once "../../errors/wrong.php";
