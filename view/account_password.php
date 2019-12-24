@@ -482,22 +482,20 @@ if(!empty($_SESSION['username'])){
                                     <div class="booking-status">
                                         <?php
                                             if ($row['fullpaid'] == 'yes') {
-                                                if(date("d:m:Y") < $row['bookingdate']){
                                         ?>
                                                 <a href="contact.php" class="cancel">Cancel your Booking</a>
                                                 <div class="status">Status :<span> Booked</span></div>
                                         <?php
-                                                }
+                                                
                                             } 
                                         ?>
                                         <?php
                                             if ($row['half'] == 'yes') {
-                                                if(date("d:m:Y") < $row['bookingdate']){
                                         ?>
                                                 <a href="contact.php" class="cancel">Cancel your Booking</a>
                                                 <div class="status">Status :<span> Booked</span></div>
                                         <?php
-                                                }
+                                                
                                             } 
                                         ?>
                                         <?php
