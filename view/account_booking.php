@@ -551,21 +551,24 @@ if (!empty($_SESSION['username'])) {
                                     <div class="booking-status">
                                         <?php
                                         if ($row['fullpaid'] == 'yes') {
+                                            if (date("d:m:Y") >= $row['bookingdate']) {
                                         ?>
-                                            <button type="button" data-toggle="modal" data-target="#ratingModal" class="cancel btn_rating packageName" id="<?php echo $row['id']; ?>" name="deletePackage" style="border: #f5f5f503; background: #f5f5f503;">
-                                                Rate this Package
-                                            </button>
-                                            <div class="status">Status :<span> Booked</span></div>
+                                                <button type="button" data-toggle="modal" data-target="#ratingModal" class="cancel btn_rating packageName" id="<?php echo $row['id']; ?>" name="deletePackage" style="border: #f5f5f503; background: #f5f5f503;">
+                                                    Rate this Package
+                                                </button>
+                                                <div class="status">Status :<span> Booked</span></div>
                                         <?php
+                                            }
                                         }
                                         ?>
                                         <?php
                                         if ($row['halfpaid'] == 'yes' && $row['fullpaid'] == 'no') {
+                                            if (date("d:m:Y") >= $row['bookingdate']) {
                                         ?>
-                                            <a href="contact.php" class="cancel">Cancel your Booking</a>
-                                            <div class="status">Status :<span> Booked</span></div>
+                                                <a href="contact.php" class="cancel">Cancel your Booking</a>
+                                                <div class="status">Status :<span> Booked</span></div>
                                         <?php
-
+                                            }
                                         }
                                         ?>
                                         <?php

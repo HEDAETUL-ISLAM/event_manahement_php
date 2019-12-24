@@ -1,4 +1,4 @@
-<?php error_reporting(E_ALL ^ E_NOTICE)?>
+<?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
 session_start();
@@ -20,12 +20,12 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
     if (strlen($username) == 0 || strlen($password) == 0) {
         @include_once "./errors/blankEntry.php";
-    } else  {
-        $login = new Login($username,$password);
+    } else {
+        $login = new Login($username, $password);
         $result = loginPerson($login);
-        if ($result->status == 1 ) {
+        if ($result->status == 1) {
             if ($result != null) {
-                if(password_verify($password, $result->password)){
+                if (password_verify($password, $result->password)) {
                     $_SESSION['username'] = $result->user_name;
                     $_SESSION['name'] = $result->name;
                     $_SESSION['email'] = $result->email;
@@ -34,8 +34,7 @@ if (isset($_POST['login'])) {
                     $_SESSION['address'] = $result->address;
                     $_SESSION['status'] = $result->status;
                     @include_once "./errors/success.php";
-                }
-                else {
+                } else {
                     @include_once "../errors/invalidUser.php";
                 }
             }
@@ -43,11 +42,9 @@ if (isset($_POST['login'])) {
             if ($result === null) {
                 @include_once "./errors/wrong.php";
             }
-        }
-        else{
+        } else {
             @include_once "./errors/invalidUser.php";
         }
-        
     }
 }
 
@@ -100,7 +97,7 @@ if (isset($_POST['updatePassword'])) {
     } else {
         if ($newPassword != $confNewPassword) {
             @include_once "./errors/password.php";
-        } else if(password_verify($currentPassword,$_SESSION['password'])) {
+        } else if (password_verify($currentPassword, $_SESSION['password'])) {
             $result = updatePassword($username, $newPassword);
             if ($result == 1) {
                 @include_once "./errors/success.php";
@@ -113,8 +110,8 @@ if (isset($_POST['updatePassword'])) {
 }
 
 //for check person=========================================================
-if(!empty($_SESSION['username'])){
-    if($_SESSION['status']!=1){
+if (!empty($_SESSION['username'])) {
+    if ($_SESSION['status'] != 1) {
         session_destroy();
     }
 }
@@ -138,7 +135,7 @@ if(!empty($_SESSION['username'])){
     <link href="css/docs.css" rel="stylesheet">
     <link href="css/jquery.selectbox.css" rel="stylesheet" /><!-- select Box css -->
     <link href="https://fonts.googleapis.com/css?family=Domine:400,700%7COpen+Sans:300,300i,400,400i,600,600i,700,700i%7CRoboto:400,500" rel="stylesheet">
-
+    <link href="css/ratingModal.css" rel="stylesheet">
 </head>
 
 <body class="inner-page">
@@ -239,7 +236,7 @@ if(!empty($_SESSION['username'])){
                                 <li class="single-col">
                                     <a href="">Booking <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li><a href="booking_step1.php">Booking Step1</a></li> 
+                                        <li><a href="booking_step1.php">Booking Step1</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="aboutUs.php">About Us</a></li>
@@ -352,6 +349,33 @@ if(!empty($_SESSION['username'])){
                 </div>
             </div>
         </div>
+
+        <!-- rating modal -->
+        <div id="ratingModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Rating our Package</h4>
+                    </div>
+                    <div class="modal-body position">
+                        <p>Leave your rating.</p>
+                        <form action="" method="POST">
+                            <div class="rating ">
+                                <input name="productRating" value="5" id="e5" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "5")) ?>><label for="e5">★</label>
+                                <input name="productRating" value="4" id="e4" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "4")) ?>><label for="e4">★</label>
+                                <input name="productRating" value="3" id="e3" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "3")) ?>><label for="e3">★</label>
+                                <input name="productRating" value="2" id="e2" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "2")) ?>><label for="e2">★</label>
+                                <input name="productRating" value="1" id="e1" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "1")) ?>><label for="e1">★</label>
+                            </div>
+                            <div>
+                                <input type="submit" class="btn" name="insertRating" style="width: 100px;">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- update profile -->
         <div class="modal modal-vcenter fade" id="updateProfileModal" tabindex="-1" role="dialog">
             <div class="modal-dialog registration-popup" role="document">
@@ -433,7 +457,7 @@ if(!empty($_SESSION['username'])){
                         $result = getIndividualBooking($_SESSION['username']);
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                ?>
+                        ?>
                                 <div class="tab-content order-con ">
                                     <table class="booking-viewTable">
                                         <tr>
@@ -457,54 +481,56 @@ if(!empty($_SESSION['username'])){
                                             <td><span class="small-heading">Booking Date</span><?php echo $row['pendingdate'] ?></td>
                                             <td><span class="small-heading">Event Date</span><?php echo $row['bookingdate'] ?></td>
                                             <?php
-                                                if ($row['fullpaid'] == 'yes') {
+                                            if ($row['fullpaid'] == 'yes') {
                                             ?>
-                                                    <td><span class="small-heading">Paid Amount</span>$ <?php echo $row['totalcost'] ?></td>
-                                                    <td><span class="small-heading">Need to Pay</span>$ 0</td>
+                                                <td><span class="small-heading">Paid Amount</span>$ <?php echo $row['totalcost'] ?></td>
+                                                <td><span class="small-heading">Need to Pay</span>$ 0</td>
                                             <?php
-                                                }
-                                                else if ($row['halfpaid'] == 'yes') {
+                                            } else if ($row['halfpaid'] == 'yes') {
                                             ?>
-                                                    <td><span class="small-heading">Paid Amount</span>$ <?php echo $row['totalcost'] / 2 ?></td>
-                                                    <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] / 2 ?></td>
+                                                <td><span class="small-heading">Paid Amount</span>$ <?php echo $row['totalcost'] / 2 ?></td>
+                                                <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] / 2 ?></td>
                                             <?php
-                                                }
-                                                else if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
+                                            } else if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
                                             ?>
-                                                    <td><span class="small-heading">Paid Amount</span>$ 0</td>
-                                                    <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] ?></td>
+                                                <td><span class="small-heading">Paid Amount</span>$ 0</td>
+                                                <td><span class="small-heading">Need to Pay</span>$ <?php echo $row['totalcost'] ?></td>
                                             <?php
-                                                }
+                                            }
 
                                             ?>
                                         </tr>
                                     </table>
                                     <div class="booking-status">
                                         <?php
-                                            if ($row['fullpaid'] == 'yes') {
+                                        if ($row['fullpaid'] == 'yes') {
+                                            if (date("d:m:Y") >= $row['bookingdate']) {
+                                        ?>
+                                                <button type="button" data-toggle="modal" data-target="#ratingModal" class="cancel btn_rating packageName" id="<?php echo $row['id']; ?>" name="deletePackage" style="border: #f5f5f503; background: #f5f5f503;">
+                                                    Rate this Package
+                                                </button>
+                                                <div class="status">Status :<span> Booked</span></div>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
+                                        <?php
+                                        if ($row['half'] == 'yes') {
+                                            if (date("d:m:Y") >= $row['bookingdate']) {
                                         ?>
                                                 <a href="contact.php" class="cancel">Cancel your Booking</a>
                                                 <div class="status">Status :<span> Booked</span></div>
                                         <?php
-                                                
-                                            } 
+                                            }
+                                        }
                                         ?>
                                         <?php
-                                            if ($row['half'] == 'yes') {
+                                        if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
                                         ?>
-                                                <a href="contact.php" class="cancel">Cancel your Booking</a>
-                                                <div class="status">Status :<span> Booked</span></div>
+                                            <a href="contact.php" class="cancel">Cancel your Booking</a>
+                                            <div class="status">Status :<span> Booked</span></div>
                                         <?php
-                                                
-                                            } 
-                                        ?>
-                                        <?php
-                                            if ($row['halfpaid'] == 'no' && $row['fullpaid'] == 'no') {
-                                        ?>
-                                                <a href="contact.php" class="cancel">Cancel your Booking</a>
-                                                <div class="status">Status :<span> Booked</span></div>
-                                        <?php
-                                            } 
+                                        }
                                         ?>
                                     </div>
                                 </div>

@@ -160,7 +160,7 @@ if (!empty($_SESSION['username'])) {
     <link href="css/docs.css" rel="stylesheet">
     <link href="css/jquery.selectbox.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Domine:400,700%7COpen+Sans:300,300i,400,400i,600,600i,700,700i%7CRoboto:400,500" rel="stylesheet">
-
+    <link href="css/ratingModal.css" rel="stylesheet">
 </head>
 
 <body class="inner-page">
@@ -374,6 +374,33 @@ if (!empty($_SESSION['username'])) {
                 </div>
             </div>
         </div>
+
+        <!-- rating modal -->
+        <div id="ratingModal" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Rating our Package</h4>
+                    </div>
+                    <div class="modal-body position">
+                        <p>Leave your rating.</p>
+                        <form action="" method="POST">
+                            <div class="rating ">
+                                <input name="productRating" value="5" id="e5" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "5")) ?>><label for="e5">★</label>
+                                <input name="productRating" value="4" id="e4" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "4")) ?>><label for="e4">★</label>
+                                <input name="productRating" value="3" id="e3" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "3")) ?>><label for="e3">★</label>
+                                <input name="productRating" value="2" id="e2" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "2")) ?>><label for="e2">★</label>
+                                <input name="productRating" value="1" id="e1" type="radio" <?php if ((isset($_POST['productRating'])) && ($_POST['productRating'] == "1")) ?>><label for="e1">★</label>
+                            </div>
+                            <div>
+                                <input type="submit" class="btn" name="insertRating" style="width: 100px;">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- update profile -->
         <div class="modal modal-vcenter fade" id="updateProfileModal" tabindex="-1" role="dialog">
             <div class="modal-dialog registration-popup" role="document">
@@ -501,20 +528,24 @@ if (!empty($_SESSION['username'])) {
                                     <div class="booking-status">
                                         <?php
                                         if ($row['fullpaid'] == 'yes') {
+                                            if (date("d:m:Y") >= $row['bookingdate']) {
                                         ?>
-                                            <a href="contact.php" class="cancel">Cancel your Booking</a>
-                                            <div class="status">Status :<span> Booked</span></div>
+                                                <button type="button" data-toggle="modal" data-target="#ratingModal" class="cancel btn_rating packageName" id="<?php echo $row['id']; ?>" name="deletePackage" style="border: #f5f5f503; background: #f5f5f503;">
+                                                    Rate this Package
+                                                </button>
+                                                <div class="status">Status :<span> Booked</span></div>
                                         <?php
-
+                                            }
                                         }
                                         ?>
                                         <?php
                                         if ($row['half'] == 'yes') {
+                                            if (date("d:m:Y") >= $row['bookingdate']) {
                                         ?>
-                                            <a href="contact.php" class="cancel">Cancel your Booking</a>
-                                            <div class="status">Status :<span> Booked</span></div>
+                                                <a href="contact.php" class="cancel">Cancel your Booking</a>
+                                                <div class="status">Status :<span> Booked</span></div>
                                         <?php
-
+                                            }
                                         }
                                         ?>
                                         <?php
