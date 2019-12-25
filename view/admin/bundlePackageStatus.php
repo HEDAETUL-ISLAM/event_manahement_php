@@ -279,7 +279,7 @@ if ($_SESSION['name'] == "") {
                                                 <td class="Theading ">Action</td>
                                             </tr>
                                             <?php
-                                            $result = getAllSinglePackage();
+                                            $result = getAllBundlePackage();
                                             if ($result->num_rows > 0) {
                                                 while ($row = $result->fetch_assoc()) {
                                                     echo "<tr>";
