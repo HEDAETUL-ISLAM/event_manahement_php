@@ -1,7 +1,7 @@
 <?php error_reporting(E_ALL ^ E_NOTICE) ?>
 
 <?php
-@include_once "../../../controller/productServiceController/weedingController.php";
+@include_once "../../../controller/packageServiceController/weedingController.php";
 
 $result = getAllWeeding();
 
@@ -18,7 +18,7 @@ if ($result->num_rows > 0) {
             <div class=" text" style="padding-left: 50px">
                 <h3 style="color: #848484; float: left; width: 50%; padding-bottom: 15px; height: auto;">Package type : <?php echo  $row["package_type"] ?></h3>
                 <h3 class="product_name" style="color: #848484; float: left; width: 50%; padding-bottom: 15px; height: auto;"><?php echo  $row["package_name"] ?></h3>
-                <div class=reviews><?php echo  $row["rating"] . " " ?>
+                <div class=reviews><?php echo  number_format((float)$row["rating"], 1, '.', ''); ?>
                     <div class=star>
                         <div class=fill style="width:<?php echo $rating ?>%"></div>
                     </div>reviews

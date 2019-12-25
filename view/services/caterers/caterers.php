@@ -181,10 +181,6 @@ if (isset($_POST['logoutPerson'])) {
                                 <li class="single-col">
                                     <a href="">Pages <span class="icon icon-arrow-down"></span></a>
                                     <ul>
-                                        <li><a href="../../search-result.php">listing Page</a></li>
-                                        <li><a href="../../search_detail.php">Details Page</a></li>
-
-                                        <li><a href="../../news-details.php">News Details</a></li>
                                         <li><a href="../../career.php">Career</a></li>
 
                                         <li><a href="../../privacy_policy.php">Privacy Policy</a></li>

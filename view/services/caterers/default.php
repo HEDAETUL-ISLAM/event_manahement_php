@@ -20,7 +20,7 @@ if ($result->num_rows > 0) {
             </div>
             <div class="text">
                 <h3 class="product_name"><?php echo $row["package_name"]; ?></h3>
-                <div class=reviews> <?php echo $row["rating"]; ?>
+                <div class=reviews> <?php echo number_format((float)$row["rating"], 1, '.', ''); ?>
                     <div class=star>
                         <div class=fill style="width: <?php echo   $rating; ?>%"></div>
                     </div>reviews</div>
