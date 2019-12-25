@@ -85,7 +85,7 @@ if (isset($_POST['logoutPerson'])) {
 
                 if ($result->status == 2) {
                     if ($result !== null) {
-                        if(password_verify($password, $result->password)){
+                        if (password_verify($password, $result->password)) {
                             $_SESSION['username'] = $result->user_name;
                             $_SESSION['name'] = $result->name;
                             $_SESSION['email'] = $result->email;
@@ -94,12 +94,13 @@ if (isset($_POST['logoutPerson'])) {
                             $_SESSION['address'] = $result->address;
                             $_SESSION['status'] = $result->status;
                             header('Location: ./vendor/dashboard.php');
-                        }
-                        else {
+                        } else {
                             @include_once "../errors/invalidUser.php";
                         }
                     }
                     if ($result === null) {
+                        @include_once "./errors/wrong.php";
+                    } else {
                         @include_once "./errors/wrong.php";
                     }
                 } else {

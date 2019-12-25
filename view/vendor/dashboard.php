@@ -11,6 +11,7 @@ $email = "";
 $phone = "";
 $password = "";
 $address = "";
+print_r( $_SESSION['username']);
 
 // for logout============================================================>
 if (isset($_POST['logoutPerson'])) {
@@ -147,30 +148,12 @@ if($_SESSION['name']==""){
 
         
         <div style="  display: table; clear: both; background-color: #efefef ; margin-left:10%;">
+            
             <section class="col-sm-6">
                 <div class="container">
                     <div class="venues-view">
                         <?php
-                        @include_once  "./customerGraph.php";
-                        ?>
-                    </div>
-                </div>
-            </section>
-            <section class="col-sm-6">
-                <div class="container">
-                    <div class="venues-view">
-                        <?php
-                        @include_once  "./vendorGraph.php";
-                        ?>
-                    </div>
-                </div>
-            </section>
-            <section class="col-sm-6">
-                <div class="container">
-                    <div class="venues-view">
-                        <?php
-                        @include_once  "./bookingGraph.php";
-                        // echo "hi baby"
+                        @include_once  "./vendorOrderGraph.php";
                         ?>
                     </div>
                 </div>
