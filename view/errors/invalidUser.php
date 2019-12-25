@@ -16,9 +16,8 @@
         font-size: 22px;
         line-height: 20px;
         cursor: pointer;
-        transition: 0.3s;">
-            <span class="closeButton" onclick="this.parentElement.style.display='none';">&times;</span>
-            <strong>Sorry</strong> not valid user.
+        transition: 0.3s;" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>Sorry</strong> Not a valid user.
     </div>
 </body>
 
