@@ -88,13 +88,13 @@ if (isset($_POST["deleteCancel"])) {
 }
 
 //for check person=========================================================
-if(!empty($_SESSION['username'])){
-    if($_SESSION['status']!=2){
+if (!empty($_SESSION['username'])) {
+    if ($_SESSION['status'] != 2) {
         session_destroy();
         header("Location: ../register.php");
     }
 }
-if($_SESSION['name']==""){
+if ($_SESSION['name'] == "") {
     header("Location: ../register.php");
 }
 ?>
@@ -276,7 +276,7 @@ if($_SESSION['name']==""){
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
                                             $rating = $row["rating"] * 20;
-                                            ?>
+                                    ?>
                                             <div class="venues-slide first" style="margin-bottom: 10px;">
                                                 <div class=" text" style="padding-left: 50px">
                                                     <h3 style="color: #848484; float: left; width: 50%; padding-bottom: 15px; height: auto;">Package type : <?php echo  $row["package_type"] ?> Package name : </h3>
@@ -288,31 +288,31 @@ if($_SESSION['name']==""){
                                                     </div>
                                                     <div class=" outher-info" style="padding-top: 15px;">
                                                         <div class="info-slide first">
-                                                            <?php if ($row["caterersAvailableStatus"] == "Yes") echo "<label>Caterers | </label>";  ?>
+                                                            <?php if ($row["caterers_available_status"] == "Yes") echo "<label>Caterers | </label>";  ?>
                                                         </div>
                                                         <div class="info-slide first">
-                                                            <?php if ($row["decorFloristsAvailableStatus"] == "Yes") echo "<label>Decor & Florists | </label>";  ?>
+                                                            <?php if ($row["decor_florists_available_status"] == "Yes") echo "<label>Decor & Florists | </label>";  ?>
                                                         </div>
                                                         <div class="info-slide first">
-                                                            <?php if ($row["makeupAndHairAvailableStatus"] == "Yes") echo "<label>Make-up and Hair | </label>";  ?>
+                                                            <?php if ($row["makeup_andHair_available_status"] == "Yes") echo "<label>Make-up and Hair | </label>";  ?>
                                                         </div>
                                                         <div class="info-slide first">
-                                                            <?php if ($row["weddingCardsAvailableStatus"] == "Yes") echo "<label>Wedding Cards | </label>";  ?>
+                                                            <?php if ($row["wedding_cards_available_status"] == "Yes") echo "<label>Wedding Cards | </label>";  ?>
                                                         </div>
                                                         <div class="info-slide first">
                                                             <?php if ($row["mehandiAvailableStatus"] == "Yes") echo "<label>Mehandi | </label>";  ?>
                                                         </div>
                                                         <div class="info-slide first">
-                                                            <?php if ($row["cakesAvailableStatus"] == "Yes") echo "<label>Cakes | </label>";  ?>
+                                                            <?php if ($row["cakes_available_status"] == "Yes") echo "<label>Cakes | </label>";  ?>
                                                         </div>
                                                         <div class="info-slide first">
-                                                            <?php if ($row["djAvailableStatus"] == "Yes") echo "<label>DJ | </label>";  ?>
+                                                            <?php if ($row["dj_available_status"] == "Yes") echo "<label>DJ | </label>";  ?>
                                                         </div>
                                                         <div class="info-slide first">
-                                                            <?php if ($row["photographersAvailableStatus"] == "Yes") echo "<label>Photographers | </label>";  ?>
+                                                            <?php if ($row["photographers_available_tatus"] == "Yes") echo "<label>Photographers | </label>";  ?>
                                                         </div>
                                                         <div class="info-slide first">
-                                                            <?php if ($row["entertainmentAvailableStatus"] == "Yes") echo "<label>Entertainment | </label>";  ?>
+                                                            <?php if ($row["entertainment_available_status"] == "Yes") echo "<label>Entertainment | </label>";  ?>
                                                         </div>
                                                     </div>
                                                     <div class=" outher-info">
@@ -322,11 +322,11 @@ if($_SESSION['name']==""){
                                                         </div>
                                                         <div class="info-slide">
                                                             <label>Transport cost</label>
-                                                            <span><?php echo  $row["transportCost"] ?><small> (Owners)</small></span>
+                                                            <span><?php echo  $row["transport_cost"] ?><small> (Owners)</small></span>
                                                         </div>
                                                         <div class="info-slide">
                                                             <label>Available</label>
-                                                            <span><?php echo  $row["availableStatus"] ?><small> (status)</small></span>
+                                                            <span><?php echo  $row["available_status"] ?><small> (status)</small></span>
                                                         </div>
                                                     </div>
                                                     <div class="outher-link">
